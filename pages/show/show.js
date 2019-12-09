@@ -8,13 +8,11 @@ Page({
 
   },
 
-  setDisplayDate: function (event) {
-    let date = new Date(event.date)
-
-    // const dateArray = date.toLocaleString().split(', ')
-    event.display_day = `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`
-    event.display_time = [date.getHours(), date.getMinutes()].map(this.formatNumber).join(':')
-    return event
+  setDisplayDate: function (story) {
+    let date = new Date(story.date)
+    story.display_day = `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`
+    story.display_time = [date.getHours(), date.getMinutes()].map(this.formatNumber).join(':')
+    return story
   },
 
   formatNumber: function (n) {
@@ -22,18 +20,13 @@ Page({
     return n[1] ? n : '0' + n
   },
 
-  getStory(id) {
+  setStory(id) {
     let Story = new wx.BaaS.TableObject('story')
-   
     Story.get(id.toString()).then(res => {
-      console.log("this is res", res)
       let story = res.data;
       story = this.setDisplayDate(story)
       this.setData({ story })
-      console.log("this is story",story)
-      // success
     }, err => {
-      // err
     })
   },
 
@@ -43,46 +36,39 @@ Page({
 
     query.compare('story', '=', storyId.toString())
     query.compare('user', '=', userId.toString())
-    console.log("ready for query...")
     UserStory.setQuery(query).find().then(res => {
-      console.log('fetched result object from getting User story: ...')
-      console.log(res)
       if (res.data.objects.length !== 0) {
         let userStory = res.data.objects[0];
-        console.log('userstory fetched')
         this.setData({ userStory }) // Saving User story to local page data
       }
     })
   },
 
   unsaveUserStory: function () {
-    let story = this.data.story // (1) update people_saved to Story object in data base
+    let story = this.data.story // (1) decrease "people_saved" of Story object
     let peopleSaved = story.people_saved
-    console.log(peopleSaved, typeof (peopleSaved))
-    peopleSaved = peopleSaved === null ? "0" : peopleSaved;
-    // peopleSaved = Number.parseInt(peopleSaved)
     peopleSaved -= 1
 
-    let Story = new wx.BaaS.TableObject('story') // (2) update people_saved to Story object in data base
+    let Story = new wx.BaaS.TableObject('story') // (2) update 'people_saved' to Story object in data base
     let dbStory = Story.getWithoutData(story.id)
     dbStory.set("people_saved", peopleSaved)
     dbStory.update().then(res => {
       let story = res.data
-      story = this.setDisplayDate(story)
-      this.setData({ story })
+      story = this.setDisplayDate(story) // (3) add display data format for Story object
+      this.setData({ story }) // (4) set updated Story object in local page data
     }, err => {
     })
 
     let userStory = this.data.userStory
-    userStory.saved = false
+    userStory.saved = false // (5) change 'saved' attribute in UserStory object
 
-    let UserStory = new wx.BaaS.TableObject('user_story') // update 'saved' to User Story object in data base
+    let UserStory = new wx.BaaS.TableObject('user_story')
     let dbUserStory = UserStory.getWithoutData(userStory.id)
-    dbUserStory.set("saved", userStory.saved)
+    dbUserStory.set("saved", userStory.saved) // (6) update 'saved' to UserStory object in data base
     dbUserStory.update().then(res => {
       let userStory = res.data
-      this.setData({ userStory })
-      this.getUserStorys(this.data.story.id)
+      this.setData({ userStory }) // (7) set updated UserStory object in local page data
+      // this.getUserStories(this.data.story.id) // (8) get UserStories --- for avatar display
     }, err => {
     })
 
@@ -93,52 +79,47 @@ Page({
   },
 
   saveUserStory: function () {
-    let story = this.data.story // (1) update people_saved to Event object in data base
-    let peopleSaved = story.saved
-    peopleSaved = peopleSaved === null ? "0" : peopleSaved;
-    // peopleSaved = Number.parseInt(peopleSaved)
+    let story = this.data.story // (1) increase "people_saved" of Story object
+    let peopleSaved = story.people_saved
     peopleSaved += 1
-    console.log(peopleSaved, typeof (peopleSaved))
 
     let Story = new wx.BaaS.TableObject('story') // (2) update 'people_saved' to Story object in data base
     let dbStory = Story.getWithoutData(story.id)
-
     dbStory.set("people_saved", peopleSaved)
     dbStory.update().then(res => {
       let story = res.data
-      story = this.setDisplayDate(story)
-      this.setData({ story })
+      story = this.setDisplayDate(story) // (3) add display data format for Story object
+      this.setData({ story }) // (4) set updated Story object in local page data
     }, err => {
     })
 
-    if (this.data.userStory) { // updating "saved" to true in DB, if User Story already exists
-
+    if (this.data.userStory) { // (5a) updating "saved" to true in DB, if UserStory already exists
       let userStory = this.data.userStory
       userStory.saved = true
 
-      let UserStory = new wx.BaaS.TableObject('user_story') // update 'saved' to User Story object in data base
+      let UserStory = new wx.BaaS.TableObject('user_story') // (6a) update 'saved' to UserStory object in data base
       let dbUserStory = UserStory.getWithoutData(userStory.id)
       dbUserStory.set("saved", userStory.saved)
       dbUserStory.update().then(res => {
         let userStory = res.data
-        this.setData({ userStory })
-        // this.getUserStorys(this.data.story.id)
+        this.setData({ userStory }) // (7a) set updated UserStory Object in local page data
+        // this.getUserStories(this.data.story.id) // (8a) get UserStories --- for avatar display
       }, err => {
       })
 
-    } else { // Creating new User Story and saving into DB, if User Story doens not exist yet
+    } else { // Creating new UserStory and saving into DB, if User Story does not exist yet
 
       let UserStory = new wx.BaaS.TableObject('user_story')
       let userStory = UserStory.create()
-      let newUserStory = {
-        user_id: this.data.user.id,
-        story_id: this.data.story.id,
+      let newUserStory = { // (5b) creating new UserStory object with 'saved' = true
+        user: this.data.user.id,
+        story: this.data.story.id,
         saved: true
       }
-      userStory.set(newUserStory).save().then(res => {
+      userStory.set(newUserStory).save().then(res => { // (6b) saving new UserStory object into DB
         let userStory = res.data
-        this.setData({ userStory })
-        // this.getUserStorys(this.data.story.id)
+        this.setData({ userStory }) // (7b) setting UserStory Object in local page data
+        // this.getUserStories(this.data.story.id) // (8b) getting UserStories --- for avatar display
       }, err => {
       })
     }
@@ -160,12 +141,12 @@ Page({
   onLoad: function (options) {
     
     let storyId = options.id // Setting eventId from Page properties
-    console.log("this is storyId--->" ,storyId)
-    this.getStory(storyId) // Getting Event object by search with Event ID
+    this.setStory(storyId) // setting Event object by search with Event ID in local page data
+    
     wx.BaaS.auth.getCurrentUser().then(user => { // Getting current_user information
-      this.setData({ user })  // Saving current_user object to local page data
+      this.setData({ user })  // Saving User object to local page data
       this.getUserStory(storyId, user.id)
-      // this.getUserStories(storyId)
+      // this.getUserStories(storyId) // getting UserStories --- for avatar display
     }).catch(err => {
       // HError
       if (err.code === 604) {
