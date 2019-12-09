@@ -8,12 +8,16 @@
         latitude="{{latitude}}"
         longitude="{{longitude}}"
         markers="{{markers}}"
+        bindmarkertap="markerTap"
         show-location
-        bindmarkertap="markertap"
+        show-compass
+        bindtap="mapTap"
       ></map>
+
 
       <view class="ad-hoc-card-container" >
         <view wx:if="{{current_story}}" class="ad-hoc-card" catchtap="navigateToShow" data-type="edit" data-id="{{current_story.id}}" wx:key>
+
           <image  class= "event-img" style="width: 100%; height: 80%" mode = "aspectFill" src = "{{ current_story.image }}" />
           <view class="event-info">
             <image  class = "avatar" mode = "aspectFill" src = "../../images/citytales.jpg" />
