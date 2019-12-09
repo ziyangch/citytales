@@ -24,6 +24,6 @@
   <text class="story-content">{{story.content}}</text>
   <view class="story-location">
     <image class="location-icon" src='../../images/地点.png'></image>
-    <view class="location">北京市东城区安定门五道营胡同</view>
+    <view class="location">{{story.address}}</view>
   </view>
 </view>
