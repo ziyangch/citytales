@@ -4,6 +4,7 @@
     "pages/home/home",
     "pages/logs/logs",
     "pages/profile/profile",
+    "pages/edit_profile/edit_profile",
     "pages/show/show"
   ],
   "window": {
@@ -12,6 +13,23 @@
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black"
   },
+
+"tabBar": {
+  "list": [
+    {
+      "pagePath": "pages/home/home",
+      "text": "探索"
+    },
+  
+    {
+      "pagePath": "pages/profile/profile",
+      "text": "我的"
+    }
+  ]
+},
+
+
+
 
  "plugins": {
   "sdkPlugin": {

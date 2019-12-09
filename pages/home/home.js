@@ -48,6 +48,14 @@ Page({
       },],   
   },
 
+  navigateToShow(e) {
+    let id = e.currentTarget.dataset.id
+    console.log("this is show id", id)
+    wx.navigateTo({
+      url: `/pages/show/show?id=${id}`
+    })
+  },
+
   markertap: function(event) {
     console.log('marker id --------> ', event.markerId)
     let current_story = this.data.stories.find(story => story.id == event.markerId);
