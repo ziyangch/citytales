@@ -1,8 +1,8 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/logs/logs",
     "pages/home/home",
+    "pages/logs/logs",
     "pages/profile/profile",
     "pages/show/show"
   ],
@@ -12,6 +12,19 @@
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black"
   },
+
+ "plugins": {
+  "sdkPlugin": {
+    "version": "3.3.0",
+    "provider": "wxc6b86e382a1e3294"
+  }
+},
+  
   "style": "v2",
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "permission": {
+    "scope.userLocation": {
+      "desc": "Grant access for your location"
+    }
+  }
 }

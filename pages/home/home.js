@@ -5,21 +5,89 @@ Page({
    * Page initial data
    */
   data: {
-
+    current: 0,
+    latitude: 23.099994,
+    longitude: 113.324520,
+    markers: [{
+      id: 0,
+      latitude: 23.099994,
+      longitude: 113.324520,
+      name: 'T.I.T 创意园'
+    }, {
+      id: 1,
+      iconPath: '/image/red_pin.png',
+      latitude: 23.099994,
+      longitude: 113.344520,
+      width: 40,
+      height: 40,
+      callout: {
+        content: '我是这个大笨蛋',
+        fontSize: 14,
+        color: '#ffffff',
+        bgColor: '#000000',
+        padding: 8,
+        borderRadius: 4,
+        boxShadow: '4px 8px 16px 0 rgba(0)'
+      }
+    }, {
+      id: 2,
+      iconPath: '/image/red_pin.png',
+      latitude: 23.099994,
+      longitude: 113.304520,
+      width: 40,
+      height: 40,
+      callout: {
+        content: '你呢?',
+        fontSize: 14,
+        color: '#ffffff',
+        bgColor: '#000000',
+        padding: 8,
+        borderRadius: 4,
+        boxShadow: '4px 8px 16px 0 rgba(0)'
+      }
+      },],   
   },
 
+  markertap: function(event) {
+    console.log('marker id --------> ', event.markerId)
+    let current_marker = event.markerId
+    this.setData({current_marker})
+    console.log(this.data.current_marker)
+  },
+
+  setStories: function() {
+    console.log("fetching stories....")
+    let query = new wx.BaaS.Query()
+    let Story = new wx.BaaS.TableObject('story')
+
+    query.compare('created_at', '>', 0)
+    Story.setQuery(query).find().then(res => {
+      console.log('stories.....', res.data.objects)
+    })
+  },
   /**
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
-
+    const that = this
+    wx.getLocation({
+      type: 'wgs84', // **1
+      success: function (res) {
+        const latitude = res.latitude
+        const longitude = res.longitude
+        const speed = res.speed
+        const accuracy = res.accuracy
+        that.setData({ latitude, longitude, speed, accuracy })
+      }
+    })
+    this.setStories()
   },
 
   /**
    * Lifecycle function--Called when page is initially rendered
    */
-  onReady: function () {
-
+  onReady: function (e) {
+    this.mapCtx = wx.createMapContext('myMap')
   },
 
   /**
@@ -62,5 +130,10 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  onChange(e) {
+    this.setData({
+      current: e.detail.key,
+    })
   }
 })

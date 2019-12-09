@@ -1,1 +1,44 @@
 /* pages/home/home.wxss */
+.page-section-gap{
+  box-sizing: border-box;
+  padding: 0 20rpx;
+}
+
+.page-body-button {
+  margin-bottom: 30rpx;
+}
+
+.bar {
+  /* padding: 5rpx; */
+  margin: 10rpx auto;
+  width: 100vw;
+}
+
+.index-container {
+  height: 95vh;
+  width: 100%;
+  background-color: azure;
+}
+
+.ad-hoc-card {
+  width: 90vw;
+  margin: 10rpx auto;
+  height: 260rpx;
+  background-color: aquamarine;
+  border-radius: 10rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: top;
+  overflow: hidden;
+}
+
+.map-container {
+  position: relative;
+}
+
+.ad-hoc-card-container {
+  margin: auto;
+  width: 92vw;
+  position: absolute;
+  bottom: 20rpx;
+}
