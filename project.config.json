@@ -49,10 +49,19 @@
 
 				{
 					"id": -1,
+					"name": "show",
+					"pathName": "pages/show/show",
+					"scene": null
+				}
+
+
+				{
+					"id": -1,
 					"name": "Home",
 					"pathName": "pages/home/home",
 					"scene": null
 				}
+
 
 			]
 		}

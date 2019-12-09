@@ -9,8 +9,10 @@ App({
 
     wx.BaaS.init('3906a5fa391292059abe', { autoLogin: true })
   },
+
   
   globalData: {
     userInfo: null
   }
+
 })
