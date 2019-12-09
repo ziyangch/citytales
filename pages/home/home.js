@@ -50,9 +50,24 @@ Page({
 
   markertap: function(event) {
     console.log('marker id --------> ', event.markerId)
-    let current_marker = event.markerId
-    this.setData({current_marker})
-    console.log(this.data.current_marker)
+    let current_story = this.data.stories.find(story => story.id == event.markerId);
+    this.setData({current_story})
+  },
+
+  setMarkers: function (stories) {
+    let markers = stories.map(story => { 
+      return {
+        id: story.id,
+        latitude: story.latitude,
+        longitude: story.longitude,
+        name: story.title,
+        iconPath: '/image/red_pin.png',
+        width: 40,
+        height: 40
+      }
+      });
+    console.log('markersarray', markers)
+    this.setData({markers})
   },
 
   setStories: function() {
@@ -63,6 +78,10 @@ Page({
     query.compare('created_at', '>', 0)
     Story.setQuery(query).find().then(res => {
       console.log('stories.....', res.data.objects)
+      let stories = res.data.objects
+      this.setData({stories})
+      this.setMarkers(res.data.objects)
+      this.setData({stories})
     })
   },
   /**
