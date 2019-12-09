@@ -1,2 +1,40 @@
 <!--pages/profile/profile.wxml-->
-<text>pages/profile/profile.wxml</text>
+<view class="header">
+    <image  class= "avatar" mode = "aspectFill" src = "{{user.avatar}}" />
+    <view class="user-info">
+
+      <view class="user-name">{{user.custom_nickname || user.nickname}}</view>
+      <view class="user-bio">{{user.bio || "Please add your first bio"}}</view>
+
+      <view class="follows">
+        <!-- <view class="going">
+          <text>{{user_events.length}}</text>
+          <text>待参加</text>
+        </view> -->
+        <view class="went">
+          <text>{{user_events_saved.length}}</text>
+          <text>个收藏的卡片</text>
+        </view>
+        <!-- <view class="saved">
+          <text>{{events_created.length}}</text>
+          <text>主办</text>
+        </view> -->
+      </view>
+    </view>
+    <view class="edit-icon">
+      <image class="edit-icon" bindtap="navigateToEditProfile" src="https://cloud-minapp-31851.cloud.ifanrusercontent.com/1idxMM49dExGTDnr.gif"></image>
+    </view>
+</view>
+
+
+
+
+<view class="card">
+  <image src="https://images.unsplash.com/photo-1570679715060-78625e9c9fd2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" alt="Pic" style="width:100%"></image>
+  <text class="p">Post Title</text>
+  <view class="flexbox">
+  <image class="avatar"   src="https://images.unsplash.com/photo-1572834258248-3d60b5bac549?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" alt="Avatar" style="width:100%"></image>
+  <text class="p">Name</text>
+  <!-- <button class="like">LIKE</button> -->
+  </view>
+</view>
