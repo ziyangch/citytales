@@ -43,6 +43,17 @@ Page({
       })
     }
   },
+
+  loginWithWechat: function (data) {
+    wx.BaaS.auth.loginWithWechat(data).then(user => {
+      console.log("this is current user---->", user)
+      this.setData({ user })
+    }, err => {
+      console.log(err);
+      // 登录失败
+    })
+  },
+
   getUserInfo: function(e) {
     console.log(e)
     app.globalData.userInfo = e.detail.userInfo
