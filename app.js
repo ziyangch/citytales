@@ -33,9 +33,4 @@ App({
       }
     })
   },
-
-  globalData: {
-    userInfo: null,
-    sysWidth: wx.getSystemInfoSync().windowWidth, //图片宽度
-  }
 })
