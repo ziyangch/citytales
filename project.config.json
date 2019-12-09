@@ -1,5 +1,5 @@
 {
-	"description": "Project configuration file",
+	"description": "项目配置文件",
 	"packOptions": {
 		"ignore": []
 	},
@@ -9,19 +9,26 @@
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
+		"coverView": true,
 		"autoAudits": false,
-		"coverView": true
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		}
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.9.4",
 	"appid": "wxe77930439d04e1f1",
 	"projectname": "CityTales",
+	"cloudfunctionTemplateRoot": "",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
-	"isGameTourist": false,
-	"simulatorType": "wechat",
-	"simulatorPluginLibVersion": {},
+	"scripts": {},
 	"condition": {
 		"search": {
 			"current": -1,
@@ -36,7 +43,6 @@
 			"list": []
 		},
 		"game": {
-			"currentL": -1,
 			"list": []
 		},
 		"gamePlugin": {
@@ -48,16 +54,16 @@
 			"list": [
 				{
 					"id": -1,
-					"name": "show",
-					"pathName": "pages/show/show",
+					"name": "map",
+					"pathName": "pages/home/home",
+					"query": "",
 					"scene": null
-				}
-
-
+				},
 				{
 					"id": -1,
-					"name": "Home",
-					"pathName": "pages/home/home",
+					"name": "profile",
+					"pathName": "pages/profile/profile",
+					"query": "",
 					"scene": null
 				}
 			]
