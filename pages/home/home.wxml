@@ -13,20 +13,14 @@
       ></map>
 
       <view class="ad-hoc-card-container">
-        <view wx:if="{{current_marker}}" class="ad-hoc-card">
-          <image  class= "event-img" mode = "aspectFill" src = "{{ item.image }}" />
+        <view wx:if="{{current_story}}" class="ad-hoc-card">
+          <image  class= "event-img" mode = "aspectFill" src = "{{ current_story.image }}" />
           <view class="event-info">
-            <view class="info-1">{{ current_marker }}</view>
+            <view class="info-1">{{ current_story.title }}</view>
             <view class="info-2">
               <view class="date">
-                <text class="date-content">{{ item.display_day }}</text>
+                <text class="date-content">{{ current_story.content }}</text>
               </view>
-              <view class="time">
-                <text class="time-content">{{ item.display_time }}</text>
-              </view>
-            </view>
-            <view class="info-3">
-              <view class="location">{{item.people_going}} 人已报名</view>
             </view>
           </view>      
         </view>
@@ -35,28 +29,17 @@
     </view>
     
     <view wx:if="{{current==1}}" class="index-container">
-      <view wx:for="{{user_events}}" class="card-container" catchtap="navigateToShow" data-type="edit" data-id="{{item.id}}" wx:key>
-        <view class="event-card">
+      <view wx:for="{{stories}}" class="card-container" catchtap="navigateToShow" data-type="edit" data-id="{{item.id}}" wx:key>
+        <view  class="story-card">
           <image  class= "event-img" mode = "aspectFill" src = "{{ item.image }}" />
           <view class="event-info">
-            <view class="info-1">{{ item.name }}</view>
+            <view class="info-1">{{ item.title }}</view>
             <view class="info-2">
               <view class="date">
-                <text class="date-content">{{ item.display_day }}</text>
-              </view>
-              <view class="time">
-                <text class="time-content">{{ item.display_time }}</text>
+                <text class="date-content">{{ item.content }}</text>
               </view>
             </view>
-            <view class="info-3">
-              <view class="location">{{item.people_going}} 人已报名</view>
-            </view>
-          </view>
-          <view class="card-left">
-            <!-- <image  class= "save-icon" mode = "aspectFill" src = "../../image/更多.png" />      -->
-            <view class="status-sign">已报名</view>
-            <image  class= "avatar-sm" mode = "aspectFill" src = "{{ item.creator_avatar }}" />
-          </view>
+          </view>      
         </view>
       </view>
 

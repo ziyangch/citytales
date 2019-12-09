@@ -46,7 +46,6 @@
 		"miniprogram": {
 			"current": -1,
 			"list": [
-
 				{
 					"id": -1,
 					"name": "show",
@@ -61,8 +60,6 @@
 					"pathName": "pages/home/home",
 					"scene": null
 				}
-
-
 			]
 		}
 	}
