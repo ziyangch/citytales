@@ -1,20 +1,27 @@
 <!--pages/show/show.wxml-->
 
 <view class="top-section">
-  <image  class = "avatar" mode = "aspectFill" src = "../../images/citytales.jpg" />
-  <view class="h1">城事Official Account</view>
-  <image class='top-icon' src='../../images/想看.png'></image>
+  <image  class = "avatar" mode = "aspectFill" src = "{{story.avatar}}" />
+  <view class="h1">{{story.nickname}}</view>
+  <view wx:if="{{userEvent.saved}}" class="icon-card" bindtap="unsaveUserStory">
+      <image class="icon" src="https://cloud-minapp-31851.cloud.ifanrusercontent.com/1idxMM4LMEoGE3Ej.png"></image>
+
+    </view>
+    <view wx:else class="icon-card" bindtap="saveUserStory">
+      <image class="icon" src="https://cloud-minapp-31851.cloud.ifanrusercontent.com/1idxMMngEe3NyCRN.png"></image>
+   
+    </view>
 </view>
 
-<view class="story-img" style="background-image:url('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575885110913&di=35126fde216ac633117a870b716e7013&imgtype=0&src=http%3A%2F%2Fyouimg1.c-ctrip.com%2Ftarget%2F100k050000000j1xk0080.jpg')"></view>
+<view class="story-img" style="background-image:url('{{story.image}}')"></view>
 
 <view class="page__header">
-  <view class="story-title">北京最网红的胡同</view>
-  <view class="story-date">2019-12-09</view>
+  <view class="story-title">{{story.title}}</view>
+  <view class="story-date">{{story.posted_date}}</view>
 </view>
 
 <view class="page__content">
-  <text class="story-content">五道营胡同位于北京市东城区北部，安定门立交桥东侧，属安定门街道办事处管辖，呈东西走向。东起雍和宫大街，西止安定门内大街，南与箭厂胡同相通，北有二条支巷通安定门东大街。全长632米，宽6米，沥青路面。五道营胡同明朝叫武德卫营，清代讹称.名字虽已面目全非，但也是因驻扎军队而得名的。\n 远离嘈杂地区，再加上独具一格的咖啡店和特色小铺，为这个胡同带来了大量的人气。在休闲的午后，来到五道营胡同，喝一杯咖啡，看一本小说或是让人愉快的书，在喧嚣之后，享受一个宁静的午后时光。这里不仅仅远离喧嚣，这里还有许多美食，小吃。\n 这里有以鳗鱼闻名的小吃店，鳗鱼配米饭，是每位顾客进店的必选项；在胡同的尽头，有一个复古的小院，一楼设计的是一个开放式的吧台，主打的是东南亚的甜品和越难的菜品，是一个很不错的小院。\n 再有就是地标式的西餐厅，开放式的厨房，菜品十分简单，但是信奉简单却不单调的原则，让顾客在有情调的地方，享受不一样的美味。</text>
+  <text class="story-content">{{story.content}}</text>
   <view class="story-location">
     <image class="location-icon" src='../../images/地点.png'></image>
     <view class="location">北京市东城区安定门五道营胡同</view>

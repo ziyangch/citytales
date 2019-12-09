@@ -18,6 +18,13 @@
   margin: 20rpx;
 }
 
+.icon-card .icon {
+  margin: 5rpx;
+  margin-right: 15rpx;
+  width: 50rpx;
+  height: 50rpx;
+}
+
 .top-section .h1 {
   font-style: bold;
   font-size: 36rpx;
