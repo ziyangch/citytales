@@ -3,7 +3,7 @@
 <view class="top-section">
   <image  class = "avatar" mode = "aspectFill" src = "{{story.avatar}}" />
   <view class="h1">{{story.nickname}}</view>
-  <view wx:if="{{userEvent.saved}}" class="icon-card" bindtap="unsaveUserStory">
+  <view wx:if="{{userStory.saved}}" class="icon-card" bindtap="unsaveUserStory">
       <image class="icon" src="https://cloud-minapp-31851.cloud.ifanrusercontent.com/1idxMM4LMEoGE3Ej.png"></image>
 
     </view>
