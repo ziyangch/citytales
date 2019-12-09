@@ -1,5 +1,5 @@
 <!-- index.wxml -->
-<image class="background" src="https://images.unsplash.com/photo-1505886410478-e9e273c2ac09?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1100&q=80"> </image>
+<image class="background" src="../../images/citytales.png"></image>
 <view class="container">
   <view class="userinfo">
     <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="loginWithWechat"> 进入你的城事 </button>

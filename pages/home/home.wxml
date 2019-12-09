@@ -15,15 +15,12 @@
       ></map>
 
       <view class="ad-hoc-card-container">
+
         <view wx:if="{{current_story!=false}}" class="ad-hoc-card">
-          <image  class= "event-img" mode = "aspectFill" src = "{{ current_story.image }}" />
+          <image  class= "event-img" style="width: 100%; height: 80%" mode = "aspectFill" src = "{{ current_story.image }}" />
           <view class="event-info">
-            <view class="info-1">{{ current_story.title }}</view>
-            <view class="info-2">
-              <view class="date">
-                <text class="date-content">{{ current_story.content }}</text>
-              </view>
-            </view>
+            <image  class = "avatar" mode = "aspectFill" src = "../../images/citytales.jpg" />
+            <view class="user-story">如果我这个字打得很多很多会怎么样呢？？？</view>
           </view>      
         </view>
       </view>
