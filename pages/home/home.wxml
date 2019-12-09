@@ -8,12 +8,14 @@
         latitude="{{latitude}}"
         longitude="{{longitude}}"
         markers="{{markers}}"
+        bindmarkertap="markerTap"
         show-location
-        bindmarkertap="markertap"
+        show-compass
+        bindtap="mapTap"
       ></map>
 
       <view class="ad-hoc-card-container">
-        <view wx:if="{{current_story}}" class="ad-hoc-card">
+        <view wx:if="{{current_story!=false}}" class="ad-hoc-card">
           <image  class= "event-img" mode = "aspectFill" src = "{{ current_story.image }}" />
           <view class="event-info">
             <view class="info-1">{{ current_story.title }}</view>

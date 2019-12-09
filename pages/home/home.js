@@ -5,6 +5,7 @@ Page({
    * Page initial data
    */
   data: {
+    current_story: false,
     current: 0,
     latitude: 23.099994,
     longitude: 113.324520,
@@ -48,9 +49,15 @@ Page({
       },],   
   },
 
-  markertap: function(event) {
+  markerTap: function(event) {
     console.log('marker id --------> ', event.markerId)
     let current_story = this.data.stories.find(story => story.id == event.markerId);
+    this.setData({current_story})
+  },
+
+  mapTap: function(event) {
+    console.log(event)
+    let current_story = false
     this.setData({current_story})
   },
 
@@ -94,9 +101,7 @@ Page({
       success: function (res) {
         const latitude = res.latitude
         const longitude = res.longitude
-        const speed = res.speed
-        const accuracy = res.accuracy
-        that.setData({ latitude, longitude, speed, accuracy })
+        that.setData({ latitude, longitude })
       }
     })
     this.setStories()
