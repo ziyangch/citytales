@@ -48,6 +48,9 @@ Page({
     wx.BaaS.auth.loginWithWechat(data).then(user => {
       console.log("this is current user---->", user)
       this.setData({ user })
+      wx.reLaunch({
+        url: '/pages/home/home',
+      })
     }, err => {
       console.log(err);
       // 登录失败
