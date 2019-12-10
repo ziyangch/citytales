@@ -112,3 +112,10 @@
   margin-top: 15rpx;
   margin-left: 10rpx;
 }
+
+.comments_section .avatar {
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 50%;
+  margin: 20rpx;
+}

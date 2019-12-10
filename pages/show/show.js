@@ -5,7 +5,11 @@ Page({
    * Page initial data
    */
   data: {
-
+    comment:{
+      content: undefined,
+      likes: 0,
+    },
+    content: undefined,
   },
 
   setDisplayDate: function (story) {
@@ -41,6 +45,129 @@ Page({
         let userStory = res.data.objects[0];
         this.setData({ userStory }) // Saving User story to local page data
       }
+    })
+  },
+
+  getComments: function (storyId) {
+    let query = new wx.BaaS.Query()
+    let Comments = new wx.BaaS.TableObject('comment')
+
+    query.compare('story', '=', storyId)
+    Comments.setQuery(query).expand(['user']).find().then(res => {
+      if (res.data.objects.length !== 0) {
+        let comments = res.data.objects;
+        this.setData({ comments }) // Saving User story to local page data
+      }
+    })
+  },
+
+
+  onChangeContent: function (e) {
+    console.log(e)
+    this.setData({
+      "comment.content": e.detail.value,
+    })
+  },
+
+
+  commentStory: function () {
+    let story = this.data.story // (1) increase "people_saved" of Story object
+    let peopleCommented = story.people_commented
+    peopleCommented += 1
+
+    let Story = new wx.BaaS.TableObject('story') // (2) update 'people_saved' to Story object in data base
+    let dbStory = Story.getWithoutData(story.id)
+    dbStory.set("people_commented", peopleCommented)
+    dbStory.update().then(res => {
+      let story = res.data
+      story = this.setDisplayDate(story) // (3) add display data format for Story object
+      this.setData({ story }) // (4) set updated Story object in local page data
+    }, err => {
+    })
+
+    let Comment = new wx.BaaS.TableObject('comment')
+    let comment = Comment.create()
+    let newComment = { // (5b) creating new UserStory object with 'saved' = true
+      user: this.data.user.id,
+      story: this.data.story.id,
+      avatar: this.data.user.avatar,
+      content: this.data.comment.content,
+      likes: this.data.comment.likes 
+    }
+    comment.set(newComment).save().then(res => { // (6b) saving new UserStory object into DB
+      let comment = res.data
+      let comments = this.data.comments
+      comments.push(comment)
+      this.setData({ comments }) // (7b) setting UserStory Object in local page data
+      // this.getUserStories(this.data.story.id) // (8b) getting UserStories --- for avatar display
+    }, err => {
+    })
+  
+  wx.showToast({
+    title: `已成功评论！`,
+    icon: 'success'
+  })
+
+  this.setData({
+    'content': ''
+  })
+  },
+
+  unlikeComment: function (e) {
+    let id = e.currentTarget.dataset.id
+    let likes = e.currentTarget.dataset.likes
+    console.log(id)
+    console.log(likes)
+    let Comment = new wx.BaaS.TableObject('comment')
+    let dbComment = Comment.getWithoutData(id)
+    likes -= 1
+    dbComment.set("likes", likes)
+    dbComment.update().then(res => {
+      console.log(res)
+      let id = res.data.id
+      let likes = res.data.likes
+      let comments = this.data.comments
+      for (var i in comments) {
+        if (comments[i].id == id) {
+          comments[i].likes = likes;
+          break; //Stop this loop, we found it!
+        }
+      }
+      this.setData({ comments })
+    }, err => {
+    })
+    wx.showToast({
+      title: `取消喜欢`,
+      icon: 'success'
+    })
+  },
+
+  likeComment: function (e) {
+    let id = e.currentTarget.dataset.id
+    let likes = e.currentTarget.dataset.likes
+    console.log(id)
+    console.log(likes)
+    let Comment = new wx.BaaS.TableObject('comment')
+    let dbComment = Comment.getWithoutData(id)
+    likes += 1
+    dbComment.set("likes", likes)
+    dbComment.update().then(res => {
+      console.log(res)
+      let id = res.data.id
+      let likes = res.data.likes
+      let comments = this.data.comments
+      for (var i in comments) {
+        if (comments[i].id == id) {
+          comments[i].likes = likes;
+          break; //Stop this loop, we found it!
+        }
+      }
+      this.setData({ comments })
+    }, err => {
+    })
+    wx.showToast({
+      title: `已喜欢！`,
+      icon: 'success'
     })
   },
 
@@ -234,6 +361,7 @@ Page({
     wx.BaaS.auth.getCurrentUser().then(user => { // Getting current_user information
       this.setData({ user })  // Saving User object to local page data
       this.getUserStory(storyId, user.id)
+      this.getComments(storyId)
       // this.getUserStories(storyId) // getting UserStories --- for avatar display
     }).catch(err => {
       // HError
@@ -254,7 +382,6 @@ Page({
    * Lifecycle function--Called when page show
    */
   onShow: function () {
-
   },
 
   /**
