@@ -5,7 +5,9 @@ Page({
    * Page initial data
    */
   data: {
+    comments:[
 
+    ],
     comment:{
       content: undefined,
       likes: 0,
