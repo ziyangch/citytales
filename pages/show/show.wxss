@@ -129,6 +129,14 @@
   margin-left: 10rpx;
 }
 
+
+.comments_section .avatar {
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 50%;
+  margin: 20rpx;
+}
+
 #delete-btn {
   position: absolute;
   top: 10rpx;
@@ -137,3 +145,4 @@
   font-size: 28rpx;
   text-align: center;
 }
+

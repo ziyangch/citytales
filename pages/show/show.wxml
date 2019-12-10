@@ -34,3 +34,26 @@
     <button id="delete-btn" wx:if="{{story.created_by === user.id}}" type="warn" bindtap="deleteStory">删除城事</button>
   </view>
 </view>
+
+<view class="comments_section">
+  <view class = "comments_input">
+    <input class="content" style="width: 100%; height: 100%" placeholder-class="place-holder" value="{{content}}" placeholder="写下你的评论" data-type="content" bindinput = "onChangeContent">
+    </input>
+    <button style="width: 100%" type="primary" form-type="submit" bindtap="commentStory">发表
+    </button>
+  </view>
+  <view wx:for="{{comments}}" class = "comments_display" >
+    <image class = "avatar" mode = "aspectFill" src = "{{item.avatar}}" />
+    <view>{{item.content}}</view>
+    <view wx:if="{{item.liked}}" class="icon-card" data-id="{{item.id}}" data-likes="{{item.likes}}" bindtap="unlikeComment">
+      <image class="icon" src="/images/like_red.png"></image>
+      <text>{{item.likes}}</text>
+    </view>
+    <view wx:else class="icon-card" data-id="{{item.id}}" data-likes="{{item.likes}}" bindtap="likeComment">
+      <image class="icon" src="/images/like.png"></image>
+      <text>{{item.likes}}</text>
+    </view>
+  </view>
+</view>
+
+
