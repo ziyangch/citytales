@@ -95,6 +95,20 @@ Page({
     })
   },
 
+  loginWithWechat: function (data) {
+    wx.BaaS.auth.loginWithWechat(data).then(user => {
+      console.log("this is current user---->", user)
+      this.setData({ user })
+    }, err => {
+      console.log(err);
+      // 登录失败
+    })
+    wx.reLaunch({
+      url: '/pages/profile/profile',
+    })
+
+  },
+
   /**
    * Lifecycle function--Called when page hide
    */

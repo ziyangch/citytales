@@ -3,6 +3,18 @@
   border-color: black;
 }
 
+.login-field {
+  position: fixed;
+  height: 120rpx;
+  width: 100vw;
+  background-color: rgba(100, 100, 100, 0.5);
+}
+
+.login-btn {
+  width: 90vw;
+  margin: 20rpx auto;
+}
+
 .card {
   /* background-color: #CFCFCF; */
   width:100%;
