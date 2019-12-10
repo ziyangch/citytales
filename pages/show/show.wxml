@@ -28,6 +28,7 @@
   <text class="story-content">{{story.content}}</text>
   <view class="story-location">
     <image class="location-icon" src='../../images/地点.png'></image>
-    <view class="location">{{story.address}}</view>
+    <view class="location" bindtap="openLocation">{{story.address}}</view>
+    <button id="delete-btn" wx:if="{{story.created_by === user.id}}" type="warn" bindtap="deleteStory">删除城事</button>
   </view>
 </view>

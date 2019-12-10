@@ -92,6 +92,7 @@ Page({
     let Story = new wx.BaaS.TableObject('story')
 
     query.compare('created_at', '>', 0)
+    query.compare('visible', '=', true)
     Story.setQuery(query).find().then(res => {
       console.log('stories.....', res.data.objects)
       let stories = res.data.objects
@@ -104,16 +105,6 @@ Page({
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
-    const that = this
-    wx.getLocation({
-      type: 'wgs84', // **1
-      success: function (res) {
-        const latitude = res.latitude
-        const longitude = res.longitude
-        that.setData({ latitude, longitude })
-      }
-    }),
-    this.setStories()
     wx.BaaS.auth.getCurrentUser().then(user => {
       this.setData({ user })
     }).catch(err => {
@@ -128,14 +119,24 @@ Page({
    * Lifecycle function--Called when page is initially rendered
    */
   onReady: function (e) {
-    this.mapCtx = wx.createMapContext('myMap')
+  
   },
 
   /**
    * Lifecycle function--Called when page show
    */
   onShow: function () {
-
+    this.setStories()
+    this.mapCtx = wx.createMapContext('myMap')
+    const that = this
+    wx.getLocation({
+      type: 'wgs84', // **1
+      success: function (res) {
+        const latitude = res.latitude
+        const longitude = res.longitude
+        that.setData({ latitude, longitude })
+      }
+    })
   },
 
   /**

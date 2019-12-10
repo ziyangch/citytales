@@ -100,6 +100,8 @@
   align-items: center;
   font-size: 24rpx;
   margin-top: 20rpx;
+  position: relative;
+  height: 100rpx;
 }
 
 .page__content .story-location .location-icon{
@@ -111,4 +113,13 @@
 .page__content .story-location .location {
   margin-top: 15rpx;
   margin-left: 10rpx;
+}
+
+#delete-btn {
+  position: absolute;
+  top: 10rpx;
+  right: 0rpx;
+  width: 30vw;
+  font-size: 28rpx;
+  text-align: center;
 }
