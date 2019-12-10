@@ -1,0 +1,46 @@
+<!--pages/post/post.wxml-->
+<view class="page">
+<view class="form-container">
+ <image class='btn-photo' bindtap='uploadImage' src="{{story.image}}" >
+ <view class="upload-img-all" wx:if="{{!story.image}}">
+    <view class="upload-img" >
+      <image class='btnImg' src='https://cloud-minapp-31851.cloud.ifanrusercontent.com/1idxMMNfRz5gzkEn.gif'></image>
+      <view>上传封面(必填)</view>
+    </view>
+    <view class="upload-info">高质量的封面图片能带来更多浏览</view>
+  </view>
+ </image>
+
+<view class="location-section">
+  <view class = "location-btn" bindtap="getMapLocation">
+    <image class='picker-img' src='https://cloud-minapp-31851.cloud.ifanrusercontent.com/1idxMMo2n8QhDIG8.png'></image>
+    <text>{{story.address ||"添加地点"}}</text>
+  </view> 
+</view>
+
+  <view class="form">
+    <view class="section">
+      <input class="title" value="{{title}}" placeholder-class="place-holder" placeholder="★ 为你的城事写个标题吧" data-type="name" bindinput = "onChangeName"></input>
+    </view>
+    <view class="section">
+      <view class="form-content">
+        <textarea class="content" style="width: 100%; height: 100%" placeholder-class="place-holder" value="{{content}}" placeholder="★ 写下你的城事" data-type="content" bindinput = "onChangeContent"></textarea>
+      </view>
+    </view>
+
+    <view class="bottom-section">
+      <!-- <checkbox-group class="checkgroup" bindchange="checkboxChange">
+        <label class="checkbox" wx:for="{{items}}">
+          <checkbox value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
+        </label>
+      </checkbox-group> -->
+
+      <view class="submit-btn">
+        <button style="width: 100%" type="primary" form-type="submit" bindtap="eventStorySubmit">发布</button>
+      </view>
+    </view>
+  </view>
+
+
+</view>
+</view>

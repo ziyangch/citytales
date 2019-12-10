@@ -1,0 +1,141 @@
+/* pages/post/post.wxss */
+
+.page {
+  background-color: rgb(15,15,15);
+  width: 100vw;
+  height: 100vh;
+}
+
+.form-container {
+  height: 100%;
+  overflow: scroll;
+  padding: 10rpx 30rpx;
+  background-color: #FAFAFA;
+}
+.section {
+  text-align: left;
+  color: black;
+  font-weight: bold;
+  font-size: 36rpx;
+  line-height: 1.4;
+  margin-bottom: 20rpx;
+}
+
+.section .title {
+  border-bottom: 3rpx solid #cfcfcf;
+  padding: 20rpx 0;
+  margin-top: 20rpx;
+}
+input {
+  /* background-color: white; */
+  /* padding: 16rpx 36rpx; */
+  /* border-radius: 10rpx; */
+  color: black;
+  /* box-shadow: 1px 1px 5px rgba(0,0,0,0.1); */
+}
+.form-content {
+  height:350rpx;
+  /* background-color: white; */
+  border-radius: 10rpx;
+  margin-bottom: 0;
+  /* box-shadow: 1px 1px 5px rgba(0,0,0,0.1); */
+  text-align: top;
+  font-weight: lighter;
+}
+
+.btn-photo {
+  font-size: 32rpx;
+  color: black;
+  border-style: dashed;
+  border-width: 3rpx;
+  border-radius: 5rpx;
+  border-color: rgb(200, 200, 200);
+  width: 100%; 
+  height: 400rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10rpx;
+  background-color: rgba(220, 220, 220, 0.5);
+  margin-top: 20rpx;
+}
+
+.upload-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 60rpx;
+}
+
+.upload-info {
+  font-weight: lighter;
+  font-size: 28rpx;
+}
+
+.upload-img-all {
+  margin-bottom: 150rpx;
+}
+
+.btnImg {
+  margin: 10rpx;
+  width: 100rpx;
+  height: 100rpx;
+}
+
+.picker-section {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border-bottom: 3rpx solid #cfcfcf;
+}
+
+.picker-main {
+  width: 50%;
+}
+
+.picker {
+  margin: 10rpx;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  /* border: 3rpx solid grey; */
+  padding: 10rpx 0;
+  text-align: center;
+}
+.picker-img {
+  margin-right: 8rpx;
+  width: 50rpx;
+  height: 50rpx;
+}
+
+
+.submit-btn {
+  margin-top: 30rpx;
+  margin-bottom: 10rpx;
+}
+.location-section {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  border-bottom: 3rpx solid #cfcfcf;
+}
+.location-btn {
+  margin: 10rpx;
+  display: flex;
+  padding: 10rpx 0;
+}
+
+.location-btn text{
+  margin-top: 10rpx;
+}
+
+.checkgroup {
+  text-align: center;
+  font-weight: lighter;
+}
+
+.place-holder {
+  font-weight: lighter;
+  color: #cfcfcf;
+}

@@ -5,7 +5,8 @@
     "pages/logs/logs",
     "pages/profile/profile",
     "pages/edit_profile/edit_profile",
-    "pages/show/show"
+    "pages/show/show",
+    "pages/post/post"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -20,7 +21,10 @@
       "pagePath": "pages/home/home",
       "text": "探索"
     },
-  
+    {
+      "pagePath": "pages/post/post",
+      "text": "+"
+    },
     {
       "pagePath": "pages/profile/profile",
       "text": "我的"
