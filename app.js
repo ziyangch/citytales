@@ -7,7 +7,7 @@ App({
       wx.getUserInfo,
       wx.requestPayment)
 
-    wx.BaaS.init('3906a5fa391292059abe', { autoLogin: true })
+    wx.BaaS.init('3906a5fa391292059abe', { autoLogin: false })
   },
 
   
