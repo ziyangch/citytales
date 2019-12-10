@@ -37,7 +37,7 @@
           <image class = "avatar" mode = "aspectFill" src = "../../images/citytales.jpg" />
             <view class="h1">{{ item.title }}</view>
         </view>
-        <image class='top-icon' src='../../images/想看.png'></image>
+        <!-- <image class='top-icon' src='../../images/想看.png'></image> -->
       </view>
     </view>
   </view>

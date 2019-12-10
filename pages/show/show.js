@@ -159,7 +159,7 @@ Page({
     })
 
     wx.showToast({
-      title: `成功取消收藏`,
+      title: `取消喜欢`,
       icon: 'success'
     })
   },
@@ -212,7 +212,7 @@ Page({
       })
     }
     wx.showToast({
-      title: `已成功收藏！`,
+      title: `已喜欢！`,
       icon: 'success'
     })
   },
