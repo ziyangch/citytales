@@ -111,7 +111,7 @@
   margin: 0 25%;
   width: 50%;
   position: absolute;
-  bottom: 10rpx;
+  bottom: 60rpx;
   height: 400rpx;
 }
 

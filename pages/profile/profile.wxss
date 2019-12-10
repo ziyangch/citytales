@@ -156,6 +156,13 @@ image {
   font-size: 24rpx;
 }
 
+.follows .liked {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 24rpx;
+}
+
 .header .edit-icon {
   width: 100rpx;
   height: 100rpx;
