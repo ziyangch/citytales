@@ -129,6 +129,94 @@ Page({
     })
   },
 
+
+  unlikeUserStory: function () {
+    let story = this.data.story // (1) decrease "people_liked" of Story object
+    let peopleLiked = story.people_liked
+    peopleLiked -= 1
+
+    let Story = new wx.BaaS.TableObject('story') // (2) update 'people_liked' to Story object in data base
+    let dbStory = Story.getWithoutData(story.id)
+    dbStory.set("people_liked", peopleLiked)
+    dbStory.update().then(res => {
+      let story = res.data
+      story = this.setDisplayDate(story) // (3) add display data format for Story object
+      this.setData({ story }) // (4) set updated Story object in local page data
+    }, err => {
+    })
+
+    let userStory = this.data.userStory
+    userStory.liked = false // (5) change 'liked' attribute in UserStory object
+
+    let UserStory = new wx.BaaS.TableObject('user_story')
+    let dbUserStory = UserStory.getWithoutData(userStory.id)
+    dbUserStory.set("liked", userStory.liked) // (6) update 'liked' to UserStory object in data base
+    dbUserStory.update().then(res => {
+      let userStory = res.data
+      this.setData({ userStory }) // (7) set updated UserStory object in local page data
+      // this.getUserStories(this.data.story.id) // (8) get UserStories --- for avatar display
+    }, err => {
+    })
+
+    wx.showToast({
+      title: `取消喜欢`,
+      icon: 'success'
+    })
+  },
+
+
+
+  likeUserStory: function () {
+    let story = this.data.story // (1) increase "people_liked" of Story object
+    let peopleLiked = story.people_liked
+    peopleLiked += 1
+
+    let Story = new wx.BaaS.TableObject('story') // (2) update 'people_liked' to Story object in data base
+    let dbStory = Story.getWithoutData(story.id)
+    dbStory.set("people_liked", peopleLiked)
+    dbStory.update().then(res => {
+      let story = res.data
+      story = this.setDisplayDate(story) // (3) add display data format for Story object
+      this.setData({ story }) // (4) set updated Story object in local page data
+    }, err => {
+    })
+
+    if (this.data.userStory) { // (5a) updating "liked" to true in DB, if UserStory already exists
+      let userStory = this.data.userStory
+      userStory.liked = true
+
+      let UserStory = new wx.BaaS.TableObject('user_story') // (6a) update 'liked' to UserStory object in data base
+      let dbUserStory = UserStory.getWithoutData(userStory.id)
+      dbUserStory.set("liked", userStory.liked)
+      dbUserStory.update().then(res => {
+        let userStory = res.data
+        this.setData({ userStory }) // (7a) set updated UserStory Object in local page data
+        // this.getUserStories(this.data.story.id) // (8a) get UserStories --- for avatar display
+      }, err => {
+      })
+
+    } else { // Creating new UserStory and saving into DB, if User Story does not exist yet
+
+      let UserStory = new wx.BaaS.TableObject('user_story')
+      let userStory = UserStory.create()
+      let newUserStory = { // (5b) creating new UserStory object with 'liked' = true
+        user: this.data.user.id,
+        story: this.data.story.id,
+        liked: true
+      }
+      userStory.set(newUserStory).save().then(res => { // (6b) saving new UserStory object into DB
+        let userStory = res.data
+        this.setData({ userStory }) // (7b) setting UserStory Object in local page data
+        // this.getUserStories(this.data.story.id) // (8b) getting UserStories --- for avatar display
+      }, err => {
+      })
+    }
+    wx.showToast({
+      title: `已喜欢！`,
+      icon: 'success'
+    })
+  },
+
   navigateToHome: function () {
     wx.switchTab({
       url: '/pages/home/home'

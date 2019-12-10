@@ -3,14 +3,18 @@
 <view class="top-section">
   <image  class = "avatar" mode = "aspectFill" src = "{{story.avatar}}" />
   <view class="h1">{{story.nickname}}</view>
+  <view wx:if="{{userStory.liked}}" class="icon-card" bindtap="unlikeUserStory">
+    <image class="icon" src="/images/like_red.png"></image>
+  </view>
+  <view wx:else class="icon-card" bindtap="likeUserStory">
+    <image class="icon" src="/images/like.png"></image>
+  </view>
   <view wx:if="{{userStory.saved}}" class="icon-card" bindtap="unsaveUserStory">
-      <image class="icon" src="https://cloud-minapp-31851.cloud.ifanrusercontent.com/1idxMM4LMEoGE3Ej.png"></image>
-
-    </view>
-    <view wx:else class="icon-card" bindtap="saveUserStory">
-      <image class="icon" src="https://cloud-minapp-31851.cloud.ifanrusercontent.com/1idxMMngEe3NyCRN.png"></image>
-   
-    </view>
+    <image class="icon" src="/images/想看.png"></image>
+  </view>
+  <view wx:else class="icon-card" bindtap="saveUserStory">
+    <image class="icon" src="/images/已想看.png"></image>
+  </view>
 </view>
 
 <view class="story-img" style="background-image:url('{{story.image}}')"></view>

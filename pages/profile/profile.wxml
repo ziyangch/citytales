@@ -7,13 +7,13 @@
       <view class="user-bio">{{user.bio || "Please add your first bio"}}</view>
 
       <view class="follows">
-        <!-- <view class="going">
-          <text>{{user_events.length}}</text>
-          <text>待参加</text>
-        </view> -->
-        <view class="went">
-          <text>{{user_events_saved.length}}</text>
-          <text>个收藏的卡片</text>
+        <view class="liked">
+          <text>{{stories_liked.length}}</text>
+          <text>喜欢</text>
+        </view>
+        <view class="saved">
+          <text>{{stories_saved.length}}</text>
+          <text>收藏</text>
         </view>
         <!-- <view class="saved">
           <text>{{events_created.length}}</text>
@@ -26,13 +26,36 @@
     </view>
 </view>
 
-<view class="card">
-  <image class="story-img" src="../../images/citytales.jpg" alt="Pic" style="width:100%" mode="aspectFill"></image>
-  <view class="info-section">
-    <view class="info-left">
-      <image class = "avatar" mode = "aspectFill" src = "../../images/citytales.jpg" />
-      <view class="h1">如果我这个字打得很多很多会怎么样呢？？？</view>
+<view class="bar">
+  <wux-segmented-control class="switch-bar" values="{{ ['我喜欢的', '我的收藏'] }}" bind:change="onChange" />
+</view>
+
+<view wx:if="{{current===0}}" class="profile_story_container">
+  <view wx:for="{{stories_liked}}" class="card-container" catchtap="navigateToShow" data-type="edit" data-id="{{item.id}}" wx:key>
+    <view class="card">
+      <image class="story-img" src="{{ item.image }}" alt="Pic" style="width:100%" mode="aspectFill"></image>
+      <view class="info-section">
+        <view class="info-left">
+          <image class = "avatar" mode = "aspectFill" src = "{{ item.avatar}}" />
+          <view class="h1">{{ item.title }}</view>
+        </view>
+        <!-- <image class='top-icon' src='../../images/想看.png'></image> -->
+      </view>
     </view>
-    <image class='top-icon' src='../../images/想看.png'></image>
+  </view>
+</view>
+
+<view wx:if="{{current===1}}" class="profile_story_container">
+  <view wx:for="{{stories_saved}}" class="card-container" catchtap="navigateToShow" data-type="edit" data-id="{{item.id}}" wx:key>
+    <view class="card">
+      <image class="story-img" src="{{ item.image }}" alt="Pic" style="width:100%" mode="aspectFill"></image>
+      <view class="info-section">
+        <view class="info-left">
+          <image class = "avatar" mode = "aspectFill" src = "{{ item.avatar}}" />
+          <view class="h1">{{ item.title }}</view>
+        </view>
+        <!-- <image class='top-icon' src='../../images/想看.png'></image> -->
+      </view>
+    </view>
   </view>
 </view>
