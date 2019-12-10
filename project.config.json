@@ -81,6 +81,13 @@
 					"pathName": "pages/home/home",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "Login",
+					"pathName": "pages/index/index",
+					"query": "",
+					"scene": null
 				}
 			]
 		}
