@@ -34,8 +34,9 @@ Page({
     let query = new wx.BaaS.Query()
     let UserStory = new wx.BaaS.TableObject('user_story')
 
-    query.compare('story', '=', storyId.toString())
-    query.compare('user', '=', userId.toString())
+    query.compare('story', '=', storyId)
+    query.compare('user', '=', userId)
+    query.compare('visible', '=', true)
     UserStory.setQuery(query).find().then(res => {
       if (res.data.objects.length !== 0) {
         let userStory = res.data.objects[0];
@@ -223,13 +224,61 @@ Page({
     })
   },
 
+  openLocation: function () {
+    wx.switchTab({
+      url: '/pages/home/home'
+    })
+  },
+
+  deleteUserStory: function (userStoryId) {
+    let UserStory = new wx.BaaS.TableObject('user_story')
+    let dbUserStory = UserStory.getWithoutData(userStoryId)
+    dbUserStory.set("visible", false)
+    dbUserStory.update().then(res => {}, err => {})
+  },
+
+  deleteUserStories: function (storyId) {
+    console.log("entered delete UserStories")
+    let query = new wx.BaaS.Query()
+    let UserStory = new wx.BaaS.TableObject('user_story')
+    query.compare('story', '=', storyId)
+    console.log("ready for query...")
+    UserStory.setQuery(query).find().then(res => {
+      let userStories = res.data.objects;
+      console.log("entered pre Iteration")
+      userStories.forEach((userStory) => {
+        this.deleteUserStory(userStory.id)
+      })
+    })
+  },
+
+  deleteStory: function () {
+    let Story = new wx.BaaS.TableObject('story')
+    let story = this.data.story
+    let dbStory = Story.getWithoutData(story.id)
+    dbStory.set("visible", false)
+    dbStory.update().then(res => {
+      // success
+      let storyId = this.data.story.id
+      // ********************************** delete comments
+      this.deleteUserStories(storyId)
+      wx.showToast({
+        title: `城事已删掉！`,
+        icon: 'success'
+      })
+      this.navigateToHome()
+    }, err => {
+      // err
+    })
+  },
+
   /**
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
     
-    let storyId = options.id // Setting eventId from Page properties
-    this.setStory(storyId) // setting Event object by search with Event ID in local page data
+    let storyId = options.id // Setting storyId from Page properties
+    this.setStory(storyId) // setting Story object by search with Story ID in local page data
     
     wx.BaaS.auth.getCurrentUser().then(user => { // Getting current_user information
       this.setData({ user })  // Saving User object to local page data
