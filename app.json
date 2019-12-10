@@ -5,7 +5,8 @@
     "pages/logs/logs",
     "pages/profile/profile",
     "pages/edit_profile/edit_profile",
-    "pages/show/show"
+    "pages/show/show",
+    "pages/post/post"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -22,7 +23,10 @@
       "iconPath": "/images/主页.png",
       "selectedIconPath": "/images/主页.png"
     },
-  
+    {
+      "pagePath": "pages/post/post",
+      "text": "+"
+    },
     {
       "pagePath": "pages/profile/profile",
       "text": "我的",

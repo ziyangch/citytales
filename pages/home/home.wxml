@@ -21,7 +21,7 @@
 
           <image  class= "event-img" style="width: 100%; height: 80%" mode = "aspectFill" src = "{{ current_story.image }}" />
           <view class="event-info">
-            <image  class = "avatar" mode = "aspectFill" src = "../../images/citytales.jpg" />
+            <image  class = "avatar" mode = "aspectFill" src = "{{current_story.avatar}}" />
             <view class="user-story">{{ current_story.title }}</view>
           </view>      
         </view>
@@ -34,7 +34,7 @@
       <image class="story-img" src="{{ item.image }}" alt="Pic" style="width:100%" mode="aspectFill"></image>
       <view class="info-section">
         <view class="info-left">
-          <image class = "avatar" mode = "aspectFill" src = "../../images/citytales.jpg" />
+          <image class = "avatar" mode = "aspectFill" src = "{{item.avatar}}" />
             <view class="h1">{{ item.title }}</view>
         </view>
         <!-- <image class='top-icon' src='../../images/想看.png'></image> -->
