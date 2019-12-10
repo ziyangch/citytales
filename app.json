@@ -18,12 +18,16 @@
   "list": [
     {
       "pagePath": "pages/home/home",
-      "text": "探索"
+      "text": "主页",
+      "iconPath": "/images/主页.png",
+      "selectedIconPath": "/images/主页.png"
     },
   
     {
       "pagePath": "pages/profile/profile",
-      "text": "我的"
+      "text": "我的",
+      "iconPath": "/images/profile.png",
+      "selectedIconPath": "/images/profile.png"
     }
   ]
 },
