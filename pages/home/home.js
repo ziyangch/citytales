@@ -105,6 +105,14 @@ Page({
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
+    wx.BaaS.auth.getCurrentUser().then(user => {
+      this.setData({ user })
+    }).catch(err => {
+      // HError
+      if (err.code === 604) {
+        console.log('用户未登录')
+      }
+    })
   },
 
   /**
