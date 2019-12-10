@@ -36,10 +36,10 @@
       <image class="story-img" src="{{ item.image }}" alt="Pic" style="width:100%" mode="aspectFill"></image>
       <view class="info-section">
         <view class="info-left">
-          <image class = "avatar" mode = "aspectFill" src = "../../images/citytales.jpg" />
+          <image class = "avatar" mode = "aspectFill" src = "{{ item.avatar}}" />
           <view class="h1">{{ item.title }}</view>
         </view>
-        <image class='top-icon' src='../../images/想看.png'></image>
+        <!-- <image class='top-icon' src='../../images/想看.png'></image> -->
       </view>
     </view>
   </view>
@@ -51,10 +51,10 @@
       <image class="story-img" src="{{ item.image }}" alt="Pic" style="width:100%" mode="aspectFill"></image>
       <view class="info-section">
         <view class="info-left">
-          <image class = "avatar" mode = "aspectFill" src = "../../images/citytales.jpg" />
+          <image class = "avatar" mode = "aspectFill" src = "{{ item.avatar}}" />
           <view class="h1">{{ item.title }}</view>
         </view>
-        <image class='top-icon' src='../../images/想看.png'></image>
+        <!-- <image class='top-icon' src='../../images/想看.png'></image> -->
       </view>
     </view>
   </view>
