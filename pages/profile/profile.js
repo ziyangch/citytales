@@ -14,12 +14,10 @@ Page({
 
     query.compare('user', '=', id)
     query.compare('liked', '=', true)
-    // query.compare('created_at', '>', 0)
+    query.compare('visible', '=', true)
     UserStory.setQuery(query).expand(['story']).find().then(res => {
-      console.log('results for stories liked ----->', res)
       let user_stories_liked = res.data.objects;
       let stories_liked = user_stories_liked.map(user_story_liked => user_story_liked.story)
-      console.log('user_stories_mapped', stories_liked)
       this.setData({ stories_liked })
     })
   },
@@ -29,15 +27,11 @@ Page({
     let UserStory = new wx.BaaS.TableObject('user_story')
 
     query.compare('user', '=', id)
-    console.log('user.id ------>', id)
-    console.log('user.id -----> typeof --->', typeof (id.toString()))
     query.compare('saved', '=', true)
+    query.compare('visible', '=', true)
     UserStory.setQuery(query).expand(['story']).find().then(res => {
       let user_stories_saved = res.data.objects;
-      console.log('result ------->', res)
-      console.log('user_stories', user_stories_saved)
       let stories_saved = user_stories_saved.map(user_story_saved => user_story_saved.story)
-      console.log('user_stories_mapped', stories_saved)
       this.setData({ stories_saved })
     })
   },
@@ -99,6 +93,20 @@ Page({
         console.log('用户未登录')
       }
     })
+  },
+
+  loginWithWechat: function (data) {
+    wx.BaaS.auth.loginWithWechat(data).then(user => {
+      console.log("this is current user---->", user)
+      this.setData({ user })
+    }, err => {
+      console.log(err);
+      // 登录失败
+    })
+    wx.reLaunch({
+      url: '/pages/profile/profile',
+    })
+
   },
 
   /**

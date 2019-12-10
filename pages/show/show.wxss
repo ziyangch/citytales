@@ -11,6 +11,19 @@
   position: fixed;
 }
 
+.login-field {
+  position: fixed;
+  height: 120rpx;
+  width: 100vw;
+  background-color: rgba(100, 100, 100, 0.5);
+  margin-top: 7vh;
+}
+
+.login-btn {
+  width: 90vw;
+  margin: 20rpx auto;
+}
+
 .top-section .avatar {
   width: 80rpx;
   height: 80rpx;
@@ -53,8 +66,9 @@
   height: 600rpx;
   background-size: cover;
   background-position: center;
-
 }
+
+
 .page__header {
   padding-top: 20rpx; 
   width: 95vw;
@@ -100,6 +114,8 @@
   align-items: center;
   font-size: 24rpx;
   margin-top: 20rpx;
+  position: relative;
+  height: 100rpx;
 }
 
 .page__content .story-location .location-icon{
@@ -113,9 +129,20 @@
   margin-left: 10rpx;
 }
 
+
 .comments_section .avatar {
   width: 90rpx;
   height: 90rpx;
   border-radius: 50%;
   margin: 20rpx;
 }
+
+#delete-btn {
+  position: absolute;
+  top: 10rpx;
+  right: 0rpx;
+  width: 30vw;
+  font-size: 28rpx;
+  text-align: center;
+}
+
