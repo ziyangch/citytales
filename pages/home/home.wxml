@@ -12,6 +12,7 @@
         show-location
         show-compass
         bindtap="mapTap"
+        enable-rotate
       ></map>
 
 

@@ -5,62 +5,43 @@ Page({
    * Page initial data
    */
   data: {
+    current: 0
   },
 
-  // getUserEvents: function (id) {
-  //   console.log("fetching user_events....")
-  //   let query = new wx.BaaS.Query()
-  //   let UserEvent = new wx.BaaS.TableObject('user_event')
-
-  //   query.compare('user_id', '=', id)
-  //   query.compare('going', '=', true)
-  //   console.log("ready for query...")
-  //   UserEvent.setQuery(query).expand(['event_id']).find().then(res => {
-  //     console.log(res.data.objects)
-  //     let user_events = res.data.objects;
-  //     console.log(this.data.user_events);
-
-  //     user_events = user_events.map(user_event => this.setDisplayDate(user_event.event_id))
-
-  //     this.setData({ user_events })
-  //   })
-  // },
-
-  getUserstoriesSaved: function (id) {
-    console.log("fetching user_stories....")
+  setStoriesLiked: function (id) {
     let query = new wx.BaaS.Query()
     let UserStory = new wx.BaaS.TableObject('user_story')
 
     query.compare('user', '=', id)
-    query.compare('saved', '=', true)
-    console.log("ready for query...")
-    UserStory.setQuery(query).expand(['event_id']).find().then(res => {
-      console.log(res.data.objects)
-      let user_stories_saved = res.data.objects;
-      console.log(this.data.user_stories);
-
-      user_stories_saved = user_stories_saved.map(user_story => this.setDisplayDate(user_story.story))
-
-      this.setData({ user_stories_saved })
+    query.compare('liked', '=', true)
+    // query.compare('created_at', '>', 0)
+    UserStory.setQuery(query).expand(['story']).find().then(res => {
+      console.log('results for stories liked ----->', res)
+      let user_stories_liked = res.data.objects;
+      let stories_liked = user_stories_liked.map(user_story_liked => user_story_liked.story)
+      console.log('user_stories_mapped', stories_liked)
+      this.setData({ stories_liked })
     })
   },
 
-  // getUserEventsCreated: function (id) {
-  //   console.log("fetching user_events....")
-  //   let query = new wx.BaaS.Query()
-  //   let UserEvent = new wx.BaaS.TableObject('event')
-  //   query.compare('created_by', '=', id)
-  //   UserEvent.setQuery(query).find().then(res => {
-  //     // success
-  //     let data = res.data.objects
-  //     let dates_array = []
-  //     data.forEach((item) => {
-  //       let event = this.setDisplayDate(item)
-  //       dates_array.push(event)
-  //     })
-  //     this.setData({ user_events_created: dates_array })
-  //   })
-  // },
+  setStoriesSaved: function (id) {
+    let query = new wx.BaaS.Query()
+    let UserStory = new wx.BaaS.TableObject('user_story')
+
+    query.compare('user', '=', id)
+    console.log('user.id ------>', id)
+    console.log('user.id -----> typeof --->', typeof (id.toString()))
+    query.compare('saved', '=', true)
+    UserStory.setQuery(query).expand(['story']).find().then(res => {
+      let user_stories_saved = res.data.objects;
+      console.log('result ------->', res)
+      console.log('user_stories', user_stories_saved)
+      let stories_saved = user_stories_saved.map(user_story_saved => user_story_saved.story)
+      console.log('user_stories_mapped', stories_saved)
+      this.setData({ stories_saved })
+    })
+  },
+
 
   navigateToShow(e) {
     let type = e.currentTarget.dataset.type
@@ -76,19 +57,6 @@ Page({
     })
   },
 
-  setDisplayDate: function (event) {
-    let date = new Date(event.date)
-
-    // const dateArray = date.toLocaleString().split(', ')
-    event.display_day = `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`
-    event.display_time = [date.getHours(), date.getMinutes()].map(this.formatNumber).join(':')
-    return event
-  },
-
-  formatNumber: function (n) {
-    n = n.toString()
-    return n[1] ? n : '0' + n
-  },
 
   /**
    * Lifecycle function--Called when page load
@@ -98,11 +66,8 @@ Page({
       user.custom_nickname = user.get("custom_nickname")
       user.bio = user.get("bio")
       this.setData({ user })
-      // this.getUserEvents(user.id)
-      this.getUserEventsSaved(user.id)
-      // this.getUserEventsCreated(user.id)
-
-
+      this.setStoriesLiked(user.id)
+      this.setStoriesSaved(user.id)
     }).catch(err => {
       // HError
       if (err.code === 604) {
@@ -126,11 +91,8 @@ Page({
       user.custom_nickname = user.get("custom_nickname")
       user.bio = user.get("bio")
       this.setData({ user })
-      // this.getUserEvents(user.id)
-      this.getUserEventsSaved(user.id)
-      // this.getUserEventsCreated(user.id)
-
-
+      this.setStoriesLiked(user.id)
+      this.setStoriesSaved(user.id)
     }).catch(err => {
       // HError
       if (err.code === 604) {
@@ -175,5 +137,8 @@ Page({
   },
 
   onChange(e) {
+    this.setData({
+      current: e.detail.key,
+    })
   }
 })
