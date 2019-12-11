@@ -1,0 +1,22 @@
+{
+  "name": "final_projects",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ziyangch/citytales.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ziyangch/citytales/issues"
+  },
+  "homepage": "https://github.com/ziyangch/citytales#readme",
+  "dependencies": {
+    "wxa-plugin-canvas": "^1.1.11"
+  }
+}
