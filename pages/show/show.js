@@ -1,6 +1,7 @@
 // pages/show/show.js
-Page({
+import Poster from '../../miniprogram_npm/wxa-plugin-canvas/poster/poster';
 
+Page({
   /**
    * Page initial data
    */
@@ -13,7 +14,28 @@ Page({
       likes: 0,
     },
     content: undefined,
-    user: {id: undefined}
+    user: {
+      id: undefined
+    },
+    posterConfig:{
+    width: 375,
+    height: 812,
+    backgroundColor: '#FFF',
+    pixelRatio: 1,
+    blocks: [{
+      width: 630,
+      height: 0,
+      x: 0,
+      y: 190,
+      borderWidth: 1,
+      borderColor: '#DDDDDD'
+    }],
+    texts: [{
+    },
+    ],
+    images: [{
+     }]
+    }
   },
 
   setDisplayDate: function (story) {
@@ -29,11 +51,13 @@ Page({
   },
 
   setStory(id) {
+    console.log(id)
     let Story = new wx.BaaS.TableObject('story')
     Story.get(id.toString()).then(res => {
       let story = res.data;
-      story = this.setDisplayDate(story)
+      // story = this.setDisplayDate(story)
       this.setData({ story })
+
     }, err => {
     })
   },
@@ -452,7 +476,8 @@ Page({
     
     let storyId = options.id // Setting storyId from Page properties
     this.setStory(storyId) // setting Story object by search with Story ID in local page data
-    
+
+    console.log(this.data)
     wx.BaaS.auth.getCurrentUser().then(user => { // Getting current_user information
       this.setData({ user })  // Saving User object to local page data
       this.getUserStory(storyId, user.id)
@@ -477,6 +502,7 @@ Page({
    * Lifecycle function--Called when page show
    */
   onShow: function () {
+    
   },
 
   /**
@@ -511,6 +537,93 @@ Page({
    * Called when user click on the top right corner to share
    */
   onShareAppMessage: function () {
+    return {
+      title: '一起来探索城事吧！',
+      path: 'pages/show/show'
+    }
+  },
+  onCreatePoster () {
+    console.log(e)
+    
+  },
+  onPosterSuccess (e) {
+    let { detail } = e
+    wx.previewImage({
+      current: detail,
+      urls: [detail]
+    })
+  },
 
+  onPosterFail (e) {
+    console.log(e)
+  },
+  
+  setConfig() {
+    console.log(this.data)
+    this.setData({
+      posterConfig: {
+
+        texts: [{
+          x: 30,
+          y: 110,
+          text: 'CityTales',
+          fontSize: 60,
+          color: '#FFF',
+          fontWeight: 'bold'
+        },
+        {
+          x: 30,
+          y: 170,
+          text: '欢迎来到你的城事',
+          fontSize: 50,
+          color: '#FFF'
+        },
+        {
+          x: 30,
+          y: 230,
+          text: this.data.story.title,
+          fontSize: 40,
+          color: '#FFF'
+        },
+        {
+          x: 300,
+          y: 400,
+          text: '这是一段比较长的文字内容',
+          //TODO: 用户自定义祝福语
+          fontSize: 24,
+          color: '#FFF',
+          textAlign: 'center'
+        },
+        {
+          x: 380,
+          y: 1220,
+          text: '请长按保存或分享图片',
+          //TODO: 用户自定义祝福语
+          fontSize: 24,
+          color: '#F30',
+          textAlign: 'center'
+        },
+        ],
+        images: [{
+          width: 1000,
+          height: 1624,
+          x: 0,
+          y: 0,
+          url: this.data.story.image
+        }, 
+        {
+          width: 315,
+          height: 400,
+          x: 210,
+          y: 1224,
+          url: 'https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ieF4hNkpPIZh6cj.jpg'
+          //TODO: 此图片之后用小程序二维码代替，置底居中。
+        }
+        ]
+      }
+    }, () => {
+      Poster.create(true);
+    });
   }
+  
 })

@@ -13,6 +13,15 @@ App({
   
   globalData: {
     userInfo: null
-  }
+  },
 
+  setStory(id) {
+    let Story = new wx.BaaS.TableObject('story')
+    Story.get(id.toString()).then(res => {
+      let story = res.data;
+      story = this.setDisplayDate(story)
+      this.setData({ story })
+    }, err => {
+    })
+  },
 })

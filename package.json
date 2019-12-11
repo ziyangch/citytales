@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/ziyangch/citytales#readme",
   "dependencies": {
+    "weui-wxss": "^2.0.1",
     "wxa-plugin-canvas": "^1.1.11"
   }
 }

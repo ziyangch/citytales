@@ -91,6 +91,8 @@ const main = {
         this.ctx.save();
         if (borderRadius > 0) {
             this._drawRadiusRect(x, y, w, h, borderRadius);
+            this.ctx.strokeStyle = 'rgba(255,255,255,0)';
+            this.ctx.stroke();
             this.ctx.clip();
             this.ctx.drawImage(imgPath, this.toPx(sx), this.toPx(sy), this.toPx(sw), this.toPx(sh), this.toPx(x), this.toPx(y), this.toPx(w), this.toPx(h));
             if (borderWidth > 0) {
@@ -118,10 +120,10 @@ const main = {
         this.ctx.closePath();
         this.ctx.restore();
     },
-    downloadResource(images = []) {
+    downloadResource({ images = [], pixelRatio = 1 }) {
         const drawList = [];
         this.drawArr = [];
-        images.forEach((image, index) => drawList.push(this._downloadImageAndInfo(image, index)));
+        images.forEach((image, index) => drawList.push(this._downloadImageAndInfo(image, index, pixelRatio)));
         return Promise.all(drawList);
     },
     initCanvas(w, h, debug) {
@@ -227,6 +229,24 @@ const handle = {
             if (textDecoration === 'line-through') {
                 // 目前只支持贯穿线
                 lineY = y;
+
+                // 小程序画布baseLine偏移阈值
+                let threshold = 5;
+
+                // 根据baseLine的不同对贯穿线的Y坐标做相应调整
+                switch (baseLine) {
+                  case 'top':
+                    lineY += fontSize / 2 + threshold;
+                    break;
+                  case 'middle':
+                    break;
+                  case 'bottom':
+                    lineY -= fontSize / 2 + threshold;
+                    break;
+                  default:
+                    lineY -= fontSize / 2 - threshold;
+                    break;
+                }
             }
             this.ctx.save();
             this.ctx.moveTo(this.toPx(x), this.toPx(lineY));
@@ -243,7 +263,7 @@ const helper = {
     /**
       * 下载图片并获取图片信息
       */
-    _downloadImageAndInfo(image, index) {
+    _downloadImageAndInfo(image, index, pixelRatio) {
         return new Promise((resolve, reject) => {
             const { x, y, url, zIndex } = image;
             const imageUrl = url;
@@ -258,8 +278,8 @@ const helper = {
                     const borderRadius = image.borderRadius || 0;
                     const setWidth = image.width;
                     const setHeight = image.height;
-                    const width = this.toRpx(imgInfo.width);
-                    const height = this.toRpx(imgInfo.height);
+                    const width = this.toRpx(imgInfo.width / pixelRatio);
+                    const height = this.toRpx(imgInfo.height / pixelRatio);
 
                     if (width / height <= setWidth / setHeight) {
                         sx = 0;
@@ -335,9 +355,10 @@ const helper = {
     },
     toPx(rpx, int) {
       if (int) {
-        return parseInt(rpx * this.factor);
+        return parseInt(rpx * this.factor * this.pixelRatio);
       }
-      return rpx * this.factor;
+      return rpx * this.factor * this.pixelRatio;
+
     },
     toRpx(px, int) {
       if (int) {
@@ -426,6 +447,7 @@ Component({
         create(config) {
             this.ctx = wx.createCanvasContext('canvasid', this);
 
+            this.pixelRatio = config.pixelRatio || 1;
             const height = this.getHeight(config);
             this.initCanvas(config.width, height, config.debug)
                 .then(() => {
