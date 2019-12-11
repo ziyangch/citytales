@@ -56,7 +56,18 @@ Page({
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
-   
+    wx.BaaS.auth.getCurrentUser().then(user => {
+      user.custom_nickname = user.get("custom_nickname")
+      user.bio = user.get("bio")
+      this.setData({ user })
+      this.setStoriesLiked(user.id)
+      this.setStoriesSaved(user.id)
+    }).catch(err => {
+      // HError
+      if (err.code === 604) {
+        console.log('用户未登录')
+      }
+    })
   },
 
   /**
@@ -85,18 +96,16 @@ Page({
   },
 
   loginWithWechat: function (data) {
-    let page = this
     wx.BaaS.auth.loginWithWechat(data).then(user => {
       console.log("this is current user---->", user)
-      page.setData({ user })
-      wx.reLaunch({
-        url: '/pages/profile/profile',
-      })
+      this.setData({ user })
     }, err => {
       console.log(err);
       // 登录失败
     })
-    
+    wx.reLaunch({
+      url: '/pages/profile/profile',
+    })
 
   },
 
