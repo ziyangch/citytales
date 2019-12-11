@@ -35,12 +35,35 @@
   </view>
 </view>
 
+
+<!-- <view bindtap="onShareAppMessage">
+ <button class="share-btn" open-type="share" type="primary">Share</button>
+</view> -->
+<poster id="poster" config="{{posterConfig}}" bind:success="onPosterSuccess" bind:fail="onPosterFail" bindtap="setConfig">
+  <button>点击生成明信片</button>
+</poster>
+
+<view class="comments_section">
+  <view class = "comments_input">
+    <input class="content" style="width: 100%; height: 100%" placeholder-class="place-holder" value="{{content}}" placeholder="写下你的评论" data-type="content" bindinput = "onChangeContent">
+    </input>
+    <button style="width: 100%" type="primary" form-type="submit" bindtap="commentStory">发表
+    </button>
+  </view>
+  <view wx:for="{{comments}}" class = "comments_display" >
+    <image class = "avatar" mode = "aspectFill" src = "{{item.avatar}}" />
+    <view>{{item.content}}</view>
+    <view wx:if="{{item.liked}}" class="icon-card" data-id="{{item.id}}" data-likes="{{item.likes}}" bindtap="unlikeComment">
+      <image class="icon" src="/images/like_red.png"></image>
+      <text>{{item.likes}}</text>
+
 <view class="page_cmt">
   <view class="cmt-container">
     <view class="cmt-no">共{{comments.length}}条评论</view>
     <view class="cmt-hearder">
       <image class = "avatar" mode = "aspectFill" src = "{{user.avatar}}" />
       <text class="fake-cmt" bindtap='focusButn' decode="{{true}}">&nbsp;说点什么吧...</text>
+
     </view>
 
     <view class="commentInputView" style='bottom:{{height == ""?0:height}}px;' hidden='{{!isInput}}'>
@@ -77,6 +100,3 @@
     </view>
   </view>
 </view>
-
-
-
