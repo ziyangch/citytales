@@ -434,8 +434,12 @@ Page({
   },
 
   openLocation: function () {
-    wx.switchTab({
-      url: '/pages/home/home'
+    let latitude = this.data.story.latitude
+    let longitude = this.data.story.longitude
+    wx.openLocation({
+      latitude,
+      longitude,
+      scale: 18
     })
   },
 

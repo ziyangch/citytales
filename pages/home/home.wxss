@@ -147,3 +147,56 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 }
+
+.locate-btn {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  float: left;
+  position: fixed;
+  bottom: 120rpx;
+  left: 40rpx;
+  width: 60rpx;
+  height: 60rpx;
+  z-index: 1;
+  background-color: rgba(240, 240, 240, 0.8);
+  border-radius: 4rpx;
+  box-shadow: 0 0 5rpx rgb(100, 100, 100);
+}
+
+.locate-icon {
+  width: 40rpx;
+  height: 40rpx;
+  z-index: 2;
+}
+
+.zoom-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  float: right;
+  position: fixed;
+  bottom: 120rpx;
+  right: 40rpx;
+  width: 60rpx;
+  height: 120rpx;
+  z-index: 1;
+  background-color: rgba(240, 240, 240, 0.8);
+  flex-direction: column;
+  border-radius: 4rpx;
+  box-shadow: 0 0 5rpx rgb(100, 100, 100);
+}
+
+.zoom-in-btn {
+  width: 35rpx;
+  height: 35rpx;
+  z-index: 2;
+  margin: 12rpx 0;
+}
+
+.zoom-out-btn {
+  width: 35rpx;
+  height: 35rpx;
+  z-index: 2;
+  margin: 12rpx 0;
+}
