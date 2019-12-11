@@ -6,6 +6,7 @@ Page({
    * Page initial data
    */
   data: {
+    displayCommentBox: false,
     comments:[
 
     ],
@@ -14,9 +15,7 @@ Page({
       likes: 0,
     },
     content: undefined,
-    user: {
-      id: undefined
-    },
+
     posterConfig:{
     width: 375,
     height: 812,
@@ -36,7 +35,40 @@ Page({
     images: [{
      }]
     }
+
+    user: {id: undefined},
+
+    texts: "至少5个字",
+    min: 5,//最少字数
+    max: 10, //最多字数 (根据自己需求改变)
+
+    focusInput: false,
+    height: '',
+    isInput: false
   },
+
+  inputFocus(e) {
+    console.log(e, '键盘弹起')
+    this.setData({
+      height: e.detail.height,
+      isInput: true
+    })
+  },
+  inputBlur() {
+    console.log('键盘收起')
+    this.setData({
+      isInput: false
+    })
+  },
+
+  focusButn: function () {
+    this.setData({
+      focusInput: true,
+      isInput: true
+    })
+
+  },
+
 
   setDisplayDate: function (story) {
     let date = new Date(story.date)
@@ -75,6 +107,20 @@ Page({
         this.setData({ userStory }) // Saving User story to local page data
       }
     })
+  },
+
+  showCommentBox: function () {
+    let displayCommentBox = this.data.displayCommentBox
+    displayCommentBox = true
+    console.log(displayCommentBox, "set true")
+    this.setData({displayCommentBox})
+  },
+
+  hideCommentBox: function () {
+    let displayCommentBox = this.data.displayCommentBox
+    displayCommentBox = false
+    console.log(displayCommentBox, "set false")
+    this.setData({ displayCommentBox })
   },
 
   getComments: function (storyId) {
@@ -140,6 +186,7 @@ Page({
   this.setData({
     'content': ''
   })
+  this.hideCommentBox()
   },
 
   unlikeComment: function (e) {
@@ -412,8 +459,12 @@ Page({
   },
 
   openLocation: function () {
-    wx.switchTab({
-      url: '/pages/home/home'
+    let latitude = this.data.story.latitude
+    let longitude = this.data.story.longitude
+    wx.openLocation({
+      latitude,
+      longitude,
+      scale: 18
     })
   },
 
@@ -554,6 +605,7 @@ Page({
     })
   },
 
+
   onPosterFail (e) {
     console.log(e)
   },
@@ -623,6 +675,33 @@ Page({
       }
     }, () => {
       Poster.create(true);
+
+  },
+  inputs: function (e) {
+    console.log(e)
+    this.setData({
+      "comment.content": e.detail.value,
+    })
+
+    // 获取输入框的内容
+    var value = e.detail.value;
+    // 获取输入框内容的长度
+    var len = parseInt(value.length);
+
+    //最少字数限制
+    if (len <= this.data.min) {
+      this.setData({
+        texts: "最低五个字"
+      })
+    } else if (len > this.data.max) {
+      this.setData({
+        texts: "超过最多字数限制"
+      });
+    } else {
+      this.setData({ texts: " " })
+    }
+    this.setData({
+      currentWordNumber: len //当前字数
     });
   }
   
