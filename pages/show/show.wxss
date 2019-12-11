@@ -31,11 +31,32 @@
   margin: 20rpx;
 }
 
-.icon-card .icon {
-  margin: 5rpx;
-  margin-right: 15rpx;
+.icon-cards {
+  display: flex;
+  align-items: center;
+}
+
+.icon-cards .icon {
+  margin: 20rpx;
   width: 50rpx;
   height: 50rpx;
+
+}
+
+.icon-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+.icon-card .icon {
+  margin: 5rpx;
+  width: 30rpx;
+  height: 30rpx;
+}
+
+.icon-card text {
+  font-size: 20rpx;
 }
 
 .top-section .h1 {
@@ -129,12 +150,45 @@
   margin-left: 10rpx;
 }
 
+.comments_display {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* background-color: #cfcfcf; */
+  width: 100%;
+  border-bottom: 1rpx solid #cfcfcf;
+  margin: 10rpx 0;
+}
 
-.comments_section .avatar {
-  width: 90rpx;
-  height: 90rpx;
+.comments_display .user-section {
+  display: flex;
+  align-items: center;
+  width: 90%;
+}
+
+
+.comments_display .avatar {
+  width: 70rpx;
+  height: 70rpx;
   border-radius: 50%;
-  margin: 20rpx;
+  margin: 10rpx;
+}
+
+.cmt-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: left;
+  width: 80%;
+}
+
+.cmt-info .user-name {
+  font-weight: lighter;
+  font-size: 24rpx;
+}
+
+.cmt-info .user-comment {
+  font-size: 24rpx;
 }
 
 #delete-btn {
@@ -146,3 +200,130 @@
   text-align: center;
 }
 
+.page_cmt {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cmt-container {
+  width: 95vw;
+  background-color: white;
+  border-top: 2rpx solid #cfcfcf;
+}
+
+.cmt-no {
+  margin: 20rpx;
+}
+.cmt-hearder {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 10%;
+  /* background-color: #cfcfcf; */
+  margin-bottom: 10rpx;
+}
+
+.cmt-hearder .avatar {
+  width: 70rpx;
+  height: 70rpx;
+  border-radius: 50%;
+  margin: 10rpx;
+}
+
+.cmt-hearder .fake-cmt {
+  width: 75%;
+  border-radius: 40rpx;
+  padding: 3%;
+  font-size: 28rpx;
+  background-color: #cfcfcf;
+}
+
+
+
+.commentInputView {
+  width: 100vw;
+  height: 200rpx;
+  background-color: rgba(204, 204, 204, 0.61);
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.group {
+  width: 100%;
+  height: 95%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10rpx;
+}
+
+.commentInput{
+  width:75%;
+  background-color:#fff;
+  font-size:28rpx;
+  border-radius:15rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 95%;
+  text-align: left;
+}
+ 
+.input{
+  width:100%;
+  height: 100%;
+  font-size: 30rpx;
+  margin: 2% auto;
+  overflow: hidden;
+  line-height-step:20rpx;
+  border: 0;
+  text-indent: 28rpx;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: bottom;
+}
+.send{
+  width: 25%;
+  height: 95%;
+  color: #fff;
+  font-size: 34rpx;
+  background-color: green;
+  border: 0;
+  border-radius:15rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-left: 10rpx;
+}
+
+.group2 {
+  /* display: flex;
+  justify-content: space-between;
+  align-items: bottom; */
+  width:100%;
+}
+
+.currentWordNumber {
+  font-size: 28rpx;
+  color: gray;
+  position: absolute;
+  right: 28%;
+  bottom: 5%;
+  /* margin: 2% 2%; */
+}
+
+.hint {
+  font-size: 28rpx;
+  position: absolute;
+  left: 3%;
+  bottom: 5%;
+  color: grey;
+  /* margin: 2% 6%; */
+}
