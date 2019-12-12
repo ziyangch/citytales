@@ -31,7 +31,7 @@
 </view>
 
 <view wx:if="{{!user.id}}" class="login-field">
-  <view class="login-btn" open-type="getUserInfo" bindgetuserinfo="loginWithWechat">点击登陆</view>
+  <button class="login-btn" open-type="getUserInfo" bindgetuserinfo="loginWithWechat">点击登陆</button>
   <view class="login-text">*开启你的城事之旅</view>
 </view>
 
