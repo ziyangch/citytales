@@ -1,10 +1,14 @@
 // pages/home/home.js
+var QQMapWX = require('../../libs/qqmap-wx-jssdk.js');
+var qqmapsdk;
+
 Page({
 
   /**
    * Page initial data
    */
   data: {
+    storiesWithDistance: [],
     items: [
     // {
     //   type: 'sort',
@@ -18,6 +22,42 @@ Page({
     //   value: 'people_commented',
     //   groups: ['002'],
     // },
+    {
+      type: 'radio',
+      label: 'Distance',
+      value: 'Distance',
+      checked: true,
+        children: [{
+          label: '500m',
+          value: '500',
+        },
+        {
+          label: '1km',
+          value: '1000',
+        },
+        {
+          label: '2km',
+          value: '2000',
+        },
+        {
+          label: '5km',
+          value: '5000',
+        },
+        {
+          label: '10km',
+          value: '10000',
+        },
+        {
+          label: '100km',
+          value: '100000',
+        },
+        {
+          label: '全国',
+          value: '1000000000000',
+        },
+        ],
+      groups: ['001'],
+    },
     {
       type: 'filter',
       label: '筛选',
@@ -100,23 +140,27 @@ Page({
         {
           label: 'Art',
           value: 'art',
+          checked: true,
         },
         {
           label: 'Literature',
           value: 'literature',
+          checked: true,
         },
         {
           label: 'Landscape',
           value: 'landscape',
+          checked: true,
         },
         {
           label: 'Music',
           value: 'music',
+          checked: true,
         },
         ],
       },
       ],
-      groups: ['001', '002'],
+      groups: ['001'],
     },
     ],
     current_story: false,
@@ -198,6 +242,7 @@ Page({
       this.setData({stories})
       this.setMarkers(res.data.objects)
       this.setData({stories})
+      this.getStoriesWithDistance(stories) // for dealing with distances
     })
   },
 
@@ -226,10 +271,51 @@ Page({
       this.setData({ scale })
     }
   },
+
+  getStoriesWithDistance: function(stories){
+    const that = this
+    let storiesWithDistance = that.data.stories
+    let locationArray = stories.map(story => { return { latitude: story.latitude, longitude: story.longitude } })
+    
+    qqmapsdk.calculateDistance({
+      mode: 'walking', //mode: 'driving',//可选值：'driving'（驾车）、'walking'（步行），不填默认：'walking',可不填
+      //from参数不填默认当前地址
+      //获取表单提交的经纬度并设置from和to参数（示例为string格式）
+      from: {latitude: that.data.latitude, longitude: that.data.longitude}, //若起点有数据则采用起点坐标，若为空默认当前地址
+      to: locationArray, //终点坐标
+      success: function (res) {//成功后的回调
+        console.log(res);
+        var res = res.result;
+        var dis = [];
+        for (var i = 0; i < res.elements.length; i++) {
+          dis.push(res.elements[i].distance); //将返回数据存入dis数组，
+        }
+        that.setData({ //设置并更新distance数据
+          distance: dis
+        });
+      },
+      fail: function (error) {
+        console.error(error);
+      },
+      complete: function (res) {
+        console.log(res);
+        console.log('stories ---->', stories)
+        storiesWithDistance.forEach((storyWithDistance, index) => { storyWithDistance['distance'] = res.result.elements[index].distance})
+        // that.setData({ storiesWithDistance: stories.map((story, index) => { return story.distance = res.result.elements[index] })})
+        that.setData({storiesWithDistance: storiesWithDistance})
+      }
+    })
+    
+  },
+
   /**
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
+    // 实例化API核心类
+    qqmapsdk = new QQMapWX({
+      key: '2RTBZ-TCOW4-O2VUZ-X2QBG-BEV5V-3TBVX'
+    });
     wx.BaaS.auth.getCurrentUser().then(user => {
       this.setData({ user })
     }).catch(err => {
@@ -334,18 +420,33 @@ Page({
       current: e.detail.key,
     })
     } else {
-    let filter = e.detail.checkedValues[0][0]
+    let distanceChoice = Number.parseInt(e.detail.checkedValues[0])
+    let filter = e.detail.checkedValues[1][0]
     this.setData({ filter })
-    let query = new wx.BaaS.Query()
-    query.in('tags', filter)
-    let Product = new wx.BaaS.TableObject("story")
-    Product.setQuery(query).find().then(res => {
-      // success
-      let stories = res.data.objects
-      this.setData({ stories })
-    }, err => {
-      // err
-    })
+    console.log("distanceChoice ---->", distanceChoice)
+    console.log("filter ---->", filter)
+    let storiesWithDistance = this.data.storiesWithDistance
+    let filteredByDistance = storiesWithDistance.filter(function (item) {
+      return item.distance < distanceChoice
+    });
+    let filteredByTags = filteredByDistance.filter(function(item) {
+      console.log(item.tags)
+      return filter.some(f => item.tags.indexOf(f) !== -1)
+    });
+    console.log("filteredByDistance ---->", filteredByDistance)
+    console.log("filteredByTags ---->", filteredByTags)
+    this.setData({filteredByTags: filteredByTags})
+    // let query = new wx.BaaS.Query()
+    // query.in('tags', filter)
+    // let Product = new wx.BaaS.TableObject("story")
+    // Product.setQuery(query).find().then(res => {
+    //   // success
+    //   console.log('result --->',  res)
+    //   let filteredStories = res.data.objects
+    //   this.setData({ filteredStories })
+    // }, err => {
+    //   // err
+    // })
     }
   }
 })
