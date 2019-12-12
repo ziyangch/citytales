@@ -8,13 +8,15 @@ Page({
   data: {
     displayCommentBox: false,
     comments:[
-
+      
     ],
     comment:{
       content: undefined,
       likes: 0,
+      likers:[],
     },
     content: undefined,
+    dateNow: undefined,
 
     posterConfig:{
     width: 375,
@@ -68,7 +70,6 @@ Page({
     })
 
   },
-
 
   setDisplayDate: function (story) {
     let date = new Date(story.date)
@@ -124,6 +125,7 @@ Page({
   },
 
   getComments: function (storyId) {
+    let userId = this.data.user.id.toString()
     let query = new wx.BaaS.Query()
     let Comments = new wx.BaaS.TableObject('comment')
 
@@ -131,11 +133,15 @@ Page({
     Comments.setQuery(query).expand(['user']).find().then(res => {
       if (res.data.objects.length !== 0) {
         let comments = res.data.objects;
+        comments.forEach((comment) => {
+          if (comment && comment.likers && comment.likers.length !== 0) {
+            comment["userLiked"] = comment.likers.includes(userId)
+          }
+        })
         this.setData({ comments }) // Saving User story to local page data
       }
     })
   },
-
 
   onChangeContent: function (e) {
     console.log(e)
@@ -144,14 +150,33 @@ Page({
     })
   },
 
+  dateToday: function () {
+    let now = new Date();
+    let year = now.getFullYear();
+    let month = now.getMonth() + 1;
+    let day = now.getDate();
+    if (month < 10) {
+      month = '0' + month;
+    };
+    if (day < 10) {
+      day = '0' + day;
+    };
+    let formatDate = year + '/' + month + '/' + day;
+    console.log(formatDate)
+    this.setData({
+      "dateNow": formatDate
+    })
+  },
 
   commentStory: function () {
-    let story = this.data.story // (1) increase "people_commented" of Story object
+    let story = this.data.story
     let peopleCommented = story.people_commented
+    
     peopleCommented += 1
 
-    let Story = new wx.BaaS.TableObject('story') // (2) update 'people_commented' to Story object in data base
+    let Story = new wx.BaaS.TableObject('story')
     let dbStory = Story.getWithoutData(story.id)
+    
     dbStory.set("people_commented", peopleCommented)
     dbStory.update().then(res => {
       let story = res.data
@@ -163,89 +188,77 @@ Page({
     let Comment = new wx.BaaS.TableObject('comment')
     let comment = Comment.create()
     let newComment = { // (5) creating new Comment object
-      user: this.data.user.id,
+      user: this.data.user.id, 
       story: this.data.story.id,
-      avatar: this.data.user.avatar,
       content: this.data.comment.content,
-      likes: this.data.comment.likes 
+      likes: this.data.comment.likes, 
+      date: this.data.dateNow
     }
-    comment.set(newComment).save().then(res => { // (6) saving new Comment object into DB
-      let comment = res.data
-      let comments = this.data.comments
-      comments.push(comment) // (7) pushing new comment to existing comments array
-      this.setData({ comments }) // (8) setting comments array Object in local page data
-      // this.setData({"comment.content": ""})
-      console.log('comment_content', this.data.comment.content)
-      console.log('content', this.data.content.value)
-    }, err => {
-    })
-  
-  wx.showToast({
-    title: `已成功评论！`,
-    icon: 'success'
-  })
 
-  this.setData({
-    'content': ''
-  })
+    comment.set(newComment).save().then(res => { // (6) saving new Comment object into DB
+      this.getComments(this.data.story.id) // (7) get comments from DB
+    }, err => console.log(err))
+  
+  wx.showToast({title: '已成功评论！'})
+  this.setData({'content': ''})
   this.hideCommentBox()
   },
 
   unlikeComment: function (e) {
+    let storyId = this.data.story.id
     let id = e.currentTarget.dataset.id
     let likes = e.currentTarget.dataset.likes
-    console.log(id)
-    console.log(likes)
+    let userId = this.data.user.id.toString()
+    
     let Comment = new wx.BaaS.TableObject('comment')
     let dbComment = Comment.getWithoutData(id)
+    
     likes -= 1
+    
     dbComment.set("likes", likes)
+    dbComment.remove("likers", userId)
     dbComment.update().then(res => {
-      console.log(res)
-      let id = res.data.id
-      let likes = res.data.likes
-      let comments = this.data.comments
-      for (var i in comments) {
-        if (comments[i].id == id) {
-          comments[i].likes = likes;
-          break; //Stop this loop, we found it!
-        }
-      }
-      this.setData({ comments })
+      this.getComments(storyId)
+      wx.showToast({title: `取消喜欢`})
     }, err => {
+      wx.showToast({
+        title: `网络错误`,
+        icon: 'loading'
+      })
     })
-    wx.showToast({
-      title: `取消喜欢`,
-      icon: 'success'
-    })
+  
   },
 
   likeComment: function (e) {
+    let storyId = this.data.story.id
     let id = e.currentTarget.dataset.id
     let likes = e.currentTarget.dataset.likes
-    console.log(id)
-    console.log(likes)
+    let user = this.data.user.id.toString()
     let Comment = new wx.BaaS.TableObject('comment')
     let dbComment = Comment.getWithoutData(id)
     likes += 1
     dbComment.set("likes", likes)
+    dbComment.append("likers", user)
     dbComment.update().then(res => {
-      console.log(res)
-      let id = res.data.id
-      let likes = res.data.likes
-      let comments = this.data.comments
-      for (var i in comments) {
-        if (comments[i].id == id) {
-          comments[i].likes = likes;
-          break; //Stop this loop, we found it!
-        }
-      }
-      this.setData({ comments })
+      this.getComments(storyId)
+      wx.showToast({title: '已喜欢!'})
     }, err => {
+      wx.showToast({title: '网络错误', icon: 'loading'})
     })
-    wx.showToast({
-      title: `已喜欢！`,
-      icon: 'success'
+
+    let Like = new wx.BaaS.TableObject('like')
+    let like = Like.create()
+    let newLike = { 
+      user: this.data.user.id,
+      comment: e.currentTarget.dataset.id,
+      liked: true
+    }
+    like.set(newLike).save().then(res => { // (6b) saving new UserStory object into DB
+      let like = res.data
+      console.log("this is like",like)
+      this.setData({ like }) // (7b) setting UserStory Object in local page data
+      // this.getUserStories(this.data.story.id) // (8b) getting UserStories --- for avatar display
+    }, err => {
     })
   },
 
@@ -350,7 +363,6 @@ Page({
     }
   },
 
-
   unlikeUserStory: function () {
     if ((this.data.user.id)) {
       
@@ -392,8 +404,6 @@ Page({
       })
     }
   },
-
-
 
   likeUserStory: function () {
     if ((this.data.user.id)) {
@@ -555,7 +565,7 @@ Page({
    * Lifecycle function--Called when page show
    */
   onShow: function () {
-    
+    this.dateToday()
   },
 
   /**

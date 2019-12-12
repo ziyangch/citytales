@@ -2,6 +2,7 @@
 <view wx:if="{{!user.id}}" class="login-field">
   <view class="login-btn" open-type="getUserInfo" bindgetuserinfo="loginWithWechat">点击登陆</view>
   <view class="login-text">*开启你的城事之旅</view>
+  
 </view>
 <view class="top-section">
   <view class="left-section">
@@ -31,6 +32,7 @@
   <view class="story-date">{{story.posted_date}}</view>
 </view>
 
+<!-- Story Content -->
 <view class="page__content">
   <text class="story-content">{{story.content}}</text>
   <view class="story-location">
@@ -41,9 +43,13 @@
 </view>
 
 
+<!-- Hidden Poster -->
+
+
 <!-- <view bindtap="onShareAppMessage">
  <button class="share-btn" open-type="share" type="primary">Share</button>
 </view> -->
+
 
 <poster id="poster" config="{{posterConfig}}" bind:success="onPosterSuccess" bind:fail="onPosterFail"
     bindtap="setConfig">
@@ -52,12 +58,15 @@
     </view>
 </poster>
 
+<!-- Page Comments -->
+
 <view class="page_cmt">
   <view class="cmt-container">
     <view class="cmt-no">共{{comments.length}}条评论</view>
     <view class="cmt-hearder">
       <image class="avatar" mode="aspectFill" src="{{user.avatar}}" />
       <text class="fake-cmt" bindtap='focusButn' decode="{{true}}">&nbsp;说点什么吧...</text>
+
 
     </view>
 
@@ -66,6 +75,7 @@
         <view class='commentInput'>
           <textarea class='input' placeholder-class="place-holder" value="{{content}}" placeholder="我想说……" data-type="content" minlength="{{min}}" maxlength="{{max}}" bindinput="inputs" maxlength='-1' value="{{value}}" bindfocus="inputFocus" focus='{{focusInput}}'
             bindblur="inputBlur">
+            
           </textarea>
           <view class="group2">
             <text class="hint">{{texts}}</text>
@@ -77,21 +87,35 @@
       </view>
     </view>
 
+    <!-- Comment Index -->
     <view wx:for="{{comments}}" class="comments_display">
       <view class="user-section">
-        <image class="avatar" mode="aspectFill" src="{{item.avatar}}" />
+        <image class="avatar" mode="aspectFill" src="{{item.user.avatar}}" />
         <view class="cmt-info">
-          <view class="user-name">Mimi Gao is amz</view>
+          <view class="user-name">{{item.user.custom_nickname || item.user.nickname}}
+            <view class="user-date">{{item.date}}</view>
+          </view>
           <view class="user-comment">{{item.content}}</view>
         </view>
       </view>
-      <view wx:if="{{item.liked}}" class="icon-card" data-id="{{item.id}}" data-likes="{{item.likes}}" bindtap="unlikeComment">
+
+      <!-- if User liked comment -->
+      <view wx:if="{{item.userLiked}}"
+      class="icon-card" 
+      data-id="{{item.id}}" 
+      data-likes="{{item.likes}}"
+      bindtap="unlikeComment">
         <image class="icon" src="/images/like_red.png"></image>
-        <text>{{item.likes}}</text>
+        <view>{{item.likes}}</view>
       </view>
-      <view wx:else class="icon-card" data-id="{{item.id}}" data-likes="{{item.likes}}" bindtap="likeComment">
+
+      <!-- If User did not like comment -->
+      <view wx:if="{{!item.userLiked}}" class="icon-card" 
+      data-id="{{item.id}}" 
+      data-likes="{{item.likes}}" 
+      bindtap="likeComment">
         <image class="icon" src="/images/like.png"></image>
-        <text>{{item.likes}}</text>
+        <view>{{item.likes}}</view>
       </view>
     </view>
   </view>
