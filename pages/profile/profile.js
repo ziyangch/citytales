@@ -85,19 +85,19 @@ Page({
   },
 
   loginWithWechat: function (data) {
-    let page = this
     wx.BaaS.auth.loginWithWechat(data).then(user => {
       console.log("this is current user---->", user)
-      page.setData({ user })
-      wx.reLaunch({
-        url: '/pages/profile/profile',
+      user.custom_nickname = user.get("custom_nickname")
+      user.bio = user.get("bio")
+      wx.setStorage({
+        key: 'user',
+        data: user,
       })
+      this.setData({ user })
     }, err => {
       console.log(err);
       // 登录失败
     })
-   
-
   },
 
   /**

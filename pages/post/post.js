@@ -152,22 +152,10 @@ Page({
   },
 
   onLoad: function (options) {
-    wx.BaaS.auth.getCurrentUser().then(user => {
-
-      // user 为 currentUser 
-      console.log(user)
-      console.log(user.nickname)
-      console.log(user.city)
-      console.log(user.province)
-      console.log(user.country)
-      console.log(user.gender)
-      this.setData({ user })
-    }).catch(err => {
-      // HError
-      if (err.code === 604) {
-        console.log('用户未登录')
-      }
-    })
+    let user = wx.getStorageSync('user')
+    if (user) {
+      this.setData({ user }) 
+    }
   },
 
   onShow: function () {

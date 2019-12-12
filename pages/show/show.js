@@ -525,6 +525,12 @@ Page({
   loginWithWechat: function (data) {
     wx.BaaS.auth.loginWithWechat(data).then(user => {
       console.log("this is current user---->", user)
+      user.custom_nickname = user.get("custom_nickname")
+      user.bio = user.get("bio")
+      wx.setStorage({
+        key: 'user',
+        data: user,
+      })
       this.setData({ user })
     }, err => {
       console.log(err);
@@ -541,17 +547,13 @@ Page({
     this.setStory(storyId) // setting Story object by search with Story ID in local page data
 
     console.log(this.data)
-    wx.BaaS.auth.getCurrentUser().then(user => { // Getting current_user information
+    let user = wx.getStorageSync('user')
+    if (user) {
       this.setData({ user })  // Saving User object to local page data
       this.getUserStory(storyId, user.id)
       this.getComments(storyId)
       // this.getUserStories(storyId) // getting UserStories --- for avatar display
-    }).catch(err => {
-      // HError
-      if (err.code === 604) {
-        console.log('用户未登录')
-      }
-    })
+    }
   },
 
   /**
