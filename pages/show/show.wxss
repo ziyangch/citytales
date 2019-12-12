@@ -1,7 +1,7 @@
 /* pages/show/show.wxss */
 .top-section {
   display: flex;
-  justify-content: left;
+  justify-content: space-between;
   align-items: center;
   background-color:#04B2D9;
   margin: 0rpx;
@@ -11,17 +11,50 @@
   position: fixed;
 }
 
-.login-field {
-  position: fixed;
-  height: 120rpx;
-  width: 100vw;
-  background-color: rgba(100, 100, 100, 0.5);
-  margin-top: 7vh;
+.left-section {
+  display: flex;
+  align-items: center;
+  width: 75%;
 }
 
+.right-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25%;
+  padding: 20rpx;
+}
+
+
+
+.login-field {
+  position: fixed;
+  height: 200rpx;
+  width: 100vw;
+  background-color:#F4F4F4;
+  margin-top: 7vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.login-text {
+  color: #484E5C;
+  font-weight: lighter;
+  font-size: 24rpx;
+  margin-bottom: 20rpx;
+}
 .login-btn {
-  width: 90vw;
+  width: 55%;
+  height: 50%;
   margin: 20rpx auto;
+  background-color:#04B2D9;
+  color: #fff;
+  border-radius: 20rpx;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .top-section .avatar {
@@ -36,11 +69,17 @@
   align-items: center;
 }
 
-.icon-cards .icon {
+.icon-cards .icon1 {
   margin: 20rpx;
-  width: 50rpx;
-  height: 50rpx;
+  width: 60rpx;
+  height: 60rpx;
+}
 
+.icon-cards .icon2 {
+  margin: 0rpx;
+  width: 60rpx;
+  height: 60rpx;
+  margin-top: 5rpx;
 }
 
 .icon-card {
