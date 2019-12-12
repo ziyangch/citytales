@@ -8,11 +8,11 @@
 
       <view class="follows">
         <view class="liked">
-          <text>{{stories_liked.length}}</text>
+          <text>{{stories_liked.length || 0}}</text>
           <text>喜欢</text>
         </view>
         <view class="saved">
-          <text>{{stories_saved.length}}</text>
+          <text>{{stories_saved.length || 0}}</text>
           <text>收藏</text>
         </view>
         <!-- <view class="saved">
