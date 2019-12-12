@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: #fafafa;
+  background: #F9F8F4;
   min-height: 100vh;
 }
 
@@ -28,4 +28,17 @@
 
 .title {
   width: 30%;
+}
+
+.edit-btn {
+  width: 55%;
+  height: 6vh;
+  margin: 20rpx auto;
+  background-color:#04B2D9;
+  color: #fff;
+  border-radius: 20rpx;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
