@@ -14,38 +14,35 @@
     "navigationBarTitleText": "CityTales",
     "navigationBarTextStyle": "black"
   },
-
-"tabBar": {
-  "list": [
-    {
-      "pagePath": "pages/home/home",
-      "text": "主页",
-      "iconPath": "/images/主页.png",
-      "selectedIconPath": "/images/主页.png"
-    },
-    {
-      "pagePath": "pages/post/post",
-      "text": "+"
-    },
-    {
-      "pagePath": "pages/profile/profile",
-      "text": "我的",
-      "iconPath": "/images/profile.png",
-      "selectedIconPath": "/images/profile.png"
+  "tabBar": {
+    "color": "white", 
+    "selectedColor": "blue",
+    "backgroundColor": "#ffff",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "主页",
+        "iconPath": "/images/主页.png",
+        "selectedIconPath": "/images/主页.png"
+      },
+      {
+        "pagePath": "pages/post/post",
+        "text": "+"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的",
+        "iconPath": "/images/profile.png",
+        "selectedIconPath": "/images/profile.png"
+      }
+    ]
+  },
+  "plugins": {
+    "sdkPlugin": {
+      "version": "3.3.0",
+      "provider": "wxc6b86e382a1e3294"
     }
-  ]
-},
-
-
-
-
- "plugins": {
-  "sdkPlugin": {
-    "version": "3.3.0",
-    "provider": "wxc6b86e382a1e3294"
-  }
-},
-  
+  },
   "style": "v2",
   "sitemapLocation": "sitemap.json",
   "permission": {

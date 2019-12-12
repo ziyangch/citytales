@@ -1,22 +1,27 @@
 <!--pages/show/show.wxml-->
 <view wx:if="{{!user.id}}" class="login-field">
-    <button class="login-btn" type="primary" open-type="getUserInfo" bindgetuserinfo="loginWithWechat">点击登陆</button>
+    <view class="login-btn" open-type="getUserInfo" bindgetuserinfo="loginWithWechat">点击登陆</view>
+    <view class="login-text">*开启你的城事之旅</view>
 </view>
 <view class="top-section">
+  <view class="left-section">
     <image class="avatar" mode="aspectFill" src="{{story.avatar}}" />
     <view class="h1">{{story.nickname}}</view>
+  </view>
+  <view class="right-section">
     <view wx:if="{{userStory.liked}}" class="icon-cards" bindtap="unlikeUserStory">
-        <image class="icon" src="/images/like_red.png"></image>
+        <image class="icon1" src="/images/like_red.png"></image>
     </view>
     <view wx:else class="icon-cards" bindtap="likeUserStory">
-        <image class="icon" src="/images/like.png"></image>
+        <image class="icon1" src="/images/like.png"></image>
     </view>
     <view wx:if="{{userStory.saved}}" class="icon-cards" bindtap="unsaveUserStory">
-        <image class="icon" src="/images/想看.png"></image>
+        <image class="icon2" src="/images/想看.png"></image>
     </view>
     <view wx:else class="icon-cards" bindtap="saveUserStory">
-        <image class="icon" src="/images/已想看.png"></image>
+        <image class="icon2"  src="/images/已想看.png"></image>
     </view>
+  </view>
 </view>
 
 <view class="story-img" style="background-image:url('{{story.image}}')"></view>
