@@ -1,22 +1,28 @@
 <!--pages/show/show.wxml-->
 <view wx:if="{{!user.id}}" class="login-field">
-  <button class="login-btn" type="primary" open-type="getUserInfo" bindgetuserinfo="loginWithWechat">点击登陆</button>
+  <view class="login-btn" open-type="getUserInfo" bindgetuserinfo="loginWithWechat">点击登陆</view>
+  <view class="login-text">*开启你的城事之旅</view>
+  
 </view>
 <view class="top-section">
+  <view class="left-section">
     <image class="avatar" mode="aspectFill" src="{{story.avatar}}" />
     <view class="h1">{{story.nickname}}</view>
+  </view>
+  <view class="right-section">
     <view wx:if="{{userStory.liked}}" class="icon-cards" bindtap="unlikeUserStory">
-        <image class="icon" src="/images/like_red.png"></image>
+      <image class="icon1" src="/images/like_red.png"></image>
     </view>
     <view wx:else class="icon-cards" bindtap="likeUserStory">
-        <image class="icon" src="/images/like.png"></image>
+      <image class="icon1" src="/images/like.png"></image>
     </view>
     <view wx:if="{{userStory.saved}}" class="icon-cards" bindtap="unsaveUserStory">
-        <image class="icon" src="/images/想看.png"></image>
+      <image class="icon2" src="/images/想看.png"></image>
     </view>
     <view wx:else class="icon-cards" bindtap="saveUserStory">
-        <image class="icon" src="/images/已想看.png"></image>
+      <image class="icon2" src="/images/已想看.png"></image>
     </view>
+  </view>
 </view>
 
 <view class="story-img" style="background-image:url('{{story.image}}')"></view>
@@ -36,44 +42,46 @@
   </view>
 </view>
 
+
 <!-- Hidden Poster -->
+
+
+<!-- <view bindtap="onShareAppMessage">
+ <button class="share-btn" open-type="share" type="primary">Share</button>
+</view> -->
+
+
 <poster id="poster" config="{{posterConfig}}" bind:success="onPosterSuccess" bind:fail="onPosterFail"
     bindtap="setConfig">
-    <button>点击生成明信片</button>
+    <view class="postcard-div">
+    <view class="postcard-btn"><image class="postcard-img" src="../../images/share postcard button.png"></image>点击生成明信片</view>
+    </view>
 </poster>
 
 <!-- Page Comments -->
+
 <view class="page_cmt">
   <view class="cmt-container">
     <view class="cmt-no">共{{comments.length}}条评论</view>
     <view class="cmt-hearder">
       <image class="avatar" mode="aspectFill" src="{{user.avatar}}" />
       <text class="fake-cmt" bindtap='focusButn' decode="{{true}}">&nbsp;说点什么吧...</text>
+
+
     </view>
 
-    <!-- Comment Input View -->
     <view class="commentInputView" style='bottom:{{height == ""?0:height}}px;' hidden='{{!isInput}}'>
       <view class="group">
         <view class='commentInput'>
-          <textarea 
-          class='input' 
-          placeholder-class="place-holder" 
-          value="{{content}}"
-          placeholder="我想说……" 
-          data-type="content" 
-          minlength="{{min}}" 
-          maxlength="{{max}}"
-          bindinput="inputs" 
-          maxlength='-1' 
-          value="{{value}}" 
-          bindfocus="inputFocus"
-          focus='{{focusInput}}' 
-          bindblur="inputBlur">
+          <textarea class='input' placeholder-class="place-holder" value="{{content}}" placeholder="我想说……" data-type="content" minlength="{{min}}" maxlength="{{max}}" bindinput="inputs" maxlength='-1' value="{{value}}" bindfocus="inputFocus" focus='{{focusInput}}'
+            bindblur="inputBlur">
+            
           </textarea>
           <view class="group2">
             <text class="hint">{{texts}}</text>
             <text class="currentWordNumber">{{currentWordNumber|0}}/{{max}}</text>
           </view>
+
         </view>
         <view class='send' bindtap="commentStory">发送</view>
       </view>

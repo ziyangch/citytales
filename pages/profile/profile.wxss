@@ -1,18 +1,39 @@
 /* pages/profile/profile.wxss */
+page {
+  background-color: #F9F8F4;
+  height: 100vh;
+}
 .container {
   border-color: black;
 }
 
 .login-field {
   position: fixed;
-  height: 120rpx;
+  height: 200rpx;
   width: 100vw;
-  background-color: rgba(100, 100, 100, 0.5);
+  background-color:#F4F4F4;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-
+.login-text {
+  color: #484E5C;
+  font-weight: lighter;
+  font-size: 24rpx;
+  margin-bottom: 20rpx;
+}
 .login-btn {
-  width: 90vw;
+  width: 55%;
+  height: 50%;
   margin: 20rpx auto;
+  background-color:#04B2D9;
+  color: #fff;
+  border-radius: 20rpx;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .card {
@@ -38,6 +59,7 @@
   align-items: center;
   width: 100%;
   height: 20%;
+  background-color: #ffff;
 }
 
 .info-section .info-left {
@@ -104,17 +126,21 @@ image {
   width: 100%;
   height: 260rpx;
   top: 0px;
-  background-color: #FAFAFA;
-  border-bottom: 6rpx solid #cfcfcf;
+  background-color: #ffff;
+  border-bottom: 3rpx solid #cfcfcf;
   display: flex;
   align-items: center;
 }
 
 
 .bar {
-  /* padding: 5rpx; */
-  margin: 30rpx auto;
   width: 100vw;
+  background-color: #f4f4f4;
+}
+
+.wux-segment {
+min-height: 60rpx!important;
+margin: 10rpx!important;
 }
 
 .header .avatar {
@@ -209,6 +235,10 @@ image {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.profile_story_container{
+  margin: 10rpx;
 }
 
 .event-card {

@@ -1,11 +1,6 @@
-/* pages/home/home.wxss */
-  /* background-color: #CFCFCF; */
-.page {
+page {
+  background-color: #F9F8F4;
   height: 100vh;
-}
-
-.bar {
-  position: fixed;
 }
 
 .card {
@@ -14,7 +9,6 @@
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
   border-radius: 5px; /* 5px rounded corners */
-  margin-bottom: 10rpx;
 }
 
 .story-img {
@@ -30,6 +24,7 @@
   align-items: center;
   width: 100%;
   height: 20%;
+  background-color: #ffff;
 }
 
 .info-section .info-left {
@@ -68,7 +63,7 @@
 
 .page-section-gap{
   box-sizing: border-box;
-  padding: 0 20rpx;
+  /* padding: 0 20rpx; */
 }
 
 .page-body-button {
@@ -77,17 +72,19 @@
 
 .bar {
   width: 100%;
-  background-color: white;
-  padding-top:  20rpx;
+  background-color: #f4f4f4;
   position: fixed;
   bottom: 0;
+}
 
+.wux-segment {
+min-height: 60rpx!important;
+margin: 10rpx!important;
 }
 
 .index-container {
   height: 100%;
   width: 100%;
-  background-color: azure;
   margin-bottom: 100rpx;
 }
 
@@ -115,6 +112,9 @@
   height: 400rpx;
 }
 
+.card-container {
+  padding: 10rpx;
+}
 .event-info {
   display: flex;
   justify-content: left;
