@@ -185,6 +185,8 @@
 .cmt-info .user-name {
   font-weight: lighter;
   font-size: 24rpx;
+  display: flex;
+  align-items: center;
 }
 
 .cmt-info .user-comment {
