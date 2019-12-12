@@ -616,59 +616,99 @@ Page({
       posterConfig: {
 
         texts: [{
-          x: 30,
-          y: 110,
+          x: 25,
+          y: 115,
           text: 'CityTales',
+          fontFamily: 'Baskerville',
           fontSize: 60,
-          color: '#FFF',
+          color: '#484E5C',
           fontWeight: 'bold'
         },
         {
-          x: 30,
-          y: 170,
+          x: 25,
+          y: 180,
           text: '欢迎来到你的城事',
+          fontFamily: 'STFangsong',
           fontSize: 50,
-          color: '#FFF'
+          color: '#484E5C'
         },
         {
-          x: 30,
-          y: 230,
+          x: 25,
+          y: 325,
           text: this.data.story.title,
+          fontFamily: 'STFangsong',
           fontSize: 40,
-          color: '#FFF'
+          color: '#484E5C'
         },
         {
-          x: 300,
-          y: 400,
-          text: '这是一段比较长的文字内容',
-          //TODO: 用户自定义祝福语
-          fontSize: 24,
-          color: '#FFF',
-          textAlign: 'center'
+          x: 25,
+          y: 930,
+          text: "📍" + this.data.story.address,
+          fontFamily: 'STFangsong',
+          fontSize: 30,
+          color: '#484E5C'
         },
         {
-          x: 380,
-          y: 1220,
-          text: '请长按保存或分享图片',
+          x: 375,
+          y: 1050,
+          text: '我用什么才能留住你？我给你贫穷的街道、绝望的日落、破败郊区的月亮。我给你一个久久地望着月亮的人的悲哀。我给你我已死去的先辈，人们用大理石纪念她们的幽灵；我给你我写的书中所能包含的一切悟力、我生活中所能有的男子气概或幽默。我给你一个从未有过信仰的人的忠诚。我给你我设法保全的我自己的核心——不营字造句，不和梦想交易，不被时间、欢乐和逆境触动的核心。——博尔赫斯',
           //TODO: 用户自定义祝福语
-          fontSize: 24,
-          color: '#F30',
-          textAlign: 'center'
+          fontFamily: 'STFangsong',
+          fontSize: 40,
+          color: '#484E5C',
+          opacity: 0.85,
+          textAlign: 'center',
+          lineNum: 30,
+          width: 600,
+          marginLeft: 50,
+          marginRight: 50,
+          fontStyle: 'italic'
         },
+        {
+          x: 355,
+          y: 1570,
+          text: 'From: 城事Official Account',
+          fontFamily: 'STFangsong',
+          fontSize: 30,
+          color: '#484E5C'
+        },
+
+        // {
+        //   x: 380,
+        //   y: 1220,
+        //   text: '请长按保存或分享图片',
+        //   //TODO: 用户自定义祝福语
+        //   fontFamily: 'KaiTi',
+        //   fontSize: 24,
+        //   color: '#F30',
+        //   textAlign: 'center'
+        // },
         ],
-        images: [{
-          width: 1000,
+        images: [
+          {
+          width: 750,
           height: 1624,
           x: 0,
           y: 0,
+            url: 
+            // 白信纸//'https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifIFkVh2efgacEF.png'
+            'https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifGvmTkQz63CdSf.png'
+            // 黄色纹理 
+  // 'https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifGHSfOd8uiHaZG.JPG'
+        },
+          {
+          width: 700,
+          height: 525,
+          x: 25,
+          y: 350,
           url: this.data.story.image
         }, 
         {
-          width: 315,
-          height: 400,
-          x: 210,
-          y: 1224,
-          url: 'https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ieF4hNkpPIZh6cj.jpg'
+          width: 200,
+          height: 150,
+          x: 525,
+          y: 40,
+          url: 'https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifHm04EtYpaUZVk.JPG'
           //TODO: 此图片之后用小程序二维码代替，置底居中。
         }
         ]

@@ -41,7 +41,7 @@
 </view> -->
 <poster id="poster" config="{{posterConfig}}" bind:success="onPosterSuccess" bind:fail="onPosterFail"
     bindtap="setConfig">
-    <button>点击生成明信片</button>
+    <view class="postcard-btn"><image class="postcard-img" src="../../images/share postcard button.png"></image>点击生成明信片</view>
 </poster>
 
             <view class="page_cmt">
