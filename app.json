@@ -1,12 +1,10 @@
 {
   "pages": [
-    "pages/index/index",
     "pages/home/home",
     "pages/logs/logs",
     "pages/profile/profile",
     "pages/edit_profile/edit_profile",
-    "pages/show/show",
-    "pages/post/post"
+    "pages/show/show"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -22,12 +20,7 @@
         "iconPath": "/images/主页.png",
         "selectedIconPath": "/images/主页.png"
       },
-      {
-        "pagePath": "pages/post/post",
-        "text": "城事",
-        "iconPath": "/images/增加.png",
-        "selectedIconPath": "/images/增加.png"
-      },
+  
       {
         "pagePath": "pages/profile/profile",
         "text": "我的",

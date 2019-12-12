@@ -57,13 +57,6 @@
 			"list": [
 				{
 					"id": -1,
-					"name": "map",
-					"pathName": "pages/home/home",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
 					"name": "profile",
 					"pathName": "pages/profile/profile",
 					"query": "",
@@ -80,13 +73,6 @@
 					"id": -1,
 					"name": "home",
 					"pathName": "pages/home/home",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "Login",
-					"pathName": "pages/index/index",
 					"query": "",
 					"scene": null
 				}

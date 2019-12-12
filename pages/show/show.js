@@ -6,15 +6,7 @@ Page({
    * Page initial data
    */
   data: {
-    displayCommentBox: false,
-    comments:[
-      
-    ],
-    comment:{
-      content: undefined,
-      likes: 0,
-      likers:[],
-    },
+   
     content: undefined,
     dateNow: undefined,
 
@@ -110,45 +102,7 @@ Page({
     })
   },
 
-  showCommentBox: function () {
-    let displayCommentBox = this.data.displayCommentBox
-    displayCommentBox = true
-    console.log(displayCommentBox, "set true")
-    this.setData({displayCommentBox})
-  },
-
-  hideCommentBox: function () {
-    let displayCommentBox = this.data.displayCommentBox
-    displayCommentBox = false
-    console.log(displayCommentBox, "set false")
-    this.setData({ displayCommentBox })
-  },
-
-  getComments: function (storyId) {
-    let userId = this.data.user.id.toString()
-    let query = new wx.BaaS.Query()
-    let Comments = new wx.BaaS.TableObject('comment')
-
-    query.compare('story', '=', storyId)
-    Comments.setQuery(query).expand(['user']).find().then(res => {
-      if (res.data.objects.length !== 0) {
-        let comments = res.data.objects;
-        comments.forEach((comment) => {
-          if (comment && comment.likers && comment.likers.length !== 0) {
-            comment["userLiked"] = comment.likers.includes(userId)
-          }
-        })
-        this.setData({ comments }) // Saving User story to local page data
-      }
-    })
-  },
-
-  onChangeContent: function (e) {
-    console.log(e)
-    this.setData({
-      "comment.content": e.detail.value,
-    })
-  },
+  
 
   dateToday: function () {
     let now = new Date();
@@ -168,99 +122,9 @@ Page({
     })
   },
 
-  commentStory: function () {
-    let story = this.data.story
-    let peopleCommented = story.people_commented
-    
-    peopleCommented += 1
-
-    let Story = new wx.BaaS.TableObject('story')
-    let dbStory = Story.getWithoutData(story.id)
-    
-    dbStory.set("people_commented", peopleCommented)
-    dbStory.update().then(res => {
-      let story = res.data
-      story = this.setDisplayDate(story) // (3) add display data format for Story object
-      this.setData({ story }) // (4) set updated Story object in local page data
-    }, err => {
-    })
-
-    let Comment = new wx.BaaS.TableObject('comment')
-    let comment = Comment.create()
-    let newComment = { // (5) creating new Comment object
-      user: this.data.user.id, 
-      story: this.data.story.id,
-      content: this.data.comment.content,
-      likes: this.data.comment.likes, 
-      date: this.data.dateNow
-    }
-
-    comment.set(newComment).save().then(res => { // (6) saving new Comment object into DB
-      this.getComments(this.data.story.id) // (7) get comments from DB
-    }, err => console.log(err))
   
-  wx.showToast({title: '已成功评论！'})
-  this.setData({'content': ''})
-  this.hideCommentBox()
-  },
 
-  unlikeComment: function (e) {
-    let storyId = this.data.story.id
-    let id = e.currentTarget.dataset.id
-    let likes = e.currentTarget.dataset.likes
-    let userId = this.data.user.id.toString()
-    
-    let Comment = new wx.BaaS.TableObject('comment')
-    let dbComment = Comment.getWithoutData(id)
-    
-    likes -= 1
-    
-    dbComment.set("likes", likes)
-    dbComment.remove("likers", userId)
-    dbComment.update().then(res => {
-      this.getComments(storyId)
-      wx.showToast({title: `取消喜欢`})
-    }, err => {
-      wx.showToast({
-        title: `网络错误`,
-        icon: 'loading'
-      })
-    })
   
-  },
-
-  likeComment: function (e) {
-    let storyId = this.data.story.id
-    let id = e.currentTarget.dataset.id
-    let likes = e.currentTarget.dataset.likes
-    let user = this.data.user.id.toString()
-    let Comment = new wx.BaaS.TableObject('comment')
-    let dbComment = Comment.getWithoutData(id)
-    likes += 1
-    dbComment.set("likes", likes)
-    dbComment.append("likers", user)
-    dbComment.update().then(res => {
-      this.getComments(storyId)
-      wx.showToast({title: '已喜欢!'})
-    }, err => {
-      wx.showToast({title: '网络错误', icon: 'loading'})
-    })
-
-    let Like = new wx.BaaS.TableObject('like')
-    let like = Like.create()
-    let newLike = { 
-      user: this.data.user.id,
-      comment: e.currentTarget.dataset.id,
-      liked: true
-    }
-    like.set(newLike).save().then(res => { // (6b) saving new UserStory object into DB
-      let like = res.data
-      console.log("this is like",like)
-      this.setData({ like }) // (7b) setting UserStory Object in local page data
-      // this.getUserStories(this.data.story.id) // (8b) getting UserStories --- for avatar display
-    }, err => {
-    })
-  },
 
   unsaveUserStory: function () {
     if ((this.data.user.id)) {
@@ -551,7 +415,7 @@ Page({
     if (user) {
       this.setData({ user })  // Saving User object to local page data
       this.getUserStory(storyId, user.id)
-      this.getComments(storyId)
+    
       // this.getUserStories(storyId) // getting UserStories --- for avatar display
     }
   },
@@ -618,34 +482,7 @@ Page({
       urls: [detail]
     })
   },
-  inputs: function (e) {
-    console.log(e)
-    this.setData({
-      "comment.content": e.detail.value,
-    })
-
-    // 获取输入框的内容
-    var value = e.detail.value;
-    // 获取输入框内容的长度
-    var len = parseInt(value.length);
-
-    //最少字数限制
-    if (len <= this.data.min) {
-      this.setData({
-        texts: "最低五个字"
-      })
-    } else if (len > this.data.max) {
-      this.setData({
-        texts: "超过最多字数限制"
-      });
-    } else {
-      this.setData({ texts: " " })
-    }
-    this.setData({
-      currentWordNumber: len //当前字数
-    });
-  },
-
+  
   onPosterFail (e) {
     console.log(e)
   },

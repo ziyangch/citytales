@@ -11,16 +11,16 @@
   </view>
   <view class="right-section">
     <view wx:if="{{userStory.liked}}" class="icon-cards" bindtap="unlikeUserStory">
-      <image class="icon1" src="/images/like_red.png"></image>
+      <image class="icon1" src="https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifOM5Xrm0l6X73u.png"></image>
     </view>
     <view wx:else class="icon-cards" bindtap="likeUserStory">
-      <image class="icon1" src="/images/like.png"></image>
+      <image class="icon1" src="https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifOM5iO3SGASyYP.png"></image>
     </view>
     <view wx:if="{{userStory.saved}}" class="icon-cards" bindtap="unsaveUserStory">
-      <image class="icon2" src="/images/想看.png"></image>
+      <image class="icon2" src="https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifOM5B1nYrdzln3.png"></image>
     </view>
     <view wx:else class="icon-cards" bindtap="saveUserStory">
-      <image class="icon2" src="/images/已想看.png"></image>
+      <image class="icon2" src="https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifOM5XHAKDSrOf7.png"></image>
     </view>
   </view>
 </view>
@@ -36,7 +36,7 @@
 <view class="page__content">
   <text class="story-content">{{story.content}}</text>
   <view class="story-location">
-    <image class="location-icon" src='../../images/地点.png'></image>
+    <image class="location-icon" src='https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifOM5bpVfZq9qG8.png'></image>
     <view class="location" bindtap="openLocation">{{story.address}}</view>
     <button id="delete-btn" wx:if="{{story.created_by === user.id}}" type="warn" bindtap="deleteStory">删除城事</button>
   </view>
@@ -54,69 +54,8 @@
 <poster id="poster" config="{{posterConfig}}" bind:success="onPosterSuccess" bind:fail="onPosterFail"
     bindtap="setConfig">
     <view class="postcard-div">
-    <view class="postcard-btn"><image class="postcard-img" src="../../images/share postcard button.png"></image>点击生成明信片</view>
+    <view class="postcard-btn"><image class="postcard-img" src="https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifOM5vSmMogjCLX.png"></image>点击生成明信片</view>
     </view>
 </poster>
 
-<!-- Page Comments -->
 
-<view class="page_cmt">
-  <view class="cmt-container">
-    <view class="cmt-no">共{{comments.length}}条评论</view>
-    <view class="cmt-hearder">
-      <image class="avatar" mode="aspectFill" src="{{user.avatar}}" />
-      <text class="fake-cmt" bindtap='focusButn' decode="{{true}}">&nbsp;说点什么吧...</text>
-
-
-    </view>
-
-    <view class="commentInputView" style='bottom:{{height == ""?0:height}}px;' hidden='{{!isInput}}'>
-      <view class="group">
-        <view class='commentInput'>
-          <textarea class='input' placeholder-class="place-holder" value="{{content}}" placeholder="我想说……" data-type="content" minlength="{{min}}" maxlength="{{max}}" bindinput="inputs" maxlength='-1' value="{{value}}" bindfocus="inputFocus" focus='{{focusInput}}'
-            bindblur="inputBlur">
-            
-          </textarea>
-          <view class="group2">
-            <text class="hint">{{texts}}</text>
-            <text class="currentWordNumber">{{currentWordNumber|0}}/{{max}}</text>
-          </view>
-
-        </view>
-        <view class='send' bindtap="commentStory">发送</view>
-      </view>
-    </view>
-
-    <!-- Comment Index -->
-    <view wx:for="{{comments}}" class="comments_display">
-      <view class="user-section">
-        <image class="avatar" mode="aspectFill" src="{{item.user.avatar}}" />
-        <view class="cmt-info">
-          <view class="user-name">{{item.user.custom_nickname || item.user.nickname}}
-            <view class="user-date">{{item.date}}</view>
-          </view>
-          <view class="user-comment">{{item.content}}</view>
-        </view>
-      </view>
-
-      <!-- if User liked comment -->
-      <view wx:if="{{item.userLiked}}"
-      class="icon-card" 
-      data-id="{{item.id}}" 
-      data-likes="{{item.likes}}"
-      bindtap="unlikeComment">
-        <image class="icon" src="/images/like_red.png"></image>
-        <view>{{item.likes}}</view>
-      </view>
-
-      <!-- If User did not like comment -->
-      <view wx:if="{{!item.userLiked}}" class="icon-card" 
-      data-id="{{item.id}}" 
-      data-likes="{{item.likes}}" 
-      bindtap="likeComment">
-        <image class="icon" src="/images/like.png"></image>
-        <view>{{item.likes}}</view>
-      </view>
-    </view>
-  </view>
-</view>
