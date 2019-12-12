@@ -173,7 +173,6 @@ Page({
 
   navigateToShow(e) {
     let id = e.currentTarget.dataset.id
-    console.log("this is show id", id)
     wx.navigateTo({
       url: `/pages/show/show?id=${id}`
     })
@@ -181,8 +180,6 @@ Page({
 
   markerTap: function(event) {
     this.setMarkers(this.data.stories)
-
-    console.log('marker id --------> ', event.markerId)
     let current_story = this.data.stories.find(story => story.id == event.markerId);
     this.setData({ current_story })
 
@@ -231,19 +228,16 @@ Page({
         height: 40
       }
       });
-    console.log('markersarray', markers)
     this.setData({markers})
   },
 
   setStories: function() {
-    console.log("fetching stories....")
     let query = new wx.BaaS.Query()
     let Story = new wx.BaaS.TableObject('story')
 
     query.compare('created_at', '>', 0)
     query.compare('visible', '=', true)
     Story.setQuery(query).find().then(res => {
-      console.log('stories.....', res.data.objects)
       let stories = res.data.objects
       this.setData({stories})
       this.setMarkers(res.data.objects)
@@ -338,9 +332,7 @@ Page({
       success: function (res) {
         const latitude = res.latitude
         const longitude = res.longitude
-        console.log('wgs84', latitude, longitude)
         that.setData({ latitude, longitude })
-        console.log(latitude, longitude)
       }
     })
     // wx.getLocation({
@@ -422,7 +414,6 @@ Page({
     }
   },
   onChange(e) {
-    console.log('event', e)
     if (e.currentTarget.id === "segmented-control"){
     this.setStories()
     this.setData({

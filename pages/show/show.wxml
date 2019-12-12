@@ -1,94 +1,122 @@
 <!--pages/show/show.wxml-->
 <view wx:if="{{!user.id}}" class="login-field">
-    <button class="login-btn" type="primary" open-type="getUserInfo" bindgetuserinfo="loginWithWechat">点击登陆</button>
+  <view class="login-btn" open-type="getUserInfo" bindgetuserinfo="loginWithWechat">点击登陆</view>
+  <view class="login-text">*开启你的城事之旅</view>
+  
 </view>
 <view class="top-section">
+  <view class="left-section">
     <image class="avatar" mode="aspectFill" src="{{story.avatar}}" />
     <view class="h1">{{story.nickname}}</view>
+  </view>
+  <view class="right-section">
     <view wx:if="{{userStory.liked}}" class="icon-cards" bindtap="unlikeUserStory">
-        <image class="icon" src="/images/like_red.png"></image>
+      <image class="icon1" src="/images/like_red.png"></image>
     </view>
     <view wx:else class="icon-cards" bindtap="likeUserStory">
-        <image class="icon" src="/images/like.png"></image>
+      <image class="icon1" src="/images/like.png"></image>
     </view>
     <view wx:if="{{userStory.saved}}" class="icon-cards" bindtap="unsaveUserStory">
-        <image class="icon" src="/images/想看.png"></image>
+      <image class="icon2" src="/images/想看.png"></image>
     </view>
     <view wx:else class="icon-cards" bindtap="saveUserStory">
-        <image class="icon" src="/images/已想看.png"></image>
+      <image class="icon2" src="/images/已想看.png"></image>
     </view>
+  </view>
 </view>
 
 <view class="story-img" style="background-image:url('{{story.image}}')"></view>
 
 <view class="page__header">
-    <view class="story-title">{{story.title}}</view>
-    <view class="story-date">{{story.posted_date}}</view>
+  <view class="story-title">{{story.title}}</view>
+  <view class="story-date">{{story.posted_date}}</view>
 </view>
 
+<!-- Story Content -->
 <view class="page__content">
-    <text class="story-content">{{story.content}}</text>
-    <view class="story-location">
-        <image class="location-icon" src='../../images/地点.png'></image>
-        <view class="location" bindtap="openLocation">{{story.address}}</view>
-        <button id="delete-btn" wx:if="{{story.created_by === user.id}}" type="warn" bindtap="deleteStory">删除城事</button>
-    </view>
+  <text class="story-content">{{story.content}}</text>
+  <view class="story-location">
+    <image class="location-icon" src='../../images/地点.png'></image>
+    <view class="location" bindtap="openLocation">{{story.address}}</view>
+    <button id="delete-btn" wx:if="{{story.created_by === user.id}}" type="warn" bindtap="deleteStory">删除城事</button>
+  </view>
 </view>
+
+
+<!-- Hidden Poster -->
 
 
 <!-- <view bindtap="onShareAppMessage">
  <button class="share-btn" open-type="share" type="primary">Share</button>
 </view> -->
+
+
 <poster id="poster" config="{{posterConfig}}" bind:success="onPosterSuccess" bind:fail="onPosterFail"
     bindtap="setConfig">
-    <button>点击生成明信片</button>
+    <view class="postcard-div">
+    <view class="postcard-btn"><image class="postcard-img" src="../../images/share postcard button.png"></image>点击生成明信片</view>
+    </view>
 </poster>
 
-            <view class="page_cmt">
-                <view class="cmt-container">
-                    <view class="cmt-no">共{{comments.length}}条评论</view>
-                    <view class="cmt-hearder">
-                        <image class="avatar" mode="aspectFill" src="{{user.avatar}}" />
-                        <text class="fake-cmt" bindtap='focusButn' decode="{{true}}">&nbsp;说点什么吧...</text>
+<!-- Page Comments -->
 
-                    </view>
+<view class="page_cmt">
+  <view class="cmt-container">
+    <view class="cmt-no">共{{comments.length}}条评论</view>
+    <view class="cmt-hearder">
+      <image class="avatar" mode="aspectFill" src="{{user.avatar}}" />
+      <text class="fake-cmt" bindtap='focusButn' decode="{{true}}">&nbsp;说点什么吧...</text>
 
-                    <view class="commentInputView" style='bottom:{{height == ""?0:height}}px;' hidden='{{!isInput}}'>
-                        <view class="group">
-                            <view class='commentInput'>
-                                <textarea class='input' placeholder-class="place-holder" value="{{content}}"
-                                    placeholder="我想说……" data-type="content" minlength="{{min}}" maxlength="{{max}}"
-                                    bindinput="inputs" maxlength='-1' value="{{value}}" bindfocus="inputFocus"
-                                    focus='{{focusInput}}' bindblur="inputBlur">
+
+    </view>
+
+    <view class="commentInputView" style='bottom:{{height == ""?0:height}}px;' hidden='{{!isInput}}'>
+      <view class="group">
+        <view class='commentInput'>
+          <textarea class='input' placeholder-class="place-holder" value="{{content}}" placeholder="我想说……" data-type="content" minlength="{{min}}" maxlength="{{max}}" bindinput="inputs" maxlength='-1' value="{{value}}" bindfocus="inputFocus" focus='{{focusInput}}'
+            bindblur="inputBlur">
+            
           </textarea>
-                                <view class="group2">
-                                    <text class="hint">{{texts}}</text>
-                                    <text class="currentWordNumber">{{currentWordNumber|0}}/{{max}}</text>
-                                </view>
+          <view class="group2">
+            <text class="hint">{{texts}}</text>
+            <text class="currentWordNumber">{{currentWordNumber|0}}/{{max}}</text>
+          </view>
 
-                            </view>
-                            <view class='send' bindtap="commentStory">发送</view>
-                        </view>
-                    </view>
+        </view>
+        <view class='send' bindtap="commentStory">发送</view>
+      </view>
+    </view>
 
-                    <view wx:for="{{comments}}" class="comments_display">
-                        <view class="user-section">
-                            <image class="avatar" mode="aspectFill" src="{{item.avatar}}" />
-                            <view class="cmt-info">
-                                <view class="user-name">Mimi Gao is amz</view>
-                                <view class="user-comment">{{item.content}}</view>
-                            </view>
-                        </view>
-                        <view wx:if="{{item.liked}}" class="icon-card" data-id="{{item.id}}" data-likes="{{item.likes}}"
-                            bindtap="unlikeComment">
-                            <image class="icon" src="/images/like_red.png"></image>
-                            <text>{{item.likes}}</text>
-                        </view>
-                        <view wx:else class="icon-card" data-id="{{item.id}}" data-likes="{{item.likes}}"
-                            bindtap="likeComment">
-                            <image class="icon" src="/images/like.png"></image>
-                            <text>{{item.likes}}</text>
-                        </view>
-                    </view>
-                </view>
+    <!-- Comment Index -->
+    <view wx:for="{{comments}}" class="comments_display">
+      <view class="user-section">
+        <image class="avatar" mode="aspectFill" src="{{item.user.avatar}}" />
+        <view class="cmt-info">
+          <view class="user-name">{{item.user.custom_nickname || item.user.nickname}}
+            <view class="user-date">{{item.date}}</view>
+          </view>
+          <view class="user-comment">{{item.content}}</view>
+        </view>
+      </view>
+
+      <!-- if User liked comment -->
+      <view wx:if="{{item.userLiked}}"
+      class="icon-card" 
+      data-id="{{item.id}}" 
+      data-likes="{{item.likes}}"
+      bindtap="unlikeComment">
+        <image class="icon" src="/images/like_red.png"></image>
+        <view>{{item.likes}}</view>
+      </view>
+
+      <!-- If User did not like comment -->
+      <view wx:if="{{!item.userLiked}}" class="icon-card" 
+      data-id="{{item.id}}" 
+      data-likes="{{item.likes}}" 
+      bindtap="likeComment">
+        <image class="icon" src="/images/like.png"></image>
+        <view>{{item.likes}}</view>
+      </view>
+    </view>
+  </view>
 </view>
