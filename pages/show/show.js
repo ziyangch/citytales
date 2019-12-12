@@ -146,11 +146,11 @@ Page({
 
 
   commentStory: function () {
-    let story = this.data.story // (1) increase "people_saved" of Story object
+    let story = this.data.story // (1) increase "people_commented" of Story object
     let peopleCommented = story.people_commented
     peopleCommented += 1
 
-    let Story = new wx.BaaS.TableObject('story') // (2) update 'people_saved' to Story object in data base
+    let Story = new wx.BaaS.TableObject('story') // (2) update 'people_commented' to Story object in data base
     let dbStory = Story.getWithoutData(story.id)
     dbStory.set("people_commented", peopleCommented)
     dbStory.update().then(res => {
@@ -162,19 +162,21 @@ Page({
 
     let Comment = new wx.BaaS.TableObject('comment')
     let comment = Comment.create()
-    let newComment = { // (5b) creating new UserStory object with 'saved' = true
+    let newComment = { // (5) creating new Comment object
       user: this.data.user.id,
       story: this.data.story.id,
       avatar: this.data.user.avatar,
       content: this.data.comment.content,
       likes: this.data.comment.likes 
     }
-    comment.set(newComment).save().then(res => { // (6b) saving new UserStory object into DB
+    comment.set(newComment).save().then(res => { // (6) saving new Comment object into DB
       let comment = res.data
       let comments = this.data.comments
-      comments.push(comment)
-      this.setData({ comments }) // (7b) setting UserStory Object in local page data
-      // this.getUserStories(this.data.story.id) // (8b) getting UserStories --- for avatar display
+      comments.push(comment) // (7) pushing new comment to existing comments array
+      this.setData({ comments }) // (8) setting comments array Object in local page data
+      // this.setData({"comment.content": ""})
+      console.log('comment_content', this.data.comment.content)
+      console.log('content', this.data.content.value)
     }, err => {
     })
   
