@@ -368,3 +368,17 @@
   color: grey;
   /* margin: 2% 6%; */
 }
+
+.postcard-btn {
+  background-color: #04B2D9;
+  color: white;
+  text-decoration: none;
+  padding: 20rpx;
+  text-align: center;
+  /* display: inline-block; */
+}
+
+.postcard-img {
+  height: 80rpx;
+  width: 80rpx;
+}
