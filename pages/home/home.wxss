@@ -28,12 +28,54 @@ page {
 }
 
 .info-section .info-left {
-  width: 90%;
+  width: 100%;
   display: flex;
   justify-content: left;
   align-items: center;
 }
 
+.info-section .sec2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 78%;
+  padding: 5rpx;
+}
+
+.info-section .sec3 {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  margin-right: 20 rpx;
+  font-size: 20rpx;
+  font-weight: lighter;
+}
+
+.sec3 .icon {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 5rpx;
+  margin-left: 20rpx;
+}
+
+.sec4 {
+  display: flex;
+  align-items: bottom;
+  height: 100%;
+  text-align: bottom;
+  color: #04B2D9;
+}
+
+.sec4 .num {
+  margin-bottom: 0rpx;
+  display: flex;
+  align-items: bottom;
+  padding: 0rpx;
+  margin-top: 14rpx;
+  margin-left: 3rpx;
+}
 .info-section .avatar {
   width: 90rpx;
   height: 90rpx;
@@ -44,16 +86,24 @@ page {
 .info-section .h1 {
   font-style: bold;
   font-size: 36rpx;
-  text-align: bottom;
-  width: 70%;
+  width: 100%;
   text-overflow: ellipsis;
   overflow: hidden;
   display: -webkit-box;
   word-break: break-all;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+  text-align: top;
 }
 
+.info-section .distance {
+  font-weight: lighter;
+  font-size: 20rpx;
+  text-align: bottom;
+  width: 75%;
+  margin-top: 10rpx;
+  color: #04B2D9;
+}
 .top-icon {
   width: 60rpx;
   height: 60rpx;
@@ -200,3 +250,4 @@ margin: 10rpx!important;
   z-index: 2;
   margin: 12rpx 0;
 }
+
