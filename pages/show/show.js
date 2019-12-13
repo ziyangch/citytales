@@ -618,7 +618,7 @@ Page({
   onShareAppMessage: function () {
     return {
       title: '一起来探索城事吧！',
-      path: 'pages/show/show'
+      path: `/pages/show/show?id=${this.data.story.id}`
     }
   },
   onCreatePoster () {
