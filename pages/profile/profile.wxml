@@ -21,9 +21,7 @@
         </view> -->
       </view>
     </view>
-    <view class="edit-icon">
-      <image class="edit-icon" bindtap="navigateToEditProfile" src="https://cloud-minapp-31851.cloud.ifanrusercontent.com/1idxMM49dExGTDnr.gif"></image>
-    </view>
+    
 </view>
 
 <view class="bar">
