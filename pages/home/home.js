@@ -28,43 +28,6 @@ Page({
       value: 'people_commented',
       groups: ['003'],
     },
-    // {
-    //   type: 'radio',
-    //   label: 'Distance',
-    //   value: 'Distance',
-    //   checked: true,
-    //     children: [{
-    //       label: '500m',
-    //       value: '500',
-    //     },
-    //     {
-    //       label: '1km',
-    //       value: '1000',
-    //     },
-    //     {
-    //       label: '2km',
-    //       value: '2000',
-    //     },
-    //     {
-    //       label: '5km',
-    //       value: '5000',
-    //     },
-    //     {
-    //       label: '10km',
-    //       value: '10000',
-    //     },
-    //     {
-    //       label: '100km',
-    //       value: '100000',
-    //     },
-    //     {
-    //       label: '全国',
-    //       value: '1000000000000',
-    //       checked: true,
-    //     },
-    //     ],
-    //   groups: ['003'],
-    // },
     {
       type: 'filter',
       label: '筛选',
@@ -151,18 +114,23 @@ Page({
           checked: true,
         },
         {
-          label: 'Literature',
-          value: 'literature',
-          checked: true,
-        },
-        {
           label: 'Landscape',
           value: 'landscape',
           checked: true,
         },
         {
+          label: 'Literature',
+          value: 'literature',
+          checked: true,
+        },
+        {
           label: 'Music',
           value: 'music',
+          checked: true,
+        },
+        {
+          label: 'Photography',
+          value: 'photography',
           checked: true,
         },
         ],
@@ -256,6 +224,8 @@ Page({
 
   jumpToCurrentLocation: function() {
     this.mapCtx.moveToLocation()
+    let scale = 16
+    this.setData({scale: scale})
   },
   
   zoomIn: function () {
@@ -310,12 +280,27 @@ Page({
         console.log('stories ---->', stories)
         storiesWithDistance.forEach((storyWithDistance, index) => { storyWithDistance['distance'] = res.result.elements[index].distance})
         storiesWithDistance.sort((a, b) => a.distance - b.distance)
+        that.setDisplayDistance(storiesWithDistance)
         that.setData({storiesWithDistance: storiesWithDistance})
       }
     })
     
   },
 
+  setDisplayDistance: function (stories) {
+    stories.forEach((story) => {
+      let distance = story.distance
+      if (distance < 1000){
+        story.display_distance = `${distance} m`
+      } else if (distance < 10000) {
+        story.display_distance = `${(Math.round(distance/100))/10} km`
+      } else if (distance < 100000) {
+        story.display_distance = `${(Math.round(distance / 1000))} km`
+      } else {
+        story.display_distance = '100 km+'
+      }
+    })
+  },
   /**
    * Lifecycle function--Called when page load
    */
@@ -325,8 +310,6 @@ Page({
     qqmapsdk = new QQMapWX({
       key: '2RTBZ-TCOW4-O2VUZ-X2QBG-BEV5V-3TBVX'
     });
-
-    this.setStories()
     this.mapCtx = wx.createMapContext('myMap')
     const that = this
     wx.getLocation({
@@ -335,6 +318,7 @@ Page({
         const latitude = res.latitude
         const longitude = res.longitude
         that.setData({ latitude, longitude })
+        that.setStories()
       }
     })
     // wx.getLocation({
@@ -471,6 +455,7 @@ Page({
     } else {
       filteredByTags.sort((a, b) => a.distance - b.distance)
     }
+    this.setDisplayDistance(filteredByTags)
     this.setData({filteredByTags: filteredByTags})
     // let query = new wx.BaaS.Query()
     // query.in('tags', filter)
