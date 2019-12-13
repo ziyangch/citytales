@@ -42,7 +42,7 @@ Page({
 
     texts: "至少5个字",
     min: 5,//最少字数
-    max: 10, //最多字数 (根据自己需求改变)
+    max: 150, //最多字数 (根据自己需求改变)
 
     focusInput: false,
     height: '',
@@ -195,13 +195,27 @@ Page({
       date: this.data.dateNow
     }
 
-    comment.set(newComment).save().then(res => { // (6) saving new Comment object into DB
-      this.getComments(this.data.story.id) // (7) get comments from DB
-    }, err => console.log(err))
-  
-  wx.showToast({title: '已成功评论！'})
-  this.setData({'content': ''})
-  this.hideCommentBox()
+    if (this.data.comment.content.length <= this.data.min) {
+      wx.showToast({
+        title: `字数不够`,
+        icon: 'none'
+      })
+    } else if (this.data.comment.content.length > this.data.max) {
+      wx.showToast({
+        title: `字数太多`,
+        icon: 'none'
+      })
+    } else {
+      comment.set(newComment).save().then(res => { // (6) saving new Comment object into DB
+        this.getComments(this.data.story.id) // (7) get comments from DB
+      }, err => console.log(err))
+
+      wx.showToast({ title: '已成功评论！' })
+      this.setData({ 'value': '' })
+      this.setData({ 'comment.content': '' })
+      this.setData({ 'currentWordNumber': 0 })
+      this.hideCommentBox()
+    } 
   },
 
   unlikeComment: function (e) {
