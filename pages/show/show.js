@@ -692,15 +692,19 @@ Page({
           text: this.data.story.title,
           fontFamily: 'STFangsong',
           fontSize: 40,
-          color: '#484E5C'
+          color: '#484E5C',
         },
         {
           x: 25,
           y: 930,
-          text: "📍" + this.data.story.address,
+          text: this.data.story.address,
           fontFamily: 'STFangsong',
           fontSize: 30,
-          color: '#484E5C'
+          color: '#484E5C',
+          marginLeft: 50,
+          marginRight: 50,
+          lineNum: 3,
+          width: 650
         },
         {
           x: 375,
@@ -759,10 +763,10 @@ Page({
         }, 
         {
           width: 200,
-          height: 150,
+          height: 200,
           x: 525,
           y: 40,
-          url: 'https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifHm04EtYpaUZVk.JPG'
+          url: 'https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifh3hlco9fcu01w.PNG'
           //TODO: 此图片之后用小程序二维码代替，置底居中。
         }
         ]
