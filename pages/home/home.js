@@ -10,54 +10,61 @@ Page({
   data: {
     storiesWithDistance: [],
     items: [
-    // {
-    //   type: 'sort',
-    //   label: 'Likes',
-    //   value: 'people_liked',
-    //   groups: ['001'],
-    // },
-    // {
-    //   type: 'sort',
-    //   label: 'Comments',
-    //   value: 'people_commented',
-    //   groups: ['002'],
-    // },
     {
-      type: 'radio',
-      label: 'Distance',
-      value: 'Distance',
-      checked: true,
-        children: [{
-          label: '500m',
-          value: '500',
-        },
-        {
-          label: '1km',
-          value: '1000',
-        },
-        {
-          label: '2km',
-          value: '2000',
-        },
-        {
-          label: '5km',
-          value: '5000',
-        },
-        {
-          label: '10km',
-          value: '10000',
-        },
-        {
-          label: '100km',
-          value: '100000',
-        },
-        {
-          label: '全国',
-          value: '1000000000000',
-        },
-        ],
+      type: 'sort',
+      label: '距离',
+      value: 'distance',
       groups: ['001'],
     },
+    {
+      type: 'sort',
+      label: '喜欢',
+      value: 'people_liked',
+      groups: ['002'],
+    },
+    {
+      type: 'sort',
+      label: '评论',
+      value: 'people_commented',
+      groups: ['003'],
+    },
+    // {
+    //   type: 'radio',
+    //   label: 'Distance',
+    //   value: 'Distance',
+    //   checked: true,
+    //     children: [{
+    //       label: '500m',
+    //       value: '500',
+    //     },
+    //     {
+    //       label: '1km',
+    //       value: '1000',
+    //     },
+    //     {
+    //       label: '2km',
+    //       value: '2000',
+    //     },
+    //     {
+    //       label: '5km',
+    //       value: '5000',
+    //     },
+    //     {
+    //       label: '10km',
+    //       value: '10000',
+    //     },
+    //     {
+    //       label: '100km',
+    //       value: '100000',
+    //     },
+    //     {
+    //       label: '全国',
+    //       value: '1000000000000',
+    //       checked: true,
+    //     },
+    //     ],
+    //   groups: ['003'],
+    // },
     {
       type: 'filter',
       label: '筛选',
@@ -94,40 +101,41 @@ Page({
       //   },
       //   ],
       // },
-      // {
-      //   type: 'radio',
-      //   label: 'Location',
-      //   value: 'location',
-      //   children: [{
-      //     label: '500m',
-      //     value: '500',
-      //   },
-      //   {
-      //     label: '1km',
-      //     value: '1000',
-      //   },
-      //   {
-      //     label: '2km',
-      //     value: '2000',
-      //   },
-      //   {
-      //     label: '5km',
-      //     value: '5000',
-      //   },
-      //   {
-      //     label: '10km',
-      //     value: '10000',
-      //   },
-      //   {
-      //     label: '100km',
-      //     value: '100000',
-      //   },
-      //   {
-      //     label: '全国',
-      //     value: 'everywhere',
-      //   },
-      //   ],
-      // },
+      {
+        type: 'radio',
+        label: '距离',
+        value: '距离',
+        children: [{
+          label: '500米',
+          value: '500',
+        },
+        {
+          label: '1000米',
+          value: '1000',
+        },
+        {
+          label: '2000米',
+          value: '2000',
+        },
+        {
+          label: '5000米',
+          value: '4999_999',
+        },
+        {
+          label: '10公里',
+          value: '9999_999',
+        },
+        {
+          label: '100公里',
+          value: '99999_998',
+        },
+        {
+          label: '全国',
+          value: '3000000000000',
+          checked: true,
+        },
+        ],
+      },
       {
         type: 'checkbox',
         label: 'Tags',
@@ -160,7 +168,7 @@ Page({
         ],
       },
       ],
-      groups: ['001'],
+      groups: ['001', '002', '003'],
     },
     ],
     current_story: false,
@@ -223,7 +231,7 @@ Page({
         latitude: story.latitude,
         longitude: story.longitude,
         name: story.title,
-        iconPath: '/image/red_pin.png',
+        iconPath: 'https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifOM5c01ybmL4zj.png',
         width: 40,
         height: 40
       }
@@ -301,7 +309,7 @@ Page({
         console.log(res);
         console.log('stories ---->', stories)
         storiesWithDistance.forEach((storyWithDistance, index) => { storyWithDistance['distance'] = res.result.elements[index].distance})
-        // that.setData({ storiesWithDistance: stories.map((story, index) => { return story.distance = res.result.elements[index] })})
+        storiesWithDistance.sort((a, b) => a.distance - b.distance)
         that.setData({storiesWithDistance: storiesWithDistance})
       }
     })
@@ -412,15 +420,22 @@ Page({
     }
   },
   onChange(e) {
+    console.log('event', e)
     if (e.currentTarget.id === "segmented-control"){
     this.setStories()
     this.setData({
       current: e.detail.key,
     })
     } else {
-    let distanceChoice = Number.parseInt(e.detail.checkedValues[0])
-    let filter = e.detail.checkedValues[1][0]
+    let distanceChoice = Number.parseInt(e.detail.checkedValues[3][0])
+    let filter = e.detail.checkedValues[3][1]
+    let distanceSorter = e.detail.checkedValues[0]
+    let likesSorter = e.detail.checkedValues[1]
+    let commentsSorter = e.detail.checkedValues[2]
     this.setData({ filter })
+    console.log("distanceSorter", distanceSorter)
+    console.log("likesSorter", likesSorter)
+    console.log("commentsSorter", commentsSorter)
     console.log("distanceChoice ---->", distanceChoice)
     console.log("filter ---->", filter)
     let storiesWithDistance = this.data.storiesWithDistance
@@ -433,6 +448,29 @@ Page({
     });
     console.log("filteredByDistance ---->", filteredByDistance)
     console.log("filteredByTags ---->", filteredByTags)
+    
+    
+    if (distanceSorter === (1 || -1)) {
+      if (distanceSorter === -1) {
+        filteredByTags.sort((a, b) => a.distance - b.distance)
+      } else {
+        filteredByTags.sort((a, b) => b.distance - a.distance)
+      }
+    } else if (likesSorter === (1||-1)) {
+      if (likesSorter === -1){
+        filteredByTags.sort((a, b) => a.people_liked - b.people_liked)
+      } else {
+        filteredByTags.sort((a, b) => b.people_liked - a.people_liked)
+      }
+    } else if (commentsSorter === (1||-1)) {
+      if (commentsSorter === -1) {
+        filteredByTags.sort((a, b) => a.people_commented - b.people_commented)
+      } else {
+        filteredByTags.sort((a, b) => b.people_commented - a.people_commented)
+      }
+    } else {
+      filteredByTags.sort((a, b) => a.distance - b.distance)
+    }
     this.setData({filteredByTags: filteredByTags})
     // let query = new wx.BaaS.Query()
     // query.in('tags', filter)

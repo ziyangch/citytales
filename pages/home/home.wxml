@@ -3,11 +3,11 @@
   <view class="page-section page-section-gap">
     <view wx:if="{{current==0}}" class="map-container">
     <view class="locate-btn" bindtap="jumpToCurrentLocation">
-      <image class='locate-icon' src='/images/gps.png'></image>
+      <image class='locate-icon' src='https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifOM5v4DGsplfLU.png'></image>
     </view>
     <view class="zoom-section">
-      <image class='zoom-in-btn' src='/images/plus.png' bindtap="zoomIn"></image>
-      <image class='zoom-out-btn' src='/images/minus.png' bindtap="zoomOut"></image>
+      <image class='zoom-in-btn' src='https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifOM5KNrUVi2DoF.png' bindtap="zoomIn"></image>
+      <image class='zoom-out-btn' src='https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifOM5sXRCVJU8d0.png' bindtap="zoomOut"></image>
     </view>
       <map
         id="myMap"
