@@ -105,7 +105,7 @@
       data-id="{{item.id}}" 
       data-likes="{{item.likes}}"
       bindtap="unlikeComment">
-        <image class="icon" src="/images/like_red.png"></image>
+        <image class="icon" src="https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifdV7ycMZUhjpUQ.png"></image>
         <view>{{item.likes}}</view>
       </view>
 
@@ -114,7 +114,7 @@
       data-id="{{item.id}}" 
       data-likes="{{item.likes}}" 
       bindtap="likeComment">
-        <image class="icon" src="/images/like.png"></image>
+        <image class="icon" src="https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifdV7s0EgBYy0pF.png"></image>
         <view>{{item.likes}}</view>
       </view>
     </view>
