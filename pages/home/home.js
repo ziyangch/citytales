@@ -9,136 +9,7 @@ Page({
    */
   data: {
     storiesWithDistance: [],
-    items: [
-    {
-      type: 'sort',
-      label: '距离',
-      value: 'distance',
-      groups: ['001'],
-    },
-    {
-      type: 'sort',
-      label: '喜欢',
-      value: 'people_liked',
-      groups: ['002'],
-    },
-    {
-      type: 'sort',
-      label: '评论',
-      value: 'people_commented',
-      groups: ['003'],
-    },
-    {
-      type: 'filter',
-      label: '筛选',
-      value: 'filter',
-      checked: true,
-      children: [
-      // {
-      //   type: 'radio',
-      //   label: 'TimePeriod',
-      //   value: 'timeperiod',
-      //   children: [{
-      //     label: 'LastDay',
-      //     value: 'lastday',
-      //   },
-      //   {
-      //     label: 'LastThreeDays',
-      //     value: 'lastthreedays',
-      //   },
-      //   {
-      //     label: 'LastWeek',
-      //     value: 'lastweek',
-      //   },
-      //   {
-      //     label: 'LastMonth',
-      //     value: 'lastmonth',
-      //   },
-      //   {
-      //     label: 'LastYear',
-      //     value: 'lastyear',
-      //   },
-      //   {
-      //     label: 'AllTime',
-      //     value: 'alltime',
-      //   },
-      //   ],
-      // },
-      {
-        type: 'radio',
-        label: '距离',
-        value: '距离',
-        children: [{
-          label: '500米',
-          value: '500',
-        },
-        {
-          label: '1000米',
-          value: '1000',
-        },
-        {
-          label: '2000米',
-          value: '2000',
-        },
-        {
-          label: '5000米',
-          value: '4999_999',
-        },
-        {
-          label: '10公里',
-          value: '9999_999',
-        },
-        {
-          label: '100公里',
-          value: '99999_998',
-        },
-        {
-          label: '全国',
-          value: '3000000000000',
-          checked: true,
-        },
-        ],
-      },
-      {
-        type: 'checkbox',
-        label: 'Tags',
-        value: 'tags',
-        children: [{
-          label: 'Architecture',
-          value: 'architecture',
-          checked: true,
-        },
-        {
-          label: 'Art',
-          value: 'art',
-          checked: true,
-        },
-        {
-          label: 'Landscape',
-          value: 'landscape',
-          checked: true,
-        },
-        {
-          label: 'Literature',
-          value: 'literature',
-          checked: true,
-        },
-        {
-          label: 'Music',
-          value: 'music',
-          checked: true,
-        },
-        {
-          label: 'Photography',
-          value: 'photography',
-          checked: true,
-        },
-        ],
-      },
-      ],
-      groups: ['001', '002', '003'],
-    },
-    ],
+    items: undefined,
     current_story: false,
     current: 0,
     scale: 16,
@@ -151,6 +22,12 @@ Page({
     let id = e.currentTarget.dataset.id
     wx.navigateTo({
       url: `/pages/show/show?id=${id}`
+    })
+  },
+
+  navigateToPost() {
+    wx.navigateTo({
+      url: `/pages/post/post`
     })
   },
 
@@ -206,6 +83,226 @@ Page({
       });
     this.setData({markers})
   },
+
+  setApple: function () {
+    let tableName = 'apple'
+    let recordID = '5df70bc6d69d0e122d89a3f0'
+
+    let Product = new wx.BaaS.TableObject(tableName)
+
+    Product.get(recordID).then(res => {
+      console.log("this is controller", res)
+      this.setData({
+        "apple": res.data.controller
+      })
+      // success
+    }, err => {
+      // err
+    })
+  },
+
+  setItems: function () {
+    if (this.data.apple) {
+      let items = [
+       {
+         type: 'sort',
+         label: '距离',
+         value: 'distance',
+         groups: ['001'],
+       },
+       {
+         type: 'sort',
+         label: '喜欢',
+         value: 'people_liked',
+         groups: ['002'],
+       },
+       {
+         type: 'sort',
+         label: '评论',
+         value: 'people_commented',
+         groups: ['003'],
+       },
+       {
+         type: 'filter',
+         label: '筛选',
+         value: 'filter',
+         checked: true,
+         children: [
+           {
+             type: 'radio',
+             label: '距离',
+             value: '距离',
+             children: [{
+               label: '500米',
+               value: '500',
+             },
+             {
+               label: '1000米',
+               value: '1000',
+             },
+             {
+               label: '2000米',
+               value: '2000',
+             },
+             {
+               label: '5000米',
+               value: '4999_999',
+             },
+             {
+               label: '10公里',
+               value: '9999_999',
+             },
+             {
+               label: '100公里',
+               value: '99999_998',
+             },
+             {
+               label: '全国',
+               value: '3000000000000',
+               checked: true,
+             },
+             ],
+           },
+           {
+             type: 'checkbox',
+             label: 'Tags',
+             value: 'tags',
+             children: [{
+               label: 'Architecture',
+               value: 'architecture',
+               checked: true,
+             },
+             {
+               label: 'Art',
+               value: 'art',
+               checked: true,
+             },
+             {
+               label: 'Landscape',
+               value: 'landscape',
+               checked: true,
+             },
+             {
+               label: 'Literature',
+               value: 'literature',
+               checked: true,
+             },
+             {
+               label: 'Music',
+               value: 'music',
+               checked: true,
+             },
+             {
+               label: 'Photography',
+               value: 'photography',
+               checked: true,
+             },
+             ],
+           },
+         ],
+         groups: ['001', '002', '003'],
+       },
+     ]
+     this.setData({items})
+  } else {
+     let items = [
+       {
+         type: 'sort',
+         label: '距离',
+         value: 'distance',
+         groups: ['001'],
+       },
+       {
+         type: 'sort',
+         label: '喜欢',
+         value: 'people_liked',
+         groups: ['002'],
+       },
+       {
+         type: 'filter',
+         label: '筛选',
+         value: 'filter',
+         checked: true,
+         children: [
+           {
+             type: 'radio',
+             label: '距离',
+             value: '距离',
+             children: [{
+               label: '500米',
+               value: '500',
+             },
+             {
+               label: '1000米',
+               value: '1000',
+             },
+             {
+               label: '2000米',
+               value: '2000',
+             },
+             {
+               label: '5000米',
+               value: '4999_999',
+             },
+             {
+               label: '10公里',
+               value: '9999_999',
+             },
+             {
+               label: '100公里',
+               value: '99999_998',
+             },
+             {
+               label: '全国',
+               value: '3000000000000',
+               checked: true,
+             },
+             ],
+           },
+           {
+             type: 'checkbox',
+             label: 'Tags',
+             value: 'tags',
+             children: [{
+               label: 'Architecture',
+               value: 'architecture',
+               checked: true,
+             },
+             {
+               label: 'Art',
+               value: 'art',
+               checked: true,
+             },
+             {
+               label: 'Landscape',
+               value: 'landscape',
+               checked: true,
+             },
+             {
+               label: 'Literature',
+               value: 'literature',
+               checked: true,
+             },
+             {
+               label: 'Music',
+               value: 'music',
+               checked: true,
+             },
+             {
+               label: 'Photography',
+               value: 'photography',
+               checked: true,
+             },
+             ],
+           },
+         ],
+         groups: ['001', '002'],
+       },
+     ]
+      this.setData({ items })
+  }
+  console.log("items", this.data.items)
+},
 
   setStories: function() {
     let query = new wx.BaaS.Query()
@@ -334,6 +431,7 @@ Page({
     //     })
     //   }
     // })
+    this.setApple()
   },
 
   /**
@@ -351,6 +449,8 @@ Page({
     if (user) {
       this.setData({ user })
     }
+    this.setItems()
+    
     // this.setStories()
     // this.mapCtx = wx.createMapContext('myMap')
     // const that = this
@@ -410,7 +510,7 @@ Page({
     this.setData({
       current: e.detail.key,
     })
-    } else {
+    } else if(this.data.apple){
     let distanceChoice = Number.parseInt(e.detail.checkedValues[3][0])
     let filter = e.detail.checkedValues[3][1]
     let distanceSorter = e.detail.checkedValues[0]
@@ -468,6 +568,56 @@ Page({
     // }, err => {
     //   // err
     // })
+    } else {
+      let distanceChoice = Number.parseInt(e.detail.checkedValues[2][0])
+      let filter = e.detail.checkedValues[2][1]
+      let distanceSorter = e.detail.checkedValues[0]
+      let likesSorter = e.detail.checkedValues[1]
+      this.setData({ filter })
+      console.log("distanceSorter", distanceSorter)
+      console.log("likesSorter", likesSorter)
+      console.log("distanceChoice ---->", distanceChoice)
+      console.log("filter ---->", filter)
+      let storiesWithDistance = this.data.storiesWithDistance
+      let filteredByDistance = storiesWithDistance.filter(function (item) {
+        return item.distance < distanceChoice
+      });
+      let filteredByTags = filteredByDistance.filter(function (item) {
+        console.log(item.tags)
+        return filter.some(f => item.tags.indexOf(f) !== -1)
+      });
+      console.log("filteredByDistance ---->", filteredByDistance)
+      console.log("filteredByTags ---->", filteredByTags)
+
+
+      if (distanceSorter === (1 || -1)) {
+        if (distanceSorter === -1) {
+          filteredByTags.sort((a, b) => a.distance - b.distance)
+        } else {
+          filteredByTags.sort((a, b) => b.distance - a.distance)
+        }
+      } else if (likesSorter === (1 || -1)) {
+        if (likesSorter === -1) {
+          filteredByTags.sort((a, b) => a.people_liked - b.people_liked)
+        } else {
+          filteredByTags.sort((a, b) => b.people_liked - a.people_liked)
+        }
+      } else {
+        filteredByTags.sort((a, b) => a.distance - b.distance)
+      }
+      this.setDisplayDistance(filteredByTags)
+      this.setData({ filteredByTags: filteredByTags })
+      // let query = new wx.BaaS.Query()
+      // query.in('tags', filter)
+      // let Product = new wx.BaaS.TableObject("story")
+      // Product.setQuery(query).find().then(res => {
+      //   // success
+      //   console.log('result --->',  res)
+      //   let filteredStories = res.data.objects
+      //   this.setData({ filteredStories })
+      // }, err => {
+      //   // err
+      // })
     }
   }
 })

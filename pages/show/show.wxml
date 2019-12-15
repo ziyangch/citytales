@@ -11,16 +11,16 @@
   </view>
   <view class="right-section">
     <view wx:if="{{userStory.liked}}" class="icon-cards" bindtap="unlikeUserStory">
-      <image class="icon1" src="/images/喜欢灰.png"></image>
-    </view>
-    <view wx:else class="icon-cards" bindtap="likeUserStory">
       <image class="icon1" src="/images/已喜欢.png"></image>
     </view>
+    <view wx:else class="icon-cards" bindtap="likeUserStory">
+      <image class="icon1" src="/images/喜欢灰.png"></image>
+    </view>
     <view wx:if="{{userStory.saved}}" class="icon-cards" bindtap="unsaveUserStory">
-      <image class="icon2" src="/images/收藏.png"></image>
+      <image class="icon2" src="/images/已收藏.png"></image>
     </view>
     <view wx:else class="icon-cards" bindtap="saveUserStory">
-      <image class="icon2" src="/images/已收藏.png"></image>
+      <image class="icon2" src="/images/收藏.png"></image>
     </view>
   </view>
 </view>
@@ -60,7 +60,7 @@
 
 <!-- Page Comments -->
 
-<view class="page_cmt">
+<view class="page_cmt" wx:if="{{apple}}">
   <view class="cmt-container">
     <view class="cmt-no">共{{comments.length}}条评论</view>
     <view class="cmt-hearder">

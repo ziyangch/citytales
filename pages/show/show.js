@@ -552,6 +552,23 @@ Page({
     })
   },
 
+  setApple: function () {
+    let tableName = 'apple'
+    let recordID = '5df70bc6d69d0e122d89a3f0'
+
+    let Product = new wx.BaaS.TableObject(tableName)
+
+    Product.get(recordID).then(res => {
+      console.log("this is controller", res)
+      this.setData({
+        "apple":res.data.controller
+      })
+      // success
+    }, err => {
+      // err
+    })
+  },
+
   /**
    * Lifecycle function--Called when page load
    */
@@ -582,6 +599,7 @@ Page({
    */
   onShow: function () {
     this.dateToday()
+    this.setApple()
   },
 
   /**
