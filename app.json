@@ -22,12 +22,6 @@
         "selectedIconPath": "/images/主页.png"
       },
       {
-        "pagePath": "pages/post/post",
-        "text": "城事",
-        "iconPath": "/images/增加.png",
-        "selectedIconPath": "/images/增加.png"
-      },
-      {
         "pagePath": "pages/profile/profile",
         "text": "我的",
         "iconPath": "/images/profile.png",

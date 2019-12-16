@@ -5,40 +5,44 @@ page {
 
 .card {
   width:100%;
-  height: 46vh;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
-  border-radius: 5px; /* 5px rounded corners */
+  /* height: 40vh; */
+  background-color: #fff;
+  margin: 1%;
+  margin-bottom: 10rpx;
+  display: inline-block;
+  border-radius: 5px 5px 0 0;
 }
 
 .story-img {
   border-radius: 5px 5px 0 0;
   width: 100%;
-  height: 80%;
+  /* height: 80%; */
   display: block;
 }
 
 .info-section {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 20%;
   background-color: #ffff;
 }
 
 .info-section .info-left {
-  width: 100%;
+  width: 95%;
   display: flex;
   justify-content: left;
-  align-items: center;
+  align-items: top;
+  margin-top: 5rpx;
 }
 
 .info-section .sec2 {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  height: 100%;
+  align-items: left;
   width: 78%;
   padding: 5rpx;
 }
@@ -46,11 +50,11 @@ page {
 .info-section .sec3 {
   display: flex;
   align-items: center;
-  height: 100%;
-  width: 100%;
-  margin-right: 20 rpx;
+  /* height: 100%; */
+  width: 95%;
   font-size: 20rpx;
   font-weight: lighter;
+  margin-bottom: 5rpx;
 }
 
 .sec3 .icon {
@@ -77,10 +81,10 @@ page {
   margin-left: 3rpx;
 }
 .info-section .avatar {
-  width: 90rpx;
-  height: 90rpx;
+  width: 60rpx;
+  height: 60rpx;
   border-radius: 50%;
-  margin: 20rpx;
+  margin: 10rpx 0;
 }
 
 .info-section .h1 {
@@ -103,6 +107,7 @@ page {
   width: 75%;
   margin-top: 10rpx;
   color: #04B2D9;
+  margin-left: 10rpx;
 }
 .top-icon {
   width: 60rpx;
@@ -148,7 +153,7 @@ box-shadow: 0 0 5rpx rgb(100, 100, 100);
 .index-container {
   height: 100%;
   width: 100%;
-  margin-bottom: 100rpx;
+  margin-bottom: 80rpx;
 }
 
 .ad-hoc-card {
@@ -228,6 +233,29 @@ box-shadow: 0 0 5rpx rgb(100, 100, 100);
   box-shadow: 0 0 5rpx rgb(100, 100, 100);
 }
 
+
+.create-btn {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  float: left;
+  position: fixed;
+  bottom: 120rpx;
+  left: 45%;
+  width: 80rpx;
+  height: 80rpx;
+  z-index: 1;
+  background-color: rgba(240, 240, 240, 0.8);
+  border-radius: 4rpx;
+  box-shadow: 0 0 5rpx rgb(100, 100, 100);
+}
+
+.create-icon {
+  width: 60rpx;
+  height: 60rpx;
+  z-index: 2;
+}
+
 .locate-icon {
   width: 40rpx;
   height: 40rpx;
@@ -303,8 +331,8 @@ box-shadow: 0 0 5rpx rgb(100, 100, 100);
   padding: 4rpx;
   opacity: 0.85;
   }
- 
- 
+
+
 .bg_view{
   margin: 30rpx auto 30rpx auto;
   color: #04B2D9;
@@ -334,8 +362,8 @@ box-shadow: 0 0 5rpx rgb(100, 100, 100);
     margin-bottom: 200rpx;
     font-family: Arial, Helvetica, sans-serif;
   }
-  
- 
+
+
 .txtsure{
  width: 100%;
  height: 100%;
@@ -343,7 +371,7 @@ box-shadow: 0 0 5rpx rgb(100, 100, 100);
  justify-content: center;
  margin: 20rpx;
 }
- 
+
 /*确定背景*/
 .txtsurebg{
   width: 200rpx;
@@ -357,14 +385,14 @@ box-shadow: 0 0 5rpx rgb(100, 100, 100);
   flex-direction: column;
   opacity: 0.8;
 }
- 
+
 /*确定图标*/
 .txtsureimg{
   display:block;
   width:120rpx;
   height:120rpx;
 }
- 
+
 /*确定文本*/
 .txtsurename{
    margin-bottom: 0rpx;
@@ -372,7 +400,7 @@ box-shadow: 0 0 5rpx rgb(100, 100, 100);
    font-size: 50rpx;
    font-family: Arial, Helvetica, sans-serif;
 }
- 
+
 /*右上角图标*/
 .t_image{
   width:204rpx;
@@ -381,13 +409,39 @@ box-shadow: 0 0 5rpx rgb(100, 100, 100);
   top: -6%;
   left:88%;
   }
- 
+
 /*右上角图标*/
 .t_image1{
   display:block;
   width:60rpx;
   height:60rpx;
   }
- 
- 
- 
+
+
+.content{
+  margin-right:20rpx;
+  margin-left: 20rpx;
+  margin-top: 100rpx;
+  margin-bottom: 20rpx;
+  text-align: justify;
+}
+
+.recommendation-hint {
+  position: fixed;
+  height: 200rpx;
+  width: 100vw;
+  background-color:#F4F4F4;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.left,.right{
+  display: inline-block;
+  vertical-align: top;
+  width: 49%;
+}
+.right{
+  float: right;
+}

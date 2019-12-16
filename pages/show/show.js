@@ -8,7 +8,6 @@ Page({
   data: {
     displayCommentBox: false,
     comments:[
-      
     ],
     comment:{
       content: undefined,
@@ -71,6 +70,20 @@ Page({
 
   },
 
+setMarkers: function () {
+ let latitude = this.data.story.latitude
+ let longitude = this.data.story.longitude
+ let markers = [{  
+   iconPath: "https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifOM5c01ybmL4zj.png",
+    id: 0,
+    latitude: latitude,
+    longitude: longitude,
+    width: 40,
+    height: 40
+ }]
+this.setData({markers})
+},
+
   setDisplayDate: function (story) {
     let date = new Date(story.date)
     story.display_day = `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`
@@ -90,7 +103,7 @@ Page({
       let story = res.data;
       story = this.setDisplayDate(story)
       this.setData({ story })
-
+      this.setMarkers()
     }, err => {
     })
   },
@@ -484,6 +497,12 @@ Page({
     })
   },
 
+  navigateToProfile: function () {
+    wx.switchTab({
+      url: '/pages/profile/profile'
+    })
+  },
+
   openLocation: function () {
     let latitude = this.data.story.latitude
     let longitude = this.data.story.longitude
@@ -552,6 +571,23 @@ Page({
     })
   },
 
+  setApple: function () {
+    let tableName = 'apple'
+    let recordID = '5df70bc6d69d0e122d89a3f0'
+
+    let Product = new wx.BaaS.TableObject(tableName)
+
+    Product.get(recordID).then(res => {
+      console.log("this is controller", res)
+      this.setData({
+        "apple":res.data.controller
+      })
+      // success
+    }, err => {
+      // err
+    })
+  },
+
   /**
    * Lifecycle function--Called when page load
    */
@@ -559,7 +595,6 @@ Page({
     
     let storyId = options.id // Setting storyId from Page properties
     this.setStory(storyId) // setting Story object by search with Story ID in local page data
-
     console.log(this.data)
     let user = wx.getStorageSync('user')
     if (user) {
@@ -582,6 +617,8 @@ Page({
    */
   onShow: function () {
     this.dateToday()
+    this.setApple()
+   
   },
 
   /**

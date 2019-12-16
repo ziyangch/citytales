@@ -9,148 +9,27 @@ Page({
    */
   data: {
     storiesWithDistance: [],
-    items: [
-    {
-      type: 'sort',
-      label: '距离',
-      value: 'distance',
-      groups: ['001'],
-    },
-    {
-      type: 'sort',
-      label: '喜欢',
-      value: 'people_liked',
-      groups: ['002'],
-    },
-    {
-      type: 'sort',
-      label: '评论',
-      value: 'people_commented',
-      groups: ['003'],
-    },
-    {
-      type: 'filter',
-      label: '筛选',
-      value: 'filter',
-      checked: true,
-      children: [
-      // {
-      //   type: 'radio',
-      //   label: 'TimePeriod',
-      //   value: 'timeperiod',
-      //   children: [{
-      //     label: 'LastDay',
-      //     value: 'lastday',
-      //   },
-      //   {
-      //     label: 'LastThreeDays',
-      //     value: 'lastthreedays',
-      //   },
-      //   {
-      //     label: 'LastWeek',
-      //     value: 'lastweek',
-      //   },
-      //   {
-      //     label: 'LastMonth',
-      //     value: 'lastmonth',
-      //   },
-      //   {
-      //     label: 'LastYear',
-      //     value: 'lastyear',
-      //   },
-      //   {
-      //     label: 'AllTime',
-      //     value: 'alltime',
-      //   },
-      //   ],
-      // },
-      {
-        type: 'radio',
-        label: '距离',
-        value: '距离',
-        children: [{
-          label: '500米',
-          value: '500',
-        },
-        {
-          label: '1000米',
-          value: '1000',
-        },
-        {
-          label: '2000米',
-          value: '2000',
-        },
-        {
-          label: '5000米',
-          value: '4999_999',
-        },
-        {
-          label: '10公里',
-          value: '9999_999',
-        },
-        {
-          label: '100公里',
-          value: '99999_998',
-        },
-        {
-          label: '全国',
-          value: '3000000000000',
-          checked: true,
-        },
-        ],
-      },
-      {
-        type: 'checkbox',
-        label: 'Tags',
-        value: 'tags',
-        children: [{
-          label: 'Architecture',
-          value: 'architecture',
-          checked: true,
-        },
-        {
-          label: 'Art',
-          value: 'art',
-          checked: true,
-        },
-        {
-          label: 'Landscape',
-          value: 'landscape',
-          checked: true,
-        },
-        {
-          label: 'Literature',
-          value: 'literature',
-          checked: true,
-        },
-        {
-          label: 'Music',
-          value: 'music',
-          checked: true,
-        },
-        {
-          label: 'Photography',
-          value: 'photography',
-          checked: true,
-        },
-        ],
-      },
-      ],
-      groups: ['001', '002', '003'],
-    },
-    ],
+    items: undefined,
     current_story: false,
     current: 0,
+    currentMap: 0,
     scale: 16,
     latitude: 23.099994,
     longitude: 113.324520,
-    markers: []
+    markers: [],
+    subkey: undefined
   },
 
   navigateToShow(e) {
     let id = e.currentTarget.dataset.id
     wx.navigateTo({
       url: `/pages/show/show?id=${id}`
+    })
+  },
+
+  navigateToPost() {
+    wx.navigateTo({
+      url: `/pages/post/post`
     })
   },
 
@@ -206,6 +85,226 @@ Page({
       });
     this.setData({markers})
   },
+
+  setApple: function () {
+    let tableName = 'apple'
+    let recordID = '5df70bc6d69d0e122d89a3f0'
+
+    let Product = new wx.BaaS.TableObject(tableName)
+
+    Product.get(recordID).then(res => {
+      console.log("this is controller", res)
+      this.setData({
+        "apple": res.data.controller
+      })
+      // success
+    }, err => {
+      // err
+    })
+  },
+
+  setItems: function () {
+    if (this.data.apple) {
+      let items = [
+       {
+         type: 'sort',
+         label: '距离',
+         value: 'distance',
+         groups: ['001'],
+       },
+       {
+         type: 'sort',
+         label: '喜欢',
+         value: 'people_liked',
+         groups: ['002'],
+       },
+       {
+         type: 'sort',
+         label: '评论',
+         value: 'people_commented',
+         groups: ['003'],
+       },
+       {
+         type: 'filter',
+         label: '筛选',
+         value: 'filter',
+         checked: true,
+         children: [
+           {
+             type: 'radio',
+             label: '距离',
+             value: '距离',
+             children: [{
+               label: '500米',
+               value: '500',
+             },
+             {
+               label: '1000米',
+               value: '1000',
+             },
+             {
+               label: '2000米',
+               value: '2000',
+             },
+             {
+               label: '5000米',
+               value: '4999_999',
+             },
+             {
+               label: '10公里',
+               value: '9999_999',
+             },
+             {
+               label: '100公里',
+               value: '99999_998',
+             },
+             {
+               label: '全国',
+               value: '3000000000000',
+               checked: true,
+             },
+             ],
+           },
+           {
+             type: 'checkbox',
+             label: 'Tags',
+             value: 'tags',
+             children: [{
+               label: '建筑',
+               value: '建筑',
+               checked: true,
+             },
+             {
+               label: '艺术',
+               value: '艺术',
+               checked: true,
+             },
+             {
+               label: '风景',
+               value: '风景',
+               checked: true,
+             },
+             {
+               label: '文学',
+               value: '文学',
+               checked: true,
+             },
+             {
+               label: '音乐',
+               value: '音乐',
+               checked: true,
+             },
+             {
+               label: '摄影',
+               value: '摄影',
+               checked: true,
+             },
+             ],
+           },
+         ],
+         groups: ['001', '002', '003'],
+       },
+     ]
+     this.setData({items})
+  } else {
+     let items = [
+       {
+         type: 'sort',
+         label: '距离',
+         value: 'distance',
+         groups: ['001'],
+       },
+       {
+         type: 'sort',
+         label: '喜欢',
+         value: 'people_liked',
+         groups: ['002'],
+       },
+       {
+         type: 'filter',
+         label: '筛选',
+         value: 'filter',
+         checked: true,
+         children: [
+           {
+             type: 'radio',
+             label: '距离',
+             value: '距离',
+             children: [{
+               label: '500米',
+               value: '500',
+             },
+             {
+               label: '1000米',
+               value: '1000',
+             },
+             {
+               label: '2000米',
+               value: '2000',
+             },
+             {
+               label: '5000米',
+               value: '4999_999',
+             },
+             {
+               label: '10公里',
+               value: '9999_999',
+             },
+             {
+               label: '100公里',
+               value: '99999_998',
+             },
+             {
+               label: '全国',
+               value: '3000000000000',
+               checked: true,
+             },
+             ],
+           },
+           {
+             type: 'checkbox',
+             label: 'Tags',
+             value: 'tags',
+             children: [{
+               label: '建筑',
+               value: '建筑',
+               checked: true,
+             },
+             {
+               label: '艺术',
+               value: '艺术',
+               checked: true,
+             },
+             {
+               label: '风景',
+               value: '风景',
+               checked: true,
+             },
+             {
+               label: '文学',
+               value: '文学',
+               checked: true,
+             },
+             {
+               label: '音乐',
+               value: '音乐',
+               checked: true,
+             },
+             {
+               label: '摄影',
+               value: '摄影',
+               checked: true,
+             },
+             ],
+           },
+         ],
+         groups: ['001', '002'],
+       },
+     ]
+      this.setData({ items })
+  }
+  console.log("items", this.data.items)
+},
 
   setStories: function() {
     let query = new wx.BaaS.Query()
@@ -282,9 +381,35 @@ Page({
         storiesWithDistance.sort((a, b) => a.distance - b.distance)
         that.setDisplayDistance(storiesWithDistance)
         that.setData({storiesWithDistance: storiesWithDistance})
+        // get stories for recommendation
+        let filteredByTopTags = storiesWithDistance.filter(function (item) {
+          return (that.data.topTags.some(t => item.tags.indexOf(t) !== -1))
+        })
+        console.log("filteredByTopTags ---->", filteredByTopTags)
+        let filteredByProximity = filteredByTopTags.filter(function (item) {
+          return (item.distance < 20000)
+        })
+        console.log("filteredByProximity ---->", filteredByProximity)
+        let filteredForRecommendation = filteredByProximity.filter(function (item) {
+          return (item.people_liked > 5)
+        })
+        console.log("filteredForRecommendation pre sort---->", filteredForRecommendation)
+        filteredForRecommendation.sort((a, b) => b.people_liked - a.people_liked)
+        console.log("filteredForRecommendation post sort---->", filteredForRecommendation)
+        that.setData({ filteredForRecommendation: filteredForRecommendation })
+
+        // get stories for default recommendation
+        let defaultByProximity = storiesWithDistance.filter(function (item) {
+          return (item.distance < 10000)
+        })
+
+        let defaultRecommendation = defaultByProximity.filter(function (item) {
+          return (item.people_liked > 5)
+        })
+        defaultRecommendation.sort((a, b) => b.people_liked - a.people_liked)
+        that.setData({defaultRecommendation: defaultRecommendation})
       }
     })
-    
   },
 
   setDisplayDistance: function (stories) {
@@ -300,6 +425,60 @@ Page({
         story.display_distance = '100 km+'
       }
     })
+  },
+
+  getUserPreferences: function (userId) {
+    let query = new wx.BaaS.Query()
+    let UserStory = new wx.BaaS.TableObject('user_story')
+    query.compare('user', '=', userId)
+    query.compare('visible', '=', true)
+    UserStory.setQuery(query).expand(['story']).find().then(res => {
+      let userTagsArray = [] // (1) creating a huge array for all tags of user, weighted double for saved stories
+      let specUserStories = res.data.objects;
+      let filteredSpecUserStories = specUserStories.filter(function (item) {
+        return ((item.saved === true) || (item.liked === true))
+      })
+
+      let specStories = filteredSpecUserStories.map(filteredSpecUserStory => filteredSpecUserStory.story)
+      specStories.forEach((specStory) => { userTagsArray = userTagsArray.concat(specStory.tags) })
+      console.log('specStories ------>', specStories)
+      console.log('userTagsArray ----->', userTagsArray)
+
+      let userPrefs = [ // (2) counting occurrence of tags within storiesSaved array
+        { name: '建筑', occurrence: this.getOccurrence(userTagsArray, "建筑") },
+        { name: '艺术', occurrence: this.getOccurrence(userTagsArray, "艺术") },
+        { name: '风景', occurrence: this.getOccurrence(userTagsArray, "风景") },
+        { name: '文学', occurrence: this.getOccurrence(userTagsArray, "文学") },
+        { name: '音乐', occurrence: this.getOccurrence(userTagsArray, "音乐") },
+        { name: '摄影', occurrence: this.getOccurrence(userTagsArray, "摄影") },
+      ] 
+    
+      userPrefs.sort(function (a, b) {
+        return b.occurrence - a.occurrence
+      })
+      console.log("userPrefs ---->", userPrefs)
+
+      if (userPrefs[2].occurrence > 0) {
+        let topTags = userPrefs.slice(0, 3).map((item) => item.name)
+        this.setData({topTags: topTags})
+      } else if (userPrefs[1].occurrence > 0) {
+        let topTags = userPrefs.slice(0, 2).map((item) => item.name)
+        this.setData({ topTags: topTags })
+      } else if (userPrefs[0].occurrence > 0) {
+        let topTags = userPrefs.slice(0, 1).map((item) => item.name)
+        this.setData({ topTags: topTags })
+      } else {
+        let topTags = undefined
+        this.setData({ topTags: topTags })
+      }
+    })
+  },
+
+  getOccurrence: function (array, value) {
+    let filteredArray = array.filter(function (item) {
+      return item === value
+    })
+    return filteredArray.length
   },
   /**
    * Lifecycle function--Called when page load
@@ -334,6 +513,7 @@ Page({
     //     })
     //   }
     // })
+    this.setApple()
   },
 
   /**
@@ -350,7 +530,10 @@ Page({
     let user = wx.getStorageSync('user')
     if (user) {
       this.setData({ user })
+    this.getUserPreferences(user.id)
     }
+    this.setItems()
+    
     // this.setStories()
     // this.mapCtx = wx.createMapContext('myMap')
     // const that = this
@@ -412,6 +595,23 @@ Page({
       imageUrl: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1576076902204&di=3976f55fd2511190201063cb611dbfc1&imgtype=0&src=http%3A%2F%2Fpic5.997788.com%2Fpic_search%2F00%2F16%2F10%2F15%2Fse16101588a.jpg'
     }
   },
+
+  onChangeMap(e){
+    let currentMap = e.detail.key
+    this.setData({currentMap})
+    this.setSubkey(currentMap)
+  },
+
+  setSubkey: function (currentMap) {
+    if (currentMap === 0) {
+      let subkey = "SI4BZ-ELA6U-Z3DVD-4TDCV-UHXHV-P7B4Z"
+      this.setData({subkey})
+    } else {
+      let subkey = "BOABZ-NEO6W-NRXR3-RZ4NV-Q42R7-VQF4F"
+      this.setData({ subkey })
+    }
+  },
+
   onChange(e) {
     console.log('event', e)
     if (e.currentTarget.id === "segmented-control"){
@@ -419,7 +619,7 @@ Page({
     this.setData({
       current: e.detail.key,
     })
-    } else {
+    } else if(this.data.apple){
     let distanceChoice = Number.parseInt(e.detail.checkedValues[3][0])
     let filter = e.detail.checkedValues[3][1]
     let distanceSorter = e.detail.checkedValues[0]
@@ -435,7 +635,7 @@ Page({
     let filteredByDistance = storiesWithDistance.filter(function (item) {
       return item.distance < distanceChoice
     });
-    let filteredByTags = filteredByDistance.filter(function(item) {
+    let filteredByTags = filteredByDistance.filter(function(item) { // check if there is any overlap in the two arrays (chosen filter and story tags)
       console.log(item.tags)
       return filter.some(f => item.tags.indexOf(f) !== -1)
     });
@@ -477,6 +677,56 @@ Page({
     // }, err => {
     //   // err
     // })
+    } else {
+      let distanceChoice = Number.parseInt(e.detail.checkedValues[2][0])
+      let filter = e.detail.checkedValues[2][1]
+      let distanceSorter = e.detail.checkedValues[0]
+      let likesSorter = e.detail.checkedValues[1]
+      this.setData({ filter })
+      console.log("distanceSorter", distanceSorter)
+      console.log("likesSorter", likesSorter)
+      console.log("distanceChoice ---->", distanceChoice)
+      console.log("filter ---->", filter)
+      let storiesWithDistance = this.data.storiesWithDistance
+      let filteredByDistance = storiesWithDistance.filter(function (item) {
+        return item.distance < distanceChoice
+      });
+      let filteredByTags = filteredByDistance.filter(function (item) {
+        console.log(item.tags)
+        return filter.some(f => item.tags.indexOf(f) !== -1)
+      });
+      console.log("filteredByDistance ---->", filteredByDistance)
+      console.log("filteredByTags ---->", filteredByTags)
+
+
+      if (distanceSorter === (1 || -1)) {
+        if (distanceSorter === -1) {
+          filteredByTags.sort((a, b) => a.distance - b.distance)
+        } else {
+          filteredByTags.sort((a, b) => b.distance - a.distance)
+        }
+      } else if (likesSorter === (1 || -1)) {
+        if (likesSorter === -1) {
+          filteredByTags.sort((a, b) => a.people_liked - b.people_liked)
+        } else {
+          filteredByTags.sort((a, b) => b.people_liked - a.people_liked)
+        }
+      } else {
+        filteredByTags.sort((a, b) => a.distance - b.distance)
+      }
+      this.setDisplayDistance(filteredByTags)
+      this.setData({ filteredByTags: filteredByTags })
+      // let query = new wx.BaaS.Query()
+      // query.in('tags', filter)
+      // let Product = new wx.BaaS.TableObject("story")
+      // Product.setQuery(query).find().then(res => {
+      //   // success
+      //   console.log('result --->',  res)
+      //   let filteredStories = res.data.objects
+      //   this.setData({ filteredStories })
+      // }, err => {
+      //   // err
+      // })
     }
   }
 })

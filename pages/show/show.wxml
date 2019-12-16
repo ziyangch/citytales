@@ -11,16 +11,16 @@
   </view>
   <view class="right-section">
     <view wx:if="{{userStory.liked}}" class="icon-cards" bindtap="unlikeUserStory">
-      <image class="icon1" src="/images/喜欢灰.png"></image>
+      <image class="icon1" src="https://cloud-minapp-32027.cloud.ifanrusercontent.com/1igkVgitS6GuqI1d.png"></image>
     </view>
     <view wx:else class="icon-cards" bindtap="likeUserStory">
-      <image class="icon1" src="/images/已喜欢.png"></image>
+      <image class="icon1" src="https://cloud-minapp-32027.cloud.ifanrusercontent.com/1igkVguVUe7jpFwS.png"></image>
     </view>
     <view wx:if="{{userStory.saved}}" class="icon-cards" bindtap="unsaveUserStory">
-      <image class="icon2" src="/images/收藏.png"></image>
+      <image class="icon2" src="https://cloud-minapp-32027.cloud.ifanrusercontent.com/1igkVgGDwLzhQfLQ.png"></image>
     </view>
     <view wx:else class="icon-cards" bindtap="saveUserStory">
-      <image class="icon2" src="/images/已收藏.png"></image>
+      <image class="icon2" src="https://cloud-minapp-32027.cloud.ifanrusercontent.com/1igkVgYhRuceo6Fi.png"></image>
     </view>
   </view>
 </view>
@@ -35,10 +35,23 @@
 <!-- Story Content -->
 <view class="page__content">
   <text class="story-content">{{story.content}}</text>
+  <view class="tags-sec" >
+    <block wx:for="{{story.tags}}" wx:key>
+      <text class="tag">{{item}}</text>
+      <!-- <text class="tag">#人文</text>
+      <text class="tag">#美食</text>
+      <text class="tag">#这是一个很长的tag</text>
+      <text class="tag" style='overflow-wrap: break-word'>#这是一个很长的tag</text>
+      <text class="tag" style='overflow-wrap: break-word'>#这是一个很长的tag</text> -->
+    </block>
+  </view>
   <view class="story-location">
     <image class="location-icon" src='https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifOM5bpVfZq9qG8.png'></image>
     <view class="location" bindtap="openLocation">{{story.address}}</view>
     <button id="delete-btn" wx:if="{{story.created_by === user.id}}" type="warn" bindtap="deleteStory">删除城事</button>
+  </view>
+   <view>
+    <map id="map" style="width: 100%; height: 20vh;" longitude="{{story.longitude}}" latitude="{{story.latitude}}" subkey="SI4BZ-ELA6U-Z3DVD-4TDCV-UHXHV-P7B4Z" markers="{{markers}}" ></map>
   </view>
 </view>
 
@@ -60,7 +73,7 @@
 
 <!-- Page Comments -->
 
-<view class="page_cmt">
+<view class="page_cmt" wx:if="{{apple}}">
   <view class="cmt-container">
     <view class="cmt-no">共{{comments.length}}条评论</view>
     <view class="cmt-hearder">
@@ -121,4 +134,11 @@
       </view>
     </view>
   </view>
+</view>
+
+<view class="home-btn" bindtap="navigateToHome">
+  <image class='home-icon' src='../../images/主页.png'></image>
+</view>
+<view class="profile-btn" bindtap="navigateToProfile">
+  <image class='profile-icon' src='../../images/profile.png'></image>
 </view>
