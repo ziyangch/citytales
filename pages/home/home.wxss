@@ -214,6 +214,29 @@ margin: 10rpx!important;
   box-shadow: 0 0 5rpx rgb(100, 100, 100);
 }
 
+
+.create-btn {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  float: left;
+  position: fixed;
+  bottom: 120rpx;
+  left: 45%;
+  width: 80rpx;
+  height: 80rpx;
+  z-index: 1;
+  background-color: rgba(240, 240, 240, 0.8);
+  border-radius: 4rpx;
+  box-shadow: 0 0 5rpx rgb(100, 100, 100);
+}
+
+.create-icon {
+  width: 60rpx;
+  height: 60rpx;
+  z-index: 2;
+}
+
 .locate-icon {
   width: 40rpx;
   height: 40rpx;
