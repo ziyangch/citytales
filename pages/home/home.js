@@ -12,10 +12,12 @@ Page({
     items: undefined,
     current_story: false,
     current: 0,
+    currentMap: 0,
     scale: 16,
     latitude: 23.099994,
     longitude: 113.324520,
-    markers: []
+    markers: [],
+    subkey: undefined
   },
 
   navigateToShow(e) {
@@ -584,6 +586,23 @@ Page({
       imageUrl: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1576076902204&di=3976f55fd2511190201063cb611dbfc1&imgtype=0&src=http%3A%2F%2Fpic5.997788.com%2Fpic_search%2F00%2F16%2F10%2F15%2Fse16101588a.jpg'
     }
   },
+
+  onChangeMap(e){
+    let currentMap = e.detail.key
+    this.setData({currentMap})
+    this.setSubkey(currentMap)
+  },
+
+  setSubkey: function (currentMap) {
+    if (currentMap === 0) {
+      let subkey = "SI4BZ-ELA6U-Z3DVD-4TDCV-UHXHV-P7B4Z"
+      this.setData({subkey})
+    } else {
+      let subkey = "BOABZ-NEO6W-NRXR3-RZ4NV-Q42R7-VQF4F"
+      this.setData({ subkey })
+    }
+  },
+
   onChange(e) {
     console.log('event', e)
     if (e.currentTarget.id === "segmented-control"){
