@@ -497,6 +497,12 @@ this.setData({markers})
     })
   },
 
+  navigateToProfile: function () {
+    wx.switchTab({
+      url: '/pages/profile/profile'
+    })
+  },
+
   openLocation: function () {
     let latitude = this.data.story.latitude
     let longitude = this.data.story.longitude

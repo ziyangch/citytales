@@ -170,33 +170,33 @@ Page({
              label: 'Tags',
              value: 'tags',
              children: [{
-               label: 'Architecture',
-               value: 'architecture',
+               label: '建筑',
+               value: '建筑',
                checked: true,
              },
              {
-               label: 'Art',
-               value: 'art',
+               label: '艺术',
+               value: '艺术',
                checked: true,
              },
              {
-               label: 'Landscape',
-               value: 'landscape',
+               label: '风景',
+               value: '风景',
                checked: true,
              },
              {
-               label: 'Literature',
-               value: 'literature',
+               label: '文学',
+               value: '文学',
                checked: true,
              },
              {
-               label: 'Music',
-               value: 'music',
+               label: '音乐',
+               value: '音乐',
                checked: true,
              },
              {
-               label: 'Photography',
-               value: 'photography',
+               label: '摄影',
+               value: '摄影',
                checked: true,
              },
              ],
@@ -266,33 +266,33 @@ Page({
              label: 'Tags',
              value: 'tags',
              children: [{
-               label: 'Architecture',
-               value: 'architecture',
+               label: '建筑',
+               value: '建筑',
                checked: true,
              },
              {
-               label: 'Art',
-               value: 'art',
+               label: '艺术',
+               value: '艺术',
                checked: true,
              },
              {
-               label: 'Landscape',
-               value: 'landscape',
+               label: '风景',
+               value: '风景',
                checked: true,
              },
              {
-               label: 'Literature',
-               value: 'literature',
+               label: '文学',
+               value: '文学',
                checked: true,
              },
              {
-               label: 'Music',
-               value: 'music',
+               label: '音乐',
+               value: '音乐',
                checked: true,
              },
              {
-               label: 'Photography',
-               value: 'photography',
+               label: '摄影',
+               value: '摄影',
                checked: true,
              },
              ],
@@ -387,7 +387,7 @@ Page({
         })
         console.log("filteredByTopTags ---->", filteredByTopTags)
         let filteredByProximity = filteredByTopTags.filter(function (item) {
-          return (item.distance < 10000)
+          return (item.distance < 20000)
         })
         console.log("filteredByProximity ---->", filteredByProximity)
         let filteredForRecommendation = filteredByProximity.filter(function (item) {
@@ -445,12 +445,12 @@ Page({
       console.log('userTagsArray ----->', userTagsArray)
 
       let userPrefs = [ // (2) counting occurrence of tags within storiesSaved array
-        { name: 'architecture', occurrence: this.getOccurrence(userTagsArray, "architecture") },
-        { name: 'art', occurrence: this.getOccurrence(userTagsArray, "art") },
-        { name: 'landscape', occurrence: this.getOccurrence(userTagsArray, "landscape") },
-        { name: 'literature', occurrence: this.getOccurrence(userTagsArray, "literature") },
-        { name: 'music', occurrence: this.getOccurrence(userTagsArray, "music") },
-        { name: 'photography', occurrence: this.getOccurrence(userTagsArray, "photography") },
+        { name: '建筑', occurrence: this.getOccurrence(userTagsArray, "建筑") },
+        { name: '艺术', occurrence: this.getOccurrence(userTagsArray, "艺术") },
+        { name: '风景', occurrence: this.getOccurrence(userTagsArray, "风景") },
+        { name: '文学', occurrence: this.getOccurrence(userTagsArray, "文学") },
+        { name: '音乐', occurrence: this.getOccurrence(userTagsArray, "音乐") },
+        { name: '摄影', occurrence: this.getOccurrence(userTagsArray, "摄影") },
       ] 
     
       userPrefs.sort(function (a, b) {
@@ -465,7 +465,7 @@ Page({
         let topTags = userPrefs.slice(0, 2).map((item) => item.name)
         this.setData({ topTags: topTags })
       } else if (userPrefs[0].occurrence > 0) {
-        let topTags = userPrefs[0].name
+        let topTags = userPrefs.slice(0, 1).map((item) => item.name)
         this.setData({ topTags: topTags })
       } else {
         let topTags = undefined
