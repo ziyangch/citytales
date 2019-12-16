@@ -697,7 +697,6 @@ Page({
           width: 600,
           marginLeft: 50,
           marginRight: 50
-
         },
         {
           x: 25,
@@ -709,24 +708,23 @@ Page({
           marginLeft: 50,
           marginRight: 50,
           lineNum: 3,
-          width: 650
+          width: 675
         },
         {
-          x: 375,
-          y: 1050,
+          x: 25,
+          y: 1015,
           text: this.data.story.content,
           // '我用什么才能留住你？我给你贫穷的街道、绝望的日落、破败郊区的月亮。我给你一个久久地望着月亮的人的悲哀。我给你我已死去的先辈，人们用大理石纪念她们的幽灵；我给你我写的书中所能包含的一切悟力、我生活中所能有的男子气概或幽默。我给你一个从未有过信仰的人的忠诚。我给你我设法保全的我自己的核心——不营字造句，不和梦想交易，不被时间、欢乐和逆境触动的核心。——博尔赫斯',
           //TODO: 用户自定义祝福语，随机生成语料库
           fontFamily: 'STFangsong',
-          fontSize: 40,
+          fontSize: 30,
           color: '#484E5C',
           opacity: 0.85,
-          textAlign: 'center',
-          lineNum: 12,
-          width: 600,
-          marginLeft: 50,
-          marginRight: 50,
-          fontStyle: 'italic'
+          // textAlign: 'center',
+          lineHeight: 40,
+          lineNum: 13,
+          width: 675,
+          fontStyle: 'italic',
         },
         {
           x: 355,

@@ -1,5 +1,5 @@
 <!-- index.wxml -->
-<image class="background" src="../../images/citytales.png"></image>
+<!-- <image class="background" src="../../images/citytales.png"></image>
 <view class="container">
   <view class="userinfo">
     <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="loginWithWechat"> 进入你的城事 </button>
@@ -11,4 +11,4 @@
     <text class="user-motto">{{motto}}</text>
     </view>
   </view>
-</view>
+</view> -->

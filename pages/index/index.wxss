@@ -1,4 +1,4 @@
-/**index.wxss**/
+/* *index.wxss*
 .background {
   display: flex;
   width: 100vw;
@@ -27,4 +27,6 @@
   color: grey;
   font-size: 22rpx;
 }
-
+ */
+ 
+ 
