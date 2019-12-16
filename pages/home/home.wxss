@@ -134,7 +134,7 @@ margin: 10rpx!important;
 .index-container {
   height: 100%;
   width: 100%;
-  margin-bottom: 100rpx;
+  margin-bottom: 80rpx;
 }
 
 .ad-hoc-card {
@@ -274,7 +274,10 @@ margin: 10rpx!important;
 }
 
 .content{
-  margin: 0 20rpx;
+  margin-right:20rpx;
+  margin-left: 20rpx;
+  margin-top: 100rpx;
+  margin-bottom: 20rpx;
   text-align: justify; 
 }
 
