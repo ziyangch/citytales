@@ -12,10 +12,12 @@
       <image class='zoom-in-btn' src='https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifOM5KNrUVi2DoF.png' bindtap="zoomIn"></image>
       <image class='zoom-out-btn' src='https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifOM5sXRCVJU8d0.png' bindtap="zoomOut"></image>
     </view>
-    <view>
+    <view class="info-btn" bindtap="show">
+      <image class='info-btn' src='https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ignp5ycJrVDfsn6.png'></image>
+    </view>
       <map
         id="myMap"
-        style="width: 100%; height: 95vh;"
+        style="width: 100%; height: 100vh;"
         latitude="{{latitude}}"
         longitude="{{longitude}}"
         subkey="SI4BZ-ELA6U-Z3DVD-4TDCV-UHXHV-P7B4Z"
@@ -28,7 +30,7 @@
         enable-rotate
       ></map>
     </view>
-    
+
 
       <view class="ad-hoc-card-container" >
         <view wx:if="{{current_story}}" class="ad-hoc-card" catchtap="navigateToShow" data-type="edit" data-id="{{current_story.id}}" wx:key>
@@ -37,13 +39,13 @@
           <view class="event-info">
             <image  class = "avatar" mode = "aspectFill" src = "{{current_story.avatar}}" />
             <view class="user-story">{{ current_story.title }}</view>
-          </view>      
+          </view>
         </view>
       </view>
     </view>
 
 <view wx:if="{{current==1}}" class="index-container">
-  
+
   <wux-filterbar id="filterbar" style="width:100%; position:fixed; top:0" items="{{ items }}" bind:change="onChange" bind:open="onOpen" bind:close="onClose" />
     <view class="weui-panel weui-panel_access" catchtouchmove="{{ opened ? 'noop' : '' }}">
       <view class="weui-panel__bd">
@@ -112,7 +114,7 @@
   <view wx:if="{{!defaultRecommendation[0]}}" class="recommendation-hint">
     <view class="h1">在你的附近没有推荐的故事</view>
   </view>
-  
+
   <view class='content'>
     <view class="left">
         <block wx:for="{{filteredForRecommendation||defaultRecommendation}}" class="card-container" catchtap="navigateToShow" data-type="edit" data-id="{{item.id}}" wx:key>
@@ -171,12 +173,52 @@
   </view>
 
 </view>
-    
+
 </view>
 
   <view class="bar">
-    <wux-segmented-control id="segmented-control" class="switch-bar" values="{{ ['地图', '城事', '推荐'] }}" bind:change="onChange" />
+    <wux-segmented-control id="segmented-control" class="switch-bar" values="{{ ['地图', '列表', '推荐'] }}" bind:change="onChange" />
   </view>
 </view>
 
 
+<view>
+<view class="zhezao" hidden="{{flag}}">
+  <view class="t_w">
+
+    <!--右上角图标开始-->
+    <view class="t_image"  bindtap="conceal">
+      <image class="t_image1" src="../../image/cross.png" ></image>
+    </view>
+    <!--右上角图标结束-->
+
+    <!--弹出框开始-->
+    <view class="tanchu_view">
+      <view>
+        <view class="bg_view">
+        <text>欢迎来到\n城事CityTales</text>
+        </view>
+        <view class="txtys">
+        <text class="slogan">
+        A new gateway to discover your city!\n
+        探索周边有趣的城市故事
+        </text>
+        <text class="guide">
+        🗺地图模式：附近宝藏，点击挖掘\n
+        🧾列表模式：所有故事，一览无余\n
+        ⭐️编辑推荐：小众路线，即刻出发
+        </text>
+        </view>
+         <!--确定开始-->
+        <view class="txtsure"  >
+          <view class="txtsurebg" bindtap="conceal">
+              <text class="txtsurename">OK</text>
+          </view>
+        </view>
+         <!--确定结束-->
+       </view>
+    </view>
+    <!--弹出框结束-->
+  </view>
+</view>
+</view>
