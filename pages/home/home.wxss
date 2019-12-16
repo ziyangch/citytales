@@ -278,6 +278,17 @@ margin: 10rpx!important;
   text-align: justify; 
 }
 
+.recommendation-hint {
+  position: fixed;
+  height: 200rpx;
+  width: 100vw;
+  background-color:#F4F4F4;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .left,.right{
   display: inline-block;
   vertical-align: top;
