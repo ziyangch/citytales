@@ -379,9 +379,35 @@ Page({
         storiesWithDistance.sort((a, b) => a.distance - b.distance)
         that.setDisplayDistance(storiesWithDistance)
         that.setData({storiesWithDistance: storiesWithDistance})
+        // get stories for recommendation
+        let filteredByTopTags = storiesWithDistance.filter(function (item) {
+          return (that.data.topTags.some(t => item.tags.indexOf(t) !== -1))
+        })
+        console.log("filteredByTopTags ---->", filteredByTopTags)
+        let filteredByProximity = filteredByTopTags.filter(function (item) {
+          return (item.distance < 10000)
+        })
+        console.log("filteredByProximity ---->", filteredByProximity)
+        let filteredForRecommendation = filteredByProximity.filter(function (item) {
+          return (item.people_liked > 5)
+        })
+        console.log("filteredForRecommendation pre sort---->", filteredForRecommendation)
+        filteredForRecommendation.sort((a, b) => b.people_liked - a.people_liked)
+        console.log("filteredForRecommendation post sort---->", filteredForRecommendation)
+        that.setData({ filteredForRecommendation: filteredForRecommendation })
+
+        // get stories for default recommendation
+        let defaultByProximity = storiesWithDistance.filter(function (item) {
+          return (item.distance < 10000)
+        })
+
+        let defaultRecommendation = defaultByProximity.filter(function (item) {
+          return (item.people_liked > 5)
+        })
+        defaultRecommendation.sort((a, b) => b.people_liked - a.people_liked)
+        that.setData({defaultRecommendation: defaultRecommendation})
       }
     })
-    
   },
 
   setDisplayDistance: function (stories) {
@@ -581,7 +607,7 @@ Page({
     let filteredByDistance = storiesWithDistance.filter(function (item) {
       return item.distance < distanceChoice
     });
-    let filteredByTags = filteredByDistance.filter(function(item) {
+    let filteredByTags = filteredByDistance.filter(function(item) { // check if there is any overlap in the two arrays (chosen filter and story tags)
       console.log(item.tags)
       return filter.some(f => item.tags.indexOf(f) !== -1)
     });
