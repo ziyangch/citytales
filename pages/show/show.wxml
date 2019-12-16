@@ -36,12 +36,14 @@
 <view class="page__content">
   <text class="story-content">{{story.content}}</text>
   <view class="tags-sec" >
-    <text class="tag">#建筑</text>
-    <text class="tag">#人文</text>
-    <text class="tag">#美食</text>
-    <text class="tag">#这是一个很长的tag</text>
-    <text class="tag" style='overflow-wrap: break-word'>#这是一个很长的tag</text>
-    <text class="tag" style='overflow-wrap: break-word'>#这是一个很长的tag</text>
+    <block wx:for="{{story.tags}}" wx:key>
+      <text class="tag">{{item}}</text>
+      <!-- <text class="tag">#人文</text>
+      <text class="tag">#美食</text>
+      <text class="tag">#这是一个很长的tag</text>
+      <text class="tag" style='overflow-wrap: break-word'>#这是一个很长的tag</text>
+      <text class="tag" style='overflow-wrap: break-word'>#这是一个很长的tag</text> -->
+    </block>
   </view>
   <view class="story-location">
     <image class="location-icon" src='https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifOM5bpVfZq9qG8.png'></image>
@@ -131,9 +133,9 @@
   </view>
 </view>
 
-<view class="home-btn" bindtap="">
+<view class="home-btn" bindtap="navigateToHome">
   <image class='home-icon' src='../../images/主页.png'></image>
 </view>
-<view class="profile-btn" bindtap="">
+<view class="profile-btn" bindtap="navigateToProfile">
   <image class='profile-icon' src='../../images/profile.png'></image>
 </view>
