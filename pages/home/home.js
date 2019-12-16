@@ -301,6 +301,60 @@ Page({
       }
     })
   },
+
+  getUserPreferences: function (userId) {
+    let query = new wx.BaaS.Query()
+    let UserStory = new wx.BaaS.TableObject('user_story')
+    query.compare('user', '=', userId)
+    query.compare('visible', '=', true)
+    UserStory.setQuery(query).expand(['story']).find().then(res => {
+      let userTagsArray = [] // (1) creating a huge array for all tags of user, weighted double for saved stories
+      let specUserStories = res.data.objects;
+      let filteredSpecUserStories = specUserStories.filter(function (item) {
+        return ((item.saved === true) || (item.liked === true))
+      })
+
+      let specStories = filteredSpecUserStories.map(filteredSpecUserStory => filteredSpecUserStory.story)
+      specStories.forEach((specStory) => { userTagsArray = userTagsArray.concat(specStory.tags) })
+      console.log('specStories ------>', specStories)
+      console.log('userTagsArray ----->', userTagsArray)
+
+      let userPrefs = [ // (2) counting occurrence of tags within storiesSaved array
+        { name: 'architecture', occurrence: this.getOccurrence(userTagsArray, "architecture") },
+        { name: 'art', occurrence: this.getOccurrence(userTagsArray, "art") },
+        { name: 'landscape', occurrence: this.getOccurrence(userTagsArray, "landscape") },
+        { name: 'literature', occurrence: this.getOccurrence(userTagsArray, "literature") },
+        { name: 'music', occurrence: this.getOccurrence(userTagsArray, "music") },
+        { name: 'photography', occurrence: this.getOccurrence(userTagsArray, "photography") },
+      ] 
+    
+      userPrefs.sort(function (a, b) {
+        return b.occurrence - a.occurrence
+      })
+      console.log("userPrefs ---->", userPrefs)
+
+      if (userPrefs[2].occurrence > 0) {
+        let topTags = userPrefs.slice(0, 3).map((item) => item.name)
+        this.setData({topTags: topTags})
+      } else if (userPrefs[1].occurrence > 0) {
+        let topTags = userPrefs.slice(0, 2).map((item) => item.name)
+        this.setData({ topTags: topTags })
+      } else if (userPrefs[0].occurrence > 0) {
+        let topTags = userPrefs[0].name
+        this.setData({ topTags: topTags })
+      } else {
+        let topTags = undefined
+        this.setData({ topTags: topTags })
+      }
+    })
+  },
+
+  getOccurrence: function (array, value) {
+    let filteredArray = array.filter(function (item) {
+      return item === value
+    })
+    return filteredArray.length
+  },
   /**
    * Lifecycle function--Called when page load
    */
@@ -350,6 +404,7 @@ Page({
     let user = wx.getStorageSync('user')
     if (user) {
       this.setData({ user })
+    this.getUserPreferences(user.id)
     }
     // this.setStories()
     // this.mapCtx = wx.createMapContext('myMap')
