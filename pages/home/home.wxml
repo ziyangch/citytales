@@ -43,14 +43,19 @@
       <view class="weui-panel__bd">
       </view>
     </view>
-  <view wx:for="{{filteredByTags||storiesWithDistance}}" class="card-container" catchtap="navigateToShow" data-type="edit" data-id="{{item.id}}" wx:key>
-    <view class="card">
-      <image class="story-img" src="{{ item.image }}" alt="Pic" style="width:100%" mode="aspectFill"></image>
-      <view class="info-section">
-        <view class="info-left">
-          <image class = "avatar" mode = "aspectFill" src = "{{item.avatar}}" />
-            <view class="sec2">
-              <view class="h1">{{ item.title }}</view>
+  <view class='content'>
+    <view class="left">
+        <block wx:for="{{filteredByTags||storiesWithDistance}}" class="card-container" catchtap="navigateToShow" data-type="edit" data-id="{{item.id}}" wx:key>
+          <view class="card" wx:if="{{index%2==0}}">
+            <image class="story-img" src="{{ item.image }}" alt="Pic" style="width:100%" mode="widthFix"></image>
+            <view class="info-section">
+              <view class="info-left">
+                <image class = "avatar" mode = "aspectFill" src = "{{item.avatar}}" />
+                  <view class="sec2">
+                    <view class="h1">{{ item.title }}</view>
+
+                  </view>
+              </view>
               <view class="sec3">
                 <view class="distance">100km+</view>
                 <view class="sec4">
@@ -63,10 +68,38 @@
                 </view>
               </view>
             </view>
-        </view>
+          </view>
+        </block>
       </view>
-    </view>
+      <view class="right">
+        <block wx:for="{{filteredByTags||storiesWithDistance}}" class="card-container" catchtap="navigateToShow" data-type="edit" data-id="{{item.id}}" wx:key>
+          <view class="card" wx:if="{{index%2==1}}">
+            <image class="story-img" src="{{ item.image }}" alt="Pic" style="width:100%" mode="widthFix"></image>
+            <view class="info-section">
+              <view class="info-left">
+                <image class = "avatar" mode = "aspectFill" src = "{{item.avatar}}" />
+                  <view class="sec2">
+                    <view class="h1">{{ item.title }}</view>
+
+                  </view>
+              </view>
+              <view class="sec3">
+                <view class="distance">100km+</view>
+                <view class="sec4">
+                  <image class="icon" style="width: 45rpx; height: 45rpx; margin-right: 0rpx"src="/images/爱心.png"></image>
+                  <view class="num">10</view>
+                </view>
+                <view class="sec4">
+                  <image class="icon" style="margin-right: 10rpx"src="/images/留言.png"></image>
+                  <view class="num">1</view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </block>
+      </view>
   </view>
+
 </view>
     
 </view>
