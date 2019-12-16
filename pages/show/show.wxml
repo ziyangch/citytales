@@ -40,6 +40,9 @@
     <view class="location" bindtap="openLocation">{{story.address}}</view>
     <button id="delete-btn" wx:if="{{story.created_by === user.id}}" type="warn" bindtap="deleteStory">删除城事</button>
   </view>
+   <view>
+    <map id="map" style="width: 100%; height: 20vh;" longitude="{{story.longitude}}" latitude="{{story.latitude}}" subkey="SI4BZ-ELA6U-Z3DVD-4TDCV-UHXHV-P7B4Z" markers="{{markers}}" ></map>
+  </view>
 </view>
 
 
