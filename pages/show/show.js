@@ -42,7 +42,7 @@ Page({
 
     texts: "至少5个字",
     min: 5,//最少字数
-    max: 10, //最多字数 (根据自己需求改变)
+    max: 150, //最多字数 (根据自己需求改变)
 
     focusInput: false,
     height: '',
@@ -195,13 +195,27 @@ Page({
       date: this.data.dateNow
     }
 
-    comment.set(newComment).save().then(res => { // (6) saving new Comment object into DB
-      this.getComments(this.data.story.id) // (7) get comments from DB
-    }, err => console.log(err))
-  
-  wx.showToast({title: '已成功评论！'})
-  this.setData({'content': ''})
-  this.hideCommentBox()
+    if (this.data.comment.content.length <= this.data.min) {
+      wx.showToast({
+        title: `字数不够`,
+        icon: 'none'
+      })
+    } else if (this.data.comment.content.length > this.data.max) {
+      wx.showToast({
+        title: `字数太多`,
+        icon: 'none'
+      })
+    } else {
+      comment.set(newComment).save().then(res => { // (6) saving new Comment object into DB
+        this.getComments(this.data.story.id) // (7) get comments from DB
+      }, err => console.log(err))
+
+      wx.showToast({ title: '已成功评论！' })
+      this.setData({ 'value': '' })
+      this.setData({ 'comment.content': '' })
+      this.setData({ 'currentWordNumber': 0 })
+      this.hideCommentBox()
+    } 
   },
 
   unlikeComment: function (e) {
@@ -604,7 +618,7 @@ Page({
   onShareAppMessage: function () {
     return {
       title: '一起来探索城事吧！',
-      path: 'pages/show/show'
+      path: `/pages/show/show?id=${this.data.story.id}`
     }
   },
   onCreatePoster () {
@@ -683,18 +697,19 @@ Page({
           width: 600,
           marginLeft: 50,
           marginRight: 50
+
         },
         {
           x: 25,
           y: 930,
-          text: "📍" + this.data.story.address,
+          text: this.data.story.address,
           fontFamily: 'STFangsong',
           fontSize: 30,
           color: '#484E5C',
-          lineNum: 3,
-          width: 600,
           marginLeft: 50,
-          marginRight: 50
+          marginRight: 50,
+          lineNum: 3,
+          width: 650
         },
         {
           x: 375,
@@ -755,7 +770,7 @@ Page({
         }, 
         {
           width: 200,
-          height: 150,
+          height: 200,
           x: 525,
           y: 40,
           url: 'https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifh3hlco9fcu01w.PNG'

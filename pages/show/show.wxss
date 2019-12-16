@@ -79,7 +79,7 @@
   margin: 0rpx;
   width: 60rpx;
   height: 60rpx;
-  margin-top: 5rpx;
+  margin-bottom: 5rpx;
 }
 
 .icon-card {
@@ -90,12 +90,18 @@
 }
 .icon-card .icon {
   margin: 5rpx;
-  width: 30rpx;
-  height: 30rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.icon-card .num {
+  font-weight: lighter;
+  font-size: 18rpx;
 }
 
 .icon-card text {
   font-size: 20rpx;
+
 }
 
 .top-section .h1 {
@@ -174,7 +180,6 @@
   align-items: center;
   font-size: 24rpx;
   margin-top: 20rpx;
-  position: relative;
   height: 100rpx;
 }
 
@@ -218,7 +223,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: left;
-  width: 80%;
+  width: 90%;
 }
 
 .cmt-info .user-name {
@@ -226,8 +231,11 @@
   font-size: 24rpx;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
-
+.cmt-info .user-date {
+  font-size: 18rpx;
+}
 .cmt-info .user-comment {
   font-size: 24rpx;
 }
