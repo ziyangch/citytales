@@ -704,7 +704,11 @@ Page({
     });
     let filteredByTags = filteredByDistance.filter(function(item) { // check if there is any overlap in the two arrays (chosen filter and story tags)
       console.log(item.tags)
-      return filter.some(f => item.tags.indexOf(f) !== -1)
+      if (item.tags === undefined) {
+        return false
+      } else {
+        return filter.some(f => item.tags.indexOf(f) !== -1)
+      }
     });
     console.log("filteredByDistance ---->", filteredByDistance)
     console.log("filteredByTags ---->", filteredByTags)
