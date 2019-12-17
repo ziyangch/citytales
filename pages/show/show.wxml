@@ -6,7 +6,7 @@
 </view>
 <view class="top-section">
   <view class="left-section">
-    <image class="avatar" mode="aspectFill" src="{{story.avatar}}" />
+    <image class="avatar" mode="aspectFill" src="{{story.avatar}}" data-id="{{story.created_by}}" bindtap="navigateToUserProfile"/>
     <view class="h1">{{story.nickname}}</view>
   </view>
   <view class="right-section">

@@ -122,8 +122,8 @@
 
 
 
-<view>
-<view class="zhezao" hidden="{{flag}}">
+
+<view class="zhezao" hidden="{{flag}}" wx:if="{{!user.id}}">
   <view class="t_w">
 
     <!--右上角图标开始-->
@@ -133,7 +133,7 @@
     <!--右上角图标结束-->
 
     <!--弹出框开始-->
-    <view class="tanchu_view">
+    <view class="tanchu_view"  >
       <view>
         <view class="bg_view">
         <text>欢迎来到\n城事CityTales</text>
@@ -160,4 +160,4 @@
     <!--弹出框结束-->
   </view>
 </view>
-</view>
+

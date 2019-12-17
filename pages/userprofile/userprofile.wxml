@@ -1,32 +1,27 @@
 <!--pages/userprofile/userprofile.wxml-->
 <view class="header">
-    <image  class= "avatar" mode = "aspectFill" src = "../../images/citytales.jpg" />
+    <image  class= "avatar" mode = "aspectFill" src = "{{user.avatar}}" />
     <view class="user-info">
 
-      <view class="user-name">城事Official Account</view>
-      <view class="user-bio">城事，我们的故事</view>
+      <view class="user-name">{{user.custom_nickname || user.nickname}}</view>
+      <view class="user-bio">{{user.bio}}</view>
 
       <view class="follows">
         <view class="liked">
-          <text>10</text>
-          <text>ta的城事</text>
+          <text>{{stories_liked.length || 0}}</text>
+          <text>ta喜欢的</text>
         </view>
         <view class="saved">
-          <text>8</text>
-          <text>ta的喜欢</text>
+          <text>{{stories_saved.length || 0}}</text>
+          <text>ta收藏的</text>
         </view>
       </view>
     </view>
 </view>
 
 <view class="bar">
-  <wux-segmented-control class="switch-bar" values="{{ ['ta的城事', 'ta的喜欢'] }}" bind:change="onChange" />
+  <wux-segmented-control class="switch-bar" values="{{ ['ta喜欢的', 'ta收藏的'] }}" bind:change="onChange" />
 </view>
-
-<!-- <view wx:if="{{!user.id}}" class="login-field">
-  <button class="login-btn" open-type="getUserInfo" bindgetuserinfo="loginWithWechat">点击登陆</button>
-  <view class="login-text">*开启你的城事之旅</view>
-</view> -->
 
 <view wx:if="{{current===0}}" class="profile_story_container">
   <view class='content'>
