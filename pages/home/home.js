@@ -383,7 +383,11 @@ Page({
         that.setData({storiesWithDistance: storiesWithDistance})
         // get stories for recommendation
         let filteredByTopTags = storiesWithDistance.filter(function (item) {
+          if (item.tags === undefined) {
+            return false
+          } else {
           return (that.data.topTags.some(t => item.tags.indexOf(t) !== -1))
+          }
         })
         console.log("filteredByTopTags ---->", filteredByTopTags)
         let filteredByProximity = filteredByTopTags.filter(function (item) {
@@ -471,6 +475,7 @@ Page({
         let topTags = undefined
         this.setData({ topTags: topTags })
       }
+      this.setStories() // added here to avoid asynchronous errors
     })
   },
 
@@ -480,11 +485,51 @@ Page({
     })
     return filteredArray.length
   },
+
+  getRoute: function() {
+    let that = this
+    qqmapsdk.direction({
+      mode: 'walking',
+      from: { latitude: 22.522807, longitude: 113.935338},
+      to: { latitude: 22.528342, longitude: 113.94541},
+      success: function (res) {
+        console.log('DIRECTION ------->', res)
+        let ret = res;
+        let coors = ret.result.routes[0].polyline, pl = [];
+        //坐标解压（返回的点串坐标，通过前向差分进行压缩）
+        let kr = 1000000;
+        for (let i = 2; i < coors.length; i++) {
+          coors[i] = Number(coors[i - 2]) + Number(coors[i]) / kr;
+        }
+        //将解压后的坐标放入点串数组pl中
+        for (let i = 0; i < coors.length; i += 2) {
+          pl.push({ latitude: coors[i], longitude: coors[i + 1] })
+        }
+        console.log(pl)
+        that.setData({
+          polyline: [{
+            points: pl,
+            color: "#0091ff",
+            width: 6
+          }]
+        })
+      },
+      fail: function(error) {
+        console.error(error)
+      },
+      complete: function (res) {
+        console.log(res)
+      }
+    })
+  },
+
+
+
   /**
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
-
+    
     // 实例化API核心类
     qqmapsdk = new QQMapWX({
       key: '2RTBZ-TCOW4-O2VUZ-X2QBG-BEV5V-3TBVX'
@@ -497,9 +542,9 @@ Page({
         const latitude = res.latitude
         const longitude = res.longitude
         that.setData({ latitude, longitude })
-        that.setStories()
       }
     })
+    this.getRoute()
     // wx.getLocation({
     //   type: 'gcj02', //Returns the latitude and longitude that can be used for wx.openLocation
     //   success(res) {
@@ -530,7 +575,7 @@ Page({
     let user = wx.getStorageSync('user')
     if (user) {
       this.setData({ user })
-    this.getUserPreferences(user.id)
+      this.getUserPreferences(user.id)
     }
     this.setItems()
     
@@ -615,7 +660,7 @@ Page({
   onChange(e) {
     console.log('event', e)
     if (e.currentTarget.id === "segmented-control"){
-    this.setStories()
+    // this.setStories()
     this.setData({
       current: e.detail.key,
     })

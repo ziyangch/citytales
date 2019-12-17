@@ -28,6 +28,7 @@
         show-location
         show-compass
         enable-rotate
+        polyline="{{polyline}}"
       ></map>
     </view>
 
