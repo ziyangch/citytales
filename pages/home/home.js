@@ -17,7 +17,12 @@ Page({
     latitude: 23.099994,
     longitude: 113.324520,
     markers: [],
-    subkey: undefined
+    subkey: undefined,
+    polyline: [{
+      points: [],
+      color: "#0091ff",
+      width: 6
+    }]
   },
 
   navigateToShow(e) {
@@ -318,6 +323,8 @@ Page({
       this.setMarkers(res.data.objects)
       this.setData({stories})
       this.getStoriesWithDistance(stories) // for dealing with distances
+
+      this.setRoute(['5df35bd181f3bf0af673c67d', '5df8b21fea947d577c9bd4d2', '5df362a281f3bf0af324d1e1', '5df353c63a1bf86399dd87c1']) // Calculating Routes
     })
   },
 
@@ -486,12 +493,12 @@ Page({
     return filteredArray.length
   },
 
-  getRoute: function() {
+  setRouteSnippet: function(startStory, endStory) {
     let that = this
     qqmapsdk.direction({
       mode: 'walking',
-      from: { latitude: 22.522807, longitude: 113.935338},
-      to: { latitude: 22.528342, longitude: 113.94541},
+      from: { latitude: startStory.latitude, longitude: startStory.longitude},
+      to: { latitude: endStory.latitude, longitude: endStory.longitude},
       success: function (res) {
         console.log('DIRECTION ------->', res)
         let ret = res;
@@ -506,9 +513,15 @@ Page({
           pl.push({ latitude: coors[i], longitude: coors[i + 1] })
         }
         console.log(pl)
+        let polylinePoints = that.data.polyline[0].points
+        if (polylinePoints === undefined) {
+          polylinePoints = pl
+        } else {
+          polylinePoints = polylinePoints.concat(pl)
+        }
         that.setData({
           polyline: [{
-            points: pl,
+            points: polylinePoints,
             color: "#0091ff",
             width: 6
           }]
@@ -523,6 +536,16 @@ Page({
     })
   },
 
+  setRoute(storiesIdArray) {
+    let that = this
+    let polylinePoints = []
+    for (let i = 0; i < (storiesIdArray.length - 1); i += 1) {
+      let startStory = that.data.stories.find(story => story.id == storiesIdArray[i])
+      let endStory = that.data.stories.find(story => story.id == storiesIdArray[i + 1])
+      polylinePoints = polylinePoints.concat(that.setRouteSnippet(startStory, endStory))
+      console.log('polylinePoints ------->', i , polylinePoints)
+    }
+  },
 
 
   /**
@@ -544,7 +567,6 @@ Page({
         that.setData({ latitude, longitude })
       }
     })
-    this.getRoute()
     // wx.getLocation({
     //   type: 'gcj02', //Returns the latitude and longitude that can be used for wx.openLocation
     //   success(res) {
