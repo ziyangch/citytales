@@ -113,6 +113,7 @@ Page({
       longitude: this.data.story.longitude,
       latitude: this.data.story.latitude,
       content: this.data.story.content,
+      creator: this.data.user.id, 
       image: this.data.story.image,
       avatar: this.data.user.avatar,
       nickname:this.data.user.nickname,
