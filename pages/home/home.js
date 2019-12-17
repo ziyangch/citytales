@@ -27,12 +27,6 @@ Page({
     })
   },
 
-  navigateToPost() {
-    wx.navigateTo({
-      url: `/pages/post/post`
-    })
-  },
-
   markerTap: function(event) {
     this.setMarkers(this.data.stories)
     let current_story = this.data.stories.find(story => story.id == event.markerId);
@@ -97,6 +91,7 @@ Page({
       this.setData({
         "apple": res.data.controller
       })
+      this.setItems()
       // success
     }, err => {
       // err
@@ -104,109 +99,7 @@ Page({
   },
 
   setItems: function () {
-    if (this.data.apple) {
-      let items = [
-       {
-         type: 'sort',
-         label: '距离',
-         value: 'distance',
-         groups: ['001'],
-       },
-       {
-         type: 'sort',
-         label: '喜欢',
-         value: 'people_liked',
-         groups: ['002'],
-       },
-       {
-         type: 'sort',
-         label: '评论',
-         value: 'people_commented',
-         groups: ['003'],
-       },
-       {
-         type: 'filter',
-         label: '筛选',
-         value: 'filter',
-         checked: true,
-         children: [
-           {
-             type: 'radio',
-             label: '距离',
-             value: '距离',
-             children: [{
-               label: '500米',
-               value: '500',
-             },
-             {
-               label: '1000米',
-               value: '1000',
-             },
-             {
-               label: '2000米',
-               value: '2000',
-             },
-             {
-               label: '5000米',
-               value: '4999_999',
-             },
-             {
-               label: '10公里',
-               value: '9999_999',
-             },
-             {
-               label: '100公里',
-               value: '99999_998',
-             },
-             {
-               label: '全国',
-               value: '3000000000000',
-               checked: true,
-             },
-             ],
-           },
-           {
-             type: 'checkbox',
-             label: 'Tags',
-             value: 'tags',
-             children: [{
-               label: '建筑',
-               value: '建筑',
-               checked: true,
-             },
-             {
-               label: '艺术',
-               value: '艺术',
-               checked: true,
-             },
-             {
-               label: '风景',
-               value: '风景',
-               checked: true,
-             },
-             {
-               label: '文学',
-               value: '文学',
-               checked: true,
-             },
-             {
-               label: '音乐',
-               value: '音乐',
-               checked: true,
-             },
-             {
-               label: '摄影',
-               value: '摄影',
-               checked: true,
-             },
-             ],
-           },
-         ],
-         groups: ['001', '002', '003'],
-       },
-     ]
-     this.setData({items})
-  } else {
+  
      let items = [
        {
          type: 'sort',
@@ -301,8 +194,8 @@ Page({
          groups: ['001', '002'],
        },
      ]
-      this.setData({ items })
-  }
+    this.setData({ items })
+
   console.log("items", this.data.items)
 },
 
@@ -577,7 +470,6 @@ Page({
       this.setData({ user })
       this.getUserPreferences(user.id)
     }
-    this.setItems()
     
     // this.setStories()
     // this.mapCtx = wx.createMapContext('myMap')
@@ -664,65 +556,7 @@ Page({
     this.setData({
       current: e.detail.key,
     })
-    } else if(this.data.apple){
-    let distanceChoice = Number.parseInt(e.detail.checkedValues[3][0])
-    let filter = e.detail.checkedValues[3][1]
-    let distanceSorter = e.detail.checkedValues[0]
-    let likesSorter = e.detail.checkedValues[1]
-    let commentsSorter = e.detail.checkedValues[2]
-    this.setData({ filter })
-    console.log("distanceSorter", distanceSorter)
-    console.log("likesSorter", likesSorter)
-    console.log("commentsSorter", commentsSorter)
-    console.log("distanceChoice ---->", distanceChoice)
-    console.log("filter ---->", filter)
-    let storiesWithDistance = this.data.storiesWithDistance
-    let filteredByDistance = storiesWithDistance.filter(function (item) {
-      return item.distance < distanceChoice
-    });
-    let filteredByTags = filteredByDistance.filter(function(item) { // check if there is any overlap in the two arrays (chosen filter and story tags)
-      console.log(item.tags)
-      return filter.some(f => item.tags.indexOf(f) !== -1)
-    });
-    console.log("filteredByDistance ---->", filteredByDistance)
-    console.log("filteredByTags ---->", filteredByTags)
-    
-    
-    if (distanceSorter === (1 || -1)) {
-      if (distanceSorter === -1) {
-        filteredByTags.sort((a, b) => a.distance - b.distance)
-      } else {
-        filteredByTags.sort((a, b) => b.distance - a.distance)
-      }
-    } else if (likesSorter === (1||-1)) {
-      if (likesSorter === -1){
-        filteredByTags.sort((a, b) => a.people_liked - b.people_liked)
-      } else {
-        filteredByTags.sort((a, b) => b.people_liked - a.people_liked)
-      }
-    } else if (commentsSorter === (1||-1)) {
-      if (commentsSorter === -1) {
-        filteredByTags.sort((a, b) => a.people_commented - b.people_commented)
-      } else {
-        filteredByTags.sort((a, b) => b.people_commented - a.people_commented)
-      }
-    } else {
-      filteredByTags.sort((a, b) => a.distance - b.distance)
-    }
-    this.setDisplayDistance(filteredByTags)
-    this.setData({filteredByTags: filteredByTags})
-    // let query = new wx.BaaS.Query()
-    // query.in('tags', filter)
-    // let Product = new wx.BaaS.TableObject("story")
-    // Product.setQuery(query).find().then(res => {
-    //   // success
-    //   console.log('result --->',  res)
-    //   let filteredStories = res.data.objects
-    //   this.setData({ filteredStories })
-    // }, err => {
-    //   // err
-    // })
-    } else {
+    } {
       let distanceChoice = Number.parseInt(e.detail.checkedValues[2][0])
       let filter = e.detail.checkedValues[2][1]
       let distanceSorter = e.detail.checkedValues[0]
@@ -738,7 +572,11 @@ Page({
       });
       let filteredByTags = filteredByDistance.filter(function (item) {
         console.log(item.tags)
-        return filter.some(f => item.tags.indexOf(f) !== -1)
+        if (item.tags === undefined) {
+          return false
+        } else {
+          return filter.some(f => item.tags.indexOf(f) !== -1)
+        }
       });
       console.log("filteredByDistance ---->", filteredByDistance)
       console.log("filteredByTags ---->", filteredByTags)

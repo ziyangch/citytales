@@ -113,7 +113,7 @@ Page({
   onShareAppMessage: function () {
 
   },
-  
+
   onChange(e) {
     this.setData({
       current: e.detail.key,
