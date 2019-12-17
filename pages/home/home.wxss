@@ -9,7 +9,6 @@ page {
   transition: 0.3s;
   /* height: 40vh; */
   background-color: #fff;
-  margin: 1%;
   margin-bottom: 10rpx;
   display: inline-block;
   border-radius: 5px 5px 0 0;
@@ -418,30 +417,41 @@ margin: 0 26rpx !important; */
   }
 
 
-.content{
+/* .content{
   margin-right:20rpx;
   margin-left: 20rpx;
   margin-top: 100rpx;
-  margin-bottom: 20rpx;
+  margin-bottom: 170rpx;
   text-align: justify;
+  column-count: 2;
+  column-gap: 10rpx;
+  width: 100%;
+} */
+
+.masonary {
+column-count: 2;
+column-gap: 10rpx;
+margin-top: 100rpx;
+text-align: justify;
+padding: 10rpx;
 }
 
 .recommendation-hint {
   position: fixed;
-  height: 200rpx;
+  height: 100vh;
   width: 100vw;
-  background-color:#F4F4F4;
+  background-color:#F9F8F4;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: top;
   align-items: center;
 }
 
-.left,.right{
+/* .left,.right{
   display: inline-block;
   vertical-align: top;
   width: 49%;
 }
 .right{
   float: right;
-}
+} */
