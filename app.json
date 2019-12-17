@@ -5,7 +5,8 @@
     "pages/profile/profile",
     "pages/edit_profile/edit_profile",
     "pages/show/show",
-    "pages/post/post"
+    "pages/post/post",
+    "pages/userprofile/userprofile"
   ],
   "window": {
     "backgroundTextStyle": "light",

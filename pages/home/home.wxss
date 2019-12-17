@@ -132,9 +132,9 @@ page {
 }
 
 .wux-segment {
-/* min-height: 60rpx!important;
-margin: 10rpx!important; */
-display: flex;
+min-height: 60rpx!important;
+margin: 10rpx!important;
+/* display: flex;
 justify-content: space-between;
 align-items: center;
 float: right;
@@ -148,6 +148,7 @@ background-color: rgba(240, 240, 240, 0.8);
 flex-direction: column;
 border-radius: 4rpx;
 box-shadow: 0 0 5rpx rgb(100, 100, 100);
+margin: 0 26rpx !important; */
 }
 
 .index-container {
@@ -222,8 +223,8 @@ box-shadow: 0 0 5rpx rgb(100, 100, 100);
   align-items: center;
   float: left;
   position: fixed;
-  /* bottom: 120rpx; */
-  bottom: 60rpx;
+  bottom: 100rpx;
+  /* bottom: 60rpx; */
   left: 40rpx;
   width: 60rpx;
   height: 60rpx;
@@ -268,8 +269,8 @@ box-shadow: 0 0 5rpx rgb(100, 100, 100);
   align-items: center;
   float: right;
   position: fixed;
-  /* bottom: 120rpx; */
-  bottom: 55rpx;
+  bottom: 100rpx;
+  /* bottom: 55rpx; */
   right: 40rpx;
   width: 55rpx;
   height: 120rpx;
@@ -321,23 +322,21 @@ box-shadow: 0 0 5rpx rgb(100, 100, 100);
   }
 .t_w{
   position:relative;
+  bottom: 35rpx;
   }
 .tanchu_view{
   width: 80%;
   margin: 20% auto;
   overflow: hidden;
-  background-color: #f4f4f4;
-  border-radius: 10rpx;
-  padding: 4rpx;
-  opacity: 0.85;
+  background-color: #f4f4f490;
+  border-radius: 15rpx;
   }
 
 
 .bg_view{
-  margin: 30rpx auto 30rpx auto;
+  margin: 50rpx auto;
   color: #04B2D9;
   font-size: 50rpx;
-  background-color: #f4f4f4;
   padding: 0rpx 30rpx;
   text-align: center;
   font-family: Arial, Helvetica, sans-serif;
@@ -345,10 +344,11 @@ box-shadow: 0 0 5rpx rgb(100, 100, 100);
 
   .txtys{
   text-align: center;
+  margin: 0 20rpx;
   }
 
   .slogan{
-    font-size: 32rpx;
+    font-size: 30rpx;
     text-align: center;
     margin-bottom: 200rpx;
     font-family: Arial, Helvetica, sans-serif;
@@ -357,7 +357,7 @@ box-shadow: 0 0 5rpx rgb(100, 100, 100);
   }
 
   .guide{
-    font-size: 30rpx;
+    font-size: 28rpx;
     text-align: center;
     margin-bottom: 200rpx;
     font-family: Arial, Helvetica, sans-serif;
@@ -369,13 +369,13 @@ box-shadow: 0 0 5rpx rgb(100, 100, 100);
  height: 100%;
  display: flex;
  justify-content: center;
- margin: 20rpx;
+ margin-bottom: 20rpx;
 }
 
 /*确定背景*/
 .txtsurebg{
-  width: 200rpx;
-  height: 200rpx;
+  width: 150rpx;
+  height: 150rpx;
   display: flex;
   justify-content: center;
   align-items: center;
