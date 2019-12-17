@@ -179,7 +179,7 @@
   <view class="bar">
     <wux-segmented-control id="segmented-control" class="switch-bar" values="{{ ['地图', '列表', '推荐'] }}" bind:change="onChange" />
   </view>
-</view>
+
 
 
 <view>
