@@ -17,7 +17,7 @@
     </view>
       <map
         id="myMap"
-        style="width: 100%; height: 100vh;"
+        style="width: 100%; height: 95vh;"
         latitude="{{latitude}}"
         longitude="{{longitude}}"
         subkey="SI4BZ-ELA6U-Z3DVD-4TDCV-UHXHV-P7B4Z"
@@ -179,7 +179,6 @@
   <view class="bar">
     <wux-segmented-control id="segmented-control" class="switch-bar" values="{{ ['地图', '列表', '推荐'] }}" bind:change="onChange" />
   </view>
-</view>
 
 
 <view>
@@ -199,8 +198,7 @@
         <text>欢迎来到\n城事CityTales</text>
         </view>
         <view class="txtys">
-        <text class="slogan">
-        A new gateway to discover your city!\n
+        <text class="slogan">A new gateway to discover your city!\n
         探索周边有趣的城市故事
         </text>
         <text class="guide">
