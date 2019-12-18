@@ -333,9 +333,11 @@ Page({
   savePolylineToBackend: function() {
     let that = this
     let polyline = that.data.polyline
-    let polylineLatitudeArr = polyline[0].points.map(point => {return point.latitude})
+    let polylineLatitudeArr = polyline[0].points.map(point => {return point.latitude}) // !!! SWITCH (1)
+    // let polylineLatitudeArr = [] // !!! SWITCH (2)
     console.log('polylineLatitudeArr ------>', polylineLatitudeArr)
-    let polylineLongitudeArr = polyline[0].points.map(point => { return point.longitude })
+    let polylineLongitudeArr = polyline[0].points.map(point => { return point.longitude }) // !!! SWITCH (1)
+    // let polylineLongitudeArr = [] // !!! SWITCH (2)
     console.log('polylineLongitudeArr ------>', polylineLongitudeArr)
     console.log('typeof polylineLongitudeArrayElement ------->', typeof(polylineLongitudeArr[5]))
 
@@ -355,7 +357,7 @@ Page({
     this.mapCtx.moveToLocation()
     // let scale = 16
     // this.setData({scale: scale})
-    this.savePolylineToBackend()
+    // this.savePolylineToBackend()
   },
   
   zoomIn: function () {
