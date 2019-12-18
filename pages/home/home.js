@@ -181,23 +181,23 @@ Page({
                checked: true,
              },
              {
-               label: '艺术',
-               value: '艺术',
+               label: '游览',
+               value: '游览',
                checked: true,
              },
              {
-               label: '风景',
-               value: '风景',
+               label: '历史',
+               value: '历史',
                checked: true,
              },
              {
-               label: '文学',
-               value: '文学',
+               label: '感想',
+               value: '感想',
                checked: true,
              },
              {
-               label: '音乐',
-               value: '音乐',
+               label: '故事',
+               value: '故事',
                checked: true,
              },
              {
@@ -330,10 +330,12 @@ Page({
     })
   },
 
+
+
   jumpToCurrentLocation: function() {
     this.mapCtx.moveToLocation()
-    let scale = 16
-    this.setData({scale: scale})
+    // let scale = 16
+    // this.setData({scale: scale})
   },
   
   zoomIn: function () {
@@ -461,10 +463,10 @@ Page({
 
       let userPrefs = [ // (2) counting occurrence of tags within storiesSaved array
         { name: '建筑', occurrence: this.getOccurrence(userTagsArray, "建筑") },
-        { name: '艺术', occurrence: this.getOccurrence(userTagsArray, "艺术") },
-        { name: '风景', occurrence: this.getOccurrence(userTagsArray, "风景") },
-        { name: '文学', occurrence: this.getOccurrence(userTagsArray, "文学") },
-        { name: '音乐', occurrence: this.getOccurrence(userTagsArray, "音乐") },
+        { name: '游览', occurrence: this.getOccurrence(userTagsArray, "游览") },
+        { name: '历史', occurrence: this.getOccurrence(userTagsArray, "历史") },
+        { name: '感想', occurrence: this.getOccurrence(userTagsArray, "感想") },
+        { name: '故事', occurrence: this.getOccurrence(userTagsArray, "故事") },
         { name: '摄影', occurrence: this.getOccurrence(userTagsArray, "摄影") },
       ] 
     
@@ -606,6 +608,7 @@ Page({
     if (user) {
       this.setData({ user })
       this.getUserPreferences(user.id)
+      this.setData({ flag: true })
     }
     this.setApple()
     // this.setStories()
@@ -692,6 +695,7 @@ Page({
     // this.setStories()
     this.setData({
       current: e.detail.key,
+      current_story: false 
     })
     } else if(this.data.apple){
     let distanceChoice = Number.parseInt(e.detail.checkedValues[3][0])
