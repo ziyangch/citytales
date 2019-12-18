@@ -176,7 +176,7 @@ margin: 0 26rpx !important; */
   margin: 0 25%;
   width: 50%;
   position: absolute;
-  bottom: 60rpx;
+  bottom: 15vh;
   height: 400rpx;
 }
 
@@ -240,7 +240,7 @@ margin: 0 26rpx !important; */
   align-items: center;
   float: left;
   position: fixed;
-  bottom: 120rpx;
+  bottom: 100rpx;
   left: 45%;
   width: 80rpx;
   height: 80rpx;
@@ -469,6 +469,13 @@ padding: 10rpx;
   color: white;
   text-decoration: none;
   padding: 25rpx;
+.recomend-head {
+  width: 100vw;
+  height: 100rpx;
+  border-bottom: 1rpx solid #cfcfcf;
+  position: fixed;
+  background-color: #04B2D9;
+  top: 0;
   text-align: center;
   display: flex;
   justify-content: center;
@@ -484,4 +491,14 @@ padding: 10rpx;
   height: 70rpx;
   width: 70rpx;
   margin-right: 10rpx;
+}
+  color: white;
+}
+
+.masonary1 {
+column-count: 2;
+column-gap: 10rpx;
+margin-top: 100rpx;
+text-align: justify;
+padding: 10rpx;
 }

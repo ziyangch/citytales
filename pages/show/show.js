@@ -84,6 +84,14 @@ setMarkers: function () {
 this.setData({markers})
 },
 
+  navigateToUserProfile(e) {
+    console.log(e.currentTarget)
+    let id = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: `/pages/userprofile/userprofile?id=${id}`
+    })
+  },
+
   setDisplayDate: function (story) {
     let date = new Date(story.date)
     story.display_day = `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`
@@ -104,6 +112,7 @@ this.setData({markers})
       story = this.setDisplayDate(story)
       this.setData({ story })
       this.setMarkers()
+
     }, err => {
     })
   },

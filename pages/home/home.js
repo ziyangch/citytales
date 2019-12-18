@@ -82,6 +82,11 @@ Page({
       })
 
     }, err => {})
+    polyline: [{
+      points: [],
+      color: "#0091ff",
+      width: 6
+    }]
   },
 
   // const storyId = options.id // Setting storyId from Page properties
@@ -180,6 +185,7 @@ Page({
       this.setData({
         "apple": res.data.controller
       })
+      this.setItems()
       // success
     }, err => {
       // err
@@ -188,206 +194,206 @@ Page({
 
   setItems: function() {
     if (this.data.apple) {
-      let items = [{
-          type: 'sort',
-          label: '距离',
-          value: 'distance',
-          groups: ['001'],
-        },
-        {
-          type: 'sort',
-          label: '喜欢',
-          value: 'people_liked',
-          groups: ['002'],
-        },
-        {
-          type: 'sort',
-          label: '评论',
-          value: 'people_commented',
-          groups: ['003'],
-        },
-        {
-          type: 'filter',
-          label: '筛选',
-          value: 'filter',
-          checked: true,
-          children: [{
-              type: 'radio',
-              label: '距离',
-              value: '距离',
-              children: [{
-                  label: '500米',
-                  value: '500',
-                },
-                {
-                  label: '1000米',
-                  value: '1000',
-                },
-                {
-                  label: '2000米',
-                  value: '2000',
-                },
-                {
-                  label: '5000米',
-                  value: '4999_999',
-                },
-                {
-                  label: '10公里',
-                  value: '9999_999',
-                },
-                {
-                  label: '100公里',
-                  value: '99999_998',
-                },
-                {
-                  label: '全国',
-                  value: '3000000000000',
-                  checked: true,
-                },
-              ],
-            },
-            {
-              type: 'checkbox',
-              label: 'Tags',
-              value: 'tags',
-              children: [{
-                  label: '建筑',
-                  value: '建筑',
-                  checked: true,
-                },
-                {
-                  label: '艺术',
-                  value: '艺术',
-                  checked: true,
-                },
-                {
-                  label: '风景',
-                  value: '风景',
-                  checked: true,
-                },
-                {
-                  label: '文学',
-                  value: '文学',
-                  checked: true,
-                },
-                {
-                  label: '音乐',
-                  value: '音乐',
-                  checked: true,
-                },
-                {
-                  label: '摄影',
-                  value: '摄影',
-                  checked: true,
-                },
-              ],
-            },
-          ],
-          groups: ['001', '002', '003'],
-        },
-      ]
-      this.setData({
-        items
-      })
-    } else {
-      let items = [{
-          type: 'sort',
-          label: '距离',
-          value: 'distance',
-          groups: ['001'],
-        },
-        {
-          type: 'sort',
-          label: '喜欢',
-          value: 'people_liked',
-          groups: ['002'],
-        },
-        {
-          type: 'filter',
-          label: '筛选',
-          value: 'filter',
-          checked: true,
-          children: [{
-              type: 'radio',
-              label: '距离',
-              value: '距离',
-              children: [{
-                  label: '500米',
-                  value: '500',
-                },
-                {
-                  label: '1000米',
-                  value: '1000',
-                },
-                {
-                  label: '2000米',
-                  value: '2000',
-                },
-                {
-                  label: '5000米',
-                  value: '4999_999',
-                },
-                {
-                  label: '10公里',
-                  value: '9999_999',
-                },
-                {
-                  label: '100公里',
-                  value: '99999_998',
-                },
-                {
-                  label: '全国',
-                  value: '3000000000000',
-                  checked: true,
-                },
-              ],
-            },
-            {
-              type: 'checkbox',
-              label: 'Tags',
-              value: 'tags',
-              children: [{
-                  label: '建筑',
-                  value: '建筑',
-                  checked: true,
-                },
-                {
-                  label: '艺术',
-                  value: '艺术',
-                  checked: true,
-                },
-                {
-                  label: '风景',
-                  value: '风景',
-                  checked: true,
-                },
-                {
-                  label: '文学',
-                  value: '文学',
-                  checked: true,
-                },
-                {
-                  label: '音乐',
-                  value: '音乐',
-                  checked: true,
-                },
-                {
-                  label: '摄影',
-                  value: '摄影',
-                  checked: true,
-                },
-              ],
-            },
-          ],
-          groups: ['001', '002'],
-        },
-      ]
-      this.setData({
-        items
-      })
-    }
-    console.log("items", this.data.items)
-  },
+      let items = [
+       {
+         type: 'sort',
+         label: '距离',
+         value: 'distance',
+         groups: ['001'],
+       },
+       {
+         type: 'sort',
+         label: '喜欢',
+         value: 'people_liked',
+         groups: ['002'],
+       },
+       {
+         type: 'sort',
+         label: '评论',
+         value: 'people_commented',
+         groups: ['003'],
+       },
+       {
+         type: 'filter',
+         label: '筛选',
+         value: 'filter',
+         checked: true,
+         children: [
+           {
+             type: 'radio',
+             label: '距离',
+             value: '距离',
+             children: [{
+               label: '500米',
+               value: '500',
+             },
+             {
+               label: '1000米',
+               value: '1000',
+             },
+             {
+               label: '2000米',
+               value: '2000',
+             },
+             {
+               label: '5000米',
+               value: '4999_999',
+             },
+             {
+               label: '10公里',
+               value: '9999_999',
+             },
+             {
+               label: '100公里',
+               value: '99999_998',
+             },
+             {
+               label: '全国',
+               value: '3000000000000',
+               checked: true,
+             },
+             ],
+           },
+           {
+             type: 'checkbox',
+             label: 'Tags',
+             value: 'tags',
+             children: [{
+               label: '建筑',
+               value: '建筑',
+               checked: true,
+             },
+             {
+               label: '游览',
+               value: '游览',
+               checked: true,
+             },
+             {
+               label: '历史',
+               value: '历史',
+               checked: true,
+             },
+             {
+               label: '感想',
+               value: '感想',
+               checked: true,
+             },
+             {
+               label: '故事',
+               value: '故事',
+               checked: true,
+             },
+             {
+               label: '摄影',
+               value: '摄影',
+               checked: true,
+             },
+             ],
+           },
+         ],
+         groups: ['001', '002', '003'],
+       },
+     ]
+     this.setData({items})
+  } else {
+     let items = [
+       {
+         type: 'sort',
+         label: '距离',
+         value: 'distance',
+         groups: ['001'],
+       },
+       {
+         type: 'sort',
+         label: '喜欢',
+         value: 'people_liked',
+         groups: ['002'],
+       },
+       {
+         type: 'filter',
+         label: '筛选',
+         value: 'filter',
+         checked: true,
+         children: [
+           {
+             type: 'radio',
+             label: '距离',
+             value: '距离',
+             children: [{
+               label: '500米',
+               value: '500',
+             },
+             {
+               label: '1000米',
+               value: '1000',
+             },
+             {
+               label: '2000米',
+               value: '2000',
+             },
+             {
+               label: '5000米',
+               value: '4999_999',
+             },
+             {
+               label: '10公里',
+               value: '9999_999',
+             },
+             {
+               label: '100公里',
+               value: '99999_998',
+             },
+             {
+               label: '全国',
+               value: '3000000000000',
+               checked: true,
+             },
+             ],
+           },
+           {
+             type: 'checkbox',
+             label: 'Tags',
+             value: 'tags',
+             children: [{
+               label: '建筑',
+               value: '建筑',
+               checked: true,
+             },
+             {
+               label: '艺术',
+               value: '艺术',
+               checked: true,
+             },
+             {
+               label: '风景',
+               value: '风景',
+               checked: true,
+             },
+             {
+               label: '文学',
+               value: '文学',
+               checked: true,
+             },
+             {
+               label: '音乐',
+               value: '音乐',
+               checked: true,
+             },
+             {
+               label: '摄影',
+               value: '摄影',
+               checked: true,
+             },
+             ],
+           },
+         ],
+         groups: ['001', '002'],
+       },
+     ]
+      this.setData({ items })
+  }
+  console.log("items", this.data.items)
+},
 
   setStories: function() {
     let query = new wx.BaaS.Query()
@@ -405,15 +411,38 @@ Page({
         stories
       })
       this.getStoriesWithDistance(stories) // for dealing with distances
+
+
+      // this.setRoute(['5dfa30a3d69d0e2f684527e0', '5dfa323fd69d0e084b899dfb', '5dfa22f4ea947d41e9068083', '5dfa35d0d69d0e5fe0453b21', '5def30c710897c591a33d']) // Calculating Routes
     })
   },
 
+  savePolylineToBackend: function() {
+    let that = this
+    let polyline = that.data.polyline
+    let polylineLatitudeArr = polyline[0].points.map(point => {return point.latitude})
+    console.log('polylineLatitudeArr ------>', polylineLatitudeArr)
+    let polylineLongitudeArr = polyline[0].points.map(point => { return point.longitude })
+    console.log('polylineLongitudeArr ------>', polylineLongitudeArr)
+    console.log('typeof polylineLongitudeArrayElement ------->', typeof(polylineLongitudeArr[5]))
+
+    let Walk = new wx.BaaS.TableObject('walk')
+    let dbWalk = Walk.getWithoutData('5dfa2f46ea947d41a9067cfc') // CAREFUL!!! TO BE CHANGED MANUALLY
+
+    dbWalk.set("polyline_latitude", polylineLatitudeArr)
+    dbWalk.set("polyline_longitude", polylineLongitudeArr)
+    dbWalk.update().then(res => {
+      console.log('result of polyline DB Save ---------->', res)
+    }, err => {
+    })
+  },
+
+
   jumpToCurrentLocation: function() {
     this.mapCtx.moveToLocation()
-    let scale = 16
-    this.setData({
-      scale: scale
-    })
+    // let scale = 16
+    // this.setData({scale: scale})
+    this.savePolylineToBackend()
   },
 
   zoomIn: function() {
@@ -485,31 +514,31 @@ Page({
           storiesWithDistance: storiesWithDistance
         })
         // get stories for recommendation
-        let filteredByTopTags = storiesWithDistance.filter(function(item) {
-          if (item.tags === undefined) {
-            return false
-          } else {
+        if (!(that.data.topTags === undefined)) {
+          let filteredByTopTags = storiesWithDistance.filter(function (item) {
+            if (item.tags === undefined) {
+              return false
+            } else {
             return (that.data.topTags.some(t => item.tags.indexOf(t) !== -1))
-          }
-        })
-        console.log("filteredByTopTags ---->", filteredByTopTags)
-        let filteredByProximity = filteredByTopTags.filter(function(item) {
-          return (item.distance < 20000)
-        })
-        console.log("filteredByProximity ---->", filteredByProximity)
-        let filteredForRecommendation = filteredByProximity.filter(function(item) {
-          return (item.people_liked > 5)
-        })
-        console.log("filteredForRecommendation pre sort---->", filteredForRecommendation)
-        filteredForRecommendation.sort((a, b) => b.people_liked - a.people_liked)
-        console.log("filteredForRecommendation post sort---->", filteredForRecommendation)
-        that.setData({
-          filteredForRecommendation: filteredForRecommendation
-        })
-
+            }
+          })
+          console.log("filteredByTopTags ---->", filteredByTopTags)
+          let filteredByProximity = filteredByTopTags.filter(function (item) {
+            return (item.distance < 20000)
+          })
+          console.log("filteredByProximity ---->", filteredByProximity)
+          let filteredForRecommendation = filteredByProximity.filter(function (item) {
+            return (item.people_liked > 5)
+          })
+          console.log("filteredForRecommendation pre sort---->", filteredForRecommendation)
+          filteredForRecommendation.sort((a, b) => b.people_liked - a.people_liked)
+          console.log("filteredForRecommendation post sort---->", filteredForRecommendation)
+          that.setData({ filteredForRecommendation: filteredForRecommendation })
+        }
         // get stories for default recommendation
-        let defaultByProximity = storiesWithDistance.filter(function(item) {
-          return (item.distance < 10000)
+        let defaultByProximity = storiesWithDistance.filter(function (item) {
+          return true
+          // return (item.distance < 10000)
         })
 
         let defaultRecommendation = defaultByProximity.filter(function(item) {
@@ -558,33 +587,15 @@ Page({
       console.log('userTagsArray ----->', userTagsArray)
 
       let userPrefs = [ // (2) counting occurrence of tags within storiesSaved array
-        {
-          name: '建筑',
-          occurrence: this.getOccurrence(userTagsArray, "建筑")
-        },
-        {
-          name: '艺术',
-          occurrence: this.getOccurrence(userTagsArray, "艺术")
-        },
-        {
-          name: '风景',
-          occurrence: this.getOccurrence(userTagsArray, "风景")
-        },
-        {
-          name: '文学',
-          occurrence: this.getOccurrence(userTagsArray, "文学")
-        },
-        {
-          name: '音乐',
-          occurrence: this.getOccurrence(userTagsArray, "音乐")
-        },
-        {
-          name: '摄影',
-          occurrence: this.getOccurrence(userTagsArray, "摄影")
-        },
+        { name: '建筑', occurrence: this.getOccurrence(userTagsArray, "建筑") },
+        { name: '游览', occurrence: this.getOccurrence(userTagsArray, "游览") },
+        { name: '历史', occurrence: this.getOccurrence(userTagsArray, "历史") },
+        { name: '感想', occurrence: this.getOccurrence(userTagsArray, "感想") },
+        { name: '故事', occurrence: this.getOccurrence(userTagsArray, "故事") },
+        { name: '摄影', occurrence: this.getOccurrence(userTagsArray, "摄影") },
       ]
 
-      userPrefs.sort(function(a, b) {
+      userPrefs.sort(function (a, b) {
         return b.occurrence - a.occurrence
       })
       console.log("userPrefs ---->", userPrefs)
@@ -621,19 +632,13 @@ Page({
     return filteredArray.length
   },
 
-  getRoute: function() {
+  setRouteSnippet: function(startStory, endStory) {
     let that = this
     qqmapsdk.direction({
       mode: 'walking',
-      from: {
-        latitude: 22.522807,
-        longitude: 113.935338
-      },
-      to: {
-        latitude: 22.528342,
-        longitude: 113.94541
-      },
-      success: function(res) {
+      from: { latitude: startStory.latitude, longitude: startStory.longitude},
+      to: { latitude: endStory.latitude, longitude: endStory.longitude},
+      success: function (res) {
         console.log('DIRECTION ------->', res)
         let ret = res;
         let coors = ret.result.routes[0].polyline,
@@ -651,9 +656,15 @@ Page({
           })
         }
         console.log(pl)
+        let polylinePoints = that.data.polyline[0].points
+        if (polylinePoints === undefined) {
+          polylinePoints = pl
+        } else {
+          polylinePoints = polylinePoints.concat(pl)
+        }
         that.setData({
           polyline: [{
-            points: pl,
+            points: polylinePoints,
             color: "#0091ff",
             width: 6
           }]
@@ -679,6 +690,17 @@ Page({
     this.setData({
       flag: true
     })
+  setRoute(storiesIdArray) {
+    let that = this
+    for (let i = 0; i < (storiesIdArray.length - 1); i += 1) {
+      let startStoryId = storiesIdArray[i]
+      let endStoryId = storiesIdArray[i + 1]
+      let stories = that.data.stories
+      console.log('storiesArray ----->', storiesIdArray[i + 1])
+      let startStory = stories.find(story => story.id === startStoryId)
+      let endStory = stories.find(story => story.id === endStoryId)
+      that.setRouteSnippet(startStory, endStory)
+    }
   },
 
 
@@ -703,7 +725,6 @@ Page({
         })
       }
     })
-    this.getRoute()
     // wx.getLocation({
     //   type: 'gcj02', //Returns the latitude and longitude that can be used for wx.openLocation
     //   success(res) {
@@ -717,7 +738,7 @@ Page({
     //     })
     //   }
     // })
-    this.setApple()
+
   },
 
   getdata: function() {
@@ -808,7 +829,7 @@ Page({
               height: 525,
               x: 25,
               y: 350,
-              url: 
+              url:
               // 'https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifGHSfOd8uiHaZG.JPG'
               'https://source.unsplash.com/collection/1771834/175x131.25'
             },
@@ -854,9 +875,9 @@ Page({
         user
       })
       this.getUserPreferences(user.id)
+      this.setData({ flag: true })
     }
-    this.setItems()
-
+    this.setApple()
     // this.setStories()
     // this.mapCtx = wx.createMapContext('myMap')
     // const that = this
@@ -971,55 +992,55 @@ Page({
 
   onChange(e) {
     console.log('event', e)
-    if (e.currentTarget.id === "segmented-control") {
-      // this.setStories()
-      this.setData({
-        current: e.detail.key,
-      })
-    } else if (this.data.apple) {
-      let distanceChoice = Number.parseInt(e.detail.checkedValues[3][0])
-      let filter = e.detail.checkedValues[3][1]
-      let distanceSorter = e.detail.checkedValues[0]
-      let likesSorter = e.detail.checkedValues[1]
-      let commentsSorter = e.detail.checkedValues[2]
-      this.setData({
-        filter
-      })
-      console.log("distanceSorter", distanceSorter)
-      console.log("likesSorter", likesSorter)
-      console.log("commentsSorter", commentsSorter)
-      console.log("distanceChoice ---->", distanceChoice)
-      console.log("filter ---->", filter)
-      let storiesWithDistance = this.data.storiesWithDistance
-      let filteredByDistance = storiesWithDistance.filter(function(item) {
-        return item.distance < distanceChoice
-      });
-      let filteredByTags = filteredByDistance.filter(function(item) { // check if there is any overlap in the two arrays (chosen filter and story tags)
-        console.log(item.tags)
+    if (e.currentTarget.id === "segmented-control"){
+    // this.setStories()
+    this.setData({
+      current: e.detail.key,
+      current_story: false
+    })
+    } else if(this.data.apple){
+    let distanceChoice = Number.parseInt(e.detail.checkedValues[3][0])
+    let filter = e.detail.checkedValues[3][1]
+    let distanceSorter = e.detail.checkedValues[0]
+    let likesSorter = e.detail.checkedValues[1]
+    let commentsSorter = e.detail.checkedValues[2]
+    this.setData({ filter })
+    console.log("distanceSorter", distanceSorter)
+    console.log("likesSorter", likesSorter)
+    console.log("commentsSorter", commentsSorter)
+    console.log("distanceChoice ---->", distanceChoice)
+    console.log("filter ---->", filter)
+    let storiesWithDistance = this.data.storiesWithDistance
+    let filteredByDistance = storiesWithDistance.filter(function (item) {
+      return item.distance < distanceChoice
+    });
+    let filteredByTags = filteredByDistance.filter(function(item) { // check if there is any overlap in the two arrays (chosen filter and story tags)
+      console.log(item.tags)
+      if (item.tags === undefined) {
+        return false
+      } else {
         return filter.some(f => item.tags.indexOf(f) !== -1)
-      });
-      console.log("filteredByDistance ---->", filteredByDistance)
-      console.log("filteredByTags ---->", filteredByTags)
+      }
+    });
+    console.log("filteredByDistance ---->", filteredByDistance)
+    console.log("filteredByTags ---->", filteredByTags)
 
 
-      if (distanceSorter === (1 || -1)) {
-        if (distanceSorter === -1) {
-          filteredByTags.sort((a, b) => a.distance - b.distance)
-        } else {
-          filteredByTags.sort((a, b) => b.distance - a.distance)
-        }
-      } else if (likesSorter === (1 || -1)) {
-        if (likesSorter === -1) {
-          filteredByTags.sort((a, b) => a.people_liked - b.people_liked)
-        } else {
-          filteredByTags.sort((a, b) => b.people_liked - a.people_liked)
-        }
-      } else if (commentsSorter === (1 || -1)) {
-        if (commentsSorter === -1) {
-          filteredByTags.sort((a, b) => a.people_commented - b.people_commented)
-        } else {
-          filteredByTags.sort((a, b) => b.people_commented - a.people_commented)
-        }
+    if (distanceSorter === (1 || -1)) {
+      if (distanceSorter === -1) {
+        filteredByTags.sort((a, b) => a.distance - b.distance)
+      } else {
+        filteredByTags.sort((a, b) => b.distance - a.distance)
+      }
+    } else if (likesSorter === (1||-1)) {
+      if (likesSorter === -1){
+        filteredByTags.sort((a, b) => a.people_liked - b.people_liked)
+      } else {
+        filteredByTags.sort((a, b) => b.people_liked - a.people_liked)
+      }
+    } else if (commentsSorter === (1||-1)) {
+      if (commentsSorter === -1) {
+        filteredByTags.sort((a, b) => a.people_commented - b.people_commented)
       } else {
         filteredByTags.sort((a, b) => a.distance - b.distance)
       }

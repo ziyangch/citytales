@@ -1,0 +1,347 @@
+// pages/show_walk/show_walk.js
+Page({
+
+  /**
+   * Page initial data
+   */
+  data: {
+    visible1: false,
+    visible2: false,
+  },
+
+  open1() {
+    this.setData({
+      visible1: true,
+    })
+  },
+  open2() {
+    this.setData({
+      visible2: true,
+    })
+  },
+  close1() {
+    this.setData({
+      visible1: false,
+    })
+  },
+  close2() {
+    this.setData({
+      visible2: false,
+    })
+  },
+  onClose(key) {
+    console.log('onClose')
+    this.setData({
+      [key]: false,
+    })
+  },
+  onClose1() {
+    this.onClose('visible1')
+  },
+  onClose2() {
+    this.onClose('visible2')
+  },
+  onClosed1() {
+    console.log('onClosed')
+  },
+
+   navigateToShow(e) {
+    let id = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: `/pages/show/show?id=${id}`
+    })
+  },
+
+  navigateToUserProfile(e) {
+    console.log(e.currentTarget)
+    let id = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: `/pages/userprofile/userprofile?id=${id}`
+    })
+  },
+
+  setWalk: function(id) {
+    let that = this
+    let Walk = new wx.BaaS.TableObject('walk')
+    Walk.get(id.toString()).then(res => {
+      let walk = res.data;
+      that.setData({ walk: walk })
+      that.setWalkStories()
+    }, err => {
+    })
+  },
+
+
+  setPolyline: function (walkId) {
+    let that = this
+    let Walk = new wx.BaaS.TableObject('walk')
+
+    Walk.get(walkId).then(res => {
+      console.log("Result of DB Read Walk", res)
+      let polylineLatitudeArr = res.data.polyline_latitude
+      let polylineLongitudeArr = res.data.polyline_longitude
+      let pl = []
+      for (let i = 0; i < (polylineLatitudeArr.length); i += 1) {
+        pl.push({ latitude: polylineLatitudeArr[i], longitude: polylineLongitudeArr[i] })
+      }
+      that.setData({
+        polyline: [{
+          points: pl,
+          color: "#0091ff",
+          width: 3
+        }]
+      })
+      // success
+    }, err => {
+      // err
+    })
+  },
+
+
+  setWalkStories: function() {
+    let that = this
+    let query = new wx.BaaS.Query()
+    let Story = new wx.BaaS.TableObject('story')
+    query.compare('created_at', '>', 0)
+    query.compare('visible', '=', true)
+    Story.setQuery(query).find().then(res => {
+      let storiesIdArr = that.data.walk.stories_id_arr
+      let stories = res.data.objects
+      let walkStories = stories.filter(function (item) {
+        return (storiesIdArr.includes(item.id))
+      })
+      that.setData({walkStories: walkStories})
+      that.setMarkers(walkStories)
+      that.setIncludePoints(walkStories)
+      let latitude = walkStories[0].latitude
+      let longitude = walkStories[0].longitude
+      that.setData({ latitude: latitude })
+      that.setData({longitude: longitude})
+    })
+  },
+
+  setIncludePoints: function(walkStories) {
+    let that = this
+    let points = walkStories.map(walkStory => {
+      return {
+        latitude: walkStory.latitude,
+        longitude: walkStory.longitude
+      }
+    })
+    that.setData({points})
+  },
+
+  setMarkers: function(walkStories) {
+    let that = this
+    let markers = walkStories.map(walkStory => {
+      return {
+        id: walkStory.id,
+        latitude: walkStory.latitude,
+        longitude: walkStory.longitude,
+        name: walkStory.title,
+        iconPath: 'https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifOM5c01ybmL4zj.png',
+        width: 40,
+        height: 40
+      }
+    });
+    that.setData({ markers })
+  },
+
+  setUserWalk: function (walkId, userId) {
+    let that = this
+    let query = new wx.BaaS.Query()
+    let UserWalk = new wx.BaaS.TableObject('user_walk')
+
+    query.compare('walk', '=', walkId)
+    query.compare('user', '=', userId)
+    query.compare('visible', '=', true)
+    UserWalk.setQuery(query).find().then(res => {
+      if (res.data.objects.length !== 0) {
+        let userWalk = res.data.objects[0];
+        that.setData({ userWalk }) // Saving User walk to local page data
+      }
+    })
+  },
+
+  unlikeUserWalk: function () {
+    let that = this
+    if ((that.data.user.id)) {
+
+      let walk = that.data.walk // (1) decrease "people_liked" of Walk object
+      let peopleLiked = walk.people_liked
+      peopleLiked -= 1
+
+      let Walk = new wx.BaaS.TableObject('walk') // (2) update 'people_liked' to Walk object in data base
+      let dbWalk = Walk.getWithoutData(walk.id)
+      dbWalk.set("people_liked", peopleLiked)
+      dbWalk.update().then(res => {
+        let walk = res.data
+        that.setData({ walk }) // (4) set updated Walk object in local page data
+      }, err => {
+      })
+
+      let userWalk = that.data.userWalk
+      userWalk.liked = false // (5) change 'liked' attribute in UserWalk object
+
+      let UserWalk = new wx.BaaS.TableObject('user_walk')
+      let dbUserWalk = UserWalk.getWithoutData(userWalk.id)
+      dbUserWalk.set("liked", userWalk.liked) // (6) update 'liked' to UserWalk object in data base
+      dbUserWalk.update().then(res => {
+        let userWalk = res.data
+        that.setData({ userWalk }) // (7) set updated UserWalk object in local page data
+        // that.getUserWalks(that.data.walk.id) // (8) get UserWalks --- for avatar display
+      }, err => {
+      })
+
+      wx.showToast({
+        title: `取消喜欢`,
+        icon: 'success'
+      })
+    } else {
+      wx.showToast({
+        title: `请先登录`,
+        icon: 'none'
+      })
+    }
+  },
+
+  likeUserWalk: function () {
+    let that = this
+    if ((that.data.user.id)) {
+
+      let walk = that.data.walk // (1) increase "people_liked" of Walk object
+      let peopleLiked = walk.people_liked
+      peopleLiked += 1
+
+      let Walk = new wx.BaaS.TableObject('walk') // (2) update 'people_liked' to Walk object in data base
+      let dbWalk = Walk.getWithoutData(walk.id)
+      dbWalk.set("people_liked", peopleLiked)
+      dbWalk.update().then(res => {
+        let walk = res.data
+        that.setData({ walk }) // (4) set updated Walk object in local page data
+      }, err => {
+      })
+
+      if (that.data.userWalk) { // (5a) updating "liked" to true in DB, if UserWalk already exists
+        let userWalk = that.data.userWalk
+        userWalk.liked = true
+
+        let UserWalk = new wx.BaaS.TableObject('user_walk') // (6a) update 'liked' to UserWalk object in data base
+        let dbUserWalk = UserWalk.getWithoutData(userWalk.id)
+        dbUserWalk.set("liked", userWalk.liked)
+        dbUserWalk.update().then(res => {
+          let userWalk = res.data
+          that.setData({ userWalk }) // (7a) set updated UserWalk Object in local page data
+          // that.getUserWalks(that.data.walk.id) // (8a) get UserWalks --- for avatar display
+        }, err => {
+        })
+
+      } else { // Creating new UserWalk and saving into DB, if User Walk does not exist yet
+
+        let UserWalk = new wx.BaaS.TableObject('user_walk')
+        let userWalk = UserWalk.create()
+        let newUserWalk = { // (5b) creating new UserWalk object with 'liked' = true
+          user: that.data.user.id,
+          walk: that.data.walk.id,
+          liked: true
+        }
+        userWalk.set(newUserWalk).save().then(res => { // (6b) saving new UserWalk object into DB
+          let userWalk = res.data
+          that.setData({ userWalk }) // (7b) setting UserWalk Object in local page data
+          // that.getUserWalks(that.data.walk.id) // (8b) getting UserWalks --- for avatar display
+        }, err => {
+        })
+      }
+      wx.showToast({
+        title: `已喜欢！`,
+        icon: 'success'
+      })
+    } else {
+      wx.showToast({
+        title: `请先登录`,
+        icon: 'none'
+      })
+    }
+  },
+
+  loginWithWechat: function (data) {
+    let that = this
+    wx.BaaS.auth.loginWithWechat(data).then(user => {
+      console.log("this is current user---->", user)
+      user.custom_nickname = user.get("custom_nickname")
+      user.bio = user.get("bio")
+      wx.setStorage({
+        key: 'user',
+        data: user,
+      })
+      that.setData({ user })
+    }, err => {
+      console.log(err);
+      // 登录失败
+    })
+  },
+
+  /**
+   * Lifecycle function--Called when page load
+   */
+  onLoad: function (options) {
+    let that = this
+    let walkId = options.id // Setting walkId from Page properties
+    that.setWalk(walkId) // setting Walk object by search with Walk ID in local page data
+    let user = wx.getStorageSync('user')
+    that.setPolyline(walkId)
+    if (user) {
+      that.setData({ user })  // Saving User object to local page data
+      that.setUserWalk(walkId, user.id) // Setting UserWalk to local page data 
+    }
+  },
+
+  /**
+   * Lifecycle function--Called when page is initially rendered
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * Lifecycle function--Called when page show
+   */
+  onShow: function () {
+
+  },
+
+  /**
+   * Lifecycle function--Called when page hide
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * Lifecycle function--Called when page unload
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * Page event handler function--Called when user drop down
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * Called when page reach bottom
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * Called when user click on the top right corner to share
+   */
+  onShareAppMessage: function () {
+
+  }
+})

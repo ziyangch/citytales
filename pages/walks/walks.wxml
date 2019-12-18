@@ -1,0 +1,15 @@
+<!--pages/walks/walks.wxml-->
+<view class="recomend-head">探索品质城事旅途</view>
+
+<view class="page-container">
+<view wx:for="{{walks}}">
+  <view class="card" data-id ="{{item.id}}" bindtap="navigateToShow" >
+    <image  class= "walk-img"  mode = "aspectFill" src = "{{item.image}}" />
+    <view class="walk-info">
+      <view class="walk-title">{{item.title}}</view>
+      <text class="walk-description">{{item.description}}</text>
+    </view>
+  </view>
+</view>
+  <view class="end-msg">- The End -</view>
+</view>

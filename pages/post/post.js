@@ -13,21 +13,22 @@ Page({
       posted_date: undefined
     },
     dateNow: undefined,
-    // items: [
-    //   { name: '娱乐', value: '娱乐' },
-    //   { name: '运动', value: '运动' },
-    //   { name: '学习', value: '学习' },
-    //   { name: '约饭', value: '约饭' },
-    //   { name: '购物', value: '购物' },
-    // ]
+    items: [
+      { name: '建筑', value: '建筑' },
+      { name: '游览', value: '游览' },
+      { name: '历史', value: '历史' },
+      { name: '感想', value: '感想' },
+      { name: '故事', value: '故事' },
+      { name: '摄影', value: '摄影' },
+    ]
   },
 
-  // checkboxChange: function (e) {
-  //   this.setData({
-  //     "event.tag": e.detail.value
-  //   })
-  //   console.log(this.data.event.tag)
-  // },
+  checkboxChange: function (e) {
+    this.setData({
+      "event.tag": e.detail.value
+    })
+    console.log(this.data.event.tag)
+  },
 
 
 
@@ -113,11 +114,12 @@ Page({
       longitude: this.data.story.longitude,
       latitude: this.data.story.latitude,
       content: this.data.story.content,
+      creator: this.data.user.id, 
       image: this.data.story.image,
       avatar: this.data.user.avatar,
       nickname:this.data.user.nickname,
-      posted_date:this.data.dateNow
-      // tag: this.data.event.tag
+      posted_date:this.data.dateNow,
+      tags: this.data.event.tag
     }
     console.log('My event package ----->', newStory)
 
