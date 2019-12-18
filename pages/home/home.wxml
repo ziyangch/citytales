@@ -126,12 +126,6 @@
 <view class="zhezao" hidden="{{flag}}">
   <view class="t_w">
 
-    <!--右上角图标开始-->
-    <view class="t_image"  bindtap="conceal">
-      <image class="t_image1" src="../../image/cross.png" ></image>
-    </view>
-    <!--右上角图标结束-->
-
     <!--弹出框开始-->
     <view class="tanchu_view"  >
       <view>
@@ -143,8 +137,8 @@
         探索周边有趣的城市故事
         </text>
         <text class="guide">
-        🗺地图模式：附近宝藏，点击挖掘\n
-        🧾列表模式：所有故事，一览无余\n
+        ⭐️地图模式：附近宝藏，点击挖掘\n
+        ⭐️列表模式：所有故事，一览无余\n
         ⭐️编辑推荐：小众路线，即刻出发
         </text>
         </view>

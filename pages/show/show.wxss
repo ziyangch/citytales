@@ -245,8 +245,8 @@
 
 #delete-btn {
   position: absolute;
-  top: 10rpx;
-  right: 0rpx;
+  top: 620rpx;
+  right: 17rpx;
   width: 30vw;
   font-size: 28rpx;
   text-align: center;

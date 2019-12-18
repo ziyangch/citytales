@@ -11,6 +11,10 @@
           <text>{{stories_liked.length || 0}}</text>
           <text>喜欢</text>
         </view>
+         <view class="created" wx:if="{{apple}}">
+          <text>{{stories_created.length || 0}}</text>
+          <text>我的</text>
+        </view>
         <view class="saved">
           <text>{{stories_saved.length || 0}}</text>
           <text>收藏</text>
@@ -26,8 +30,11 @@
     </view>
 </view>
 
-<view class="bar">
+<view class="bar" wx:if="{{!apple}}">
   <wux-segmented-control class="switch-bar" values="{{ ['我喜欢的', '我的收藏'] }}" bind:change="onChange" />
+</view>
+<view class="bar" wx:if="{{apple}}">
+  <wux-segmented-control class="switch-bar" values="{{ ['我喜欢的', '我的收藏','我的城事'] }}" bind:change="onChange" />
 </view>
 
 <view wx:if="{{!user.id}}" class="login-field">
@@ -98,6 +105,65 @@
   <view class='content'>
     <view class="left">
       <view wx:for="{{stories_saved}}" class="card-container" catchtap="navigateToShow" data-type="edit" data-id="{{item.id}}" wx:key>
+        <view class="card" wx:if="{{index%2==0}}">
+          <image class="story-img" src="{{ item.image }}" alt="Pic" style="width:100%" mode="widthFix"></image>
+            <view class="info-section">
+              <view class="info-left">
+                <image class = "avatar" mode = "aspectFill" src = "{{item.avatar}}" />
+                  <view class="sec2">
+                    <view class="h1">{{ item.title }}</view>
+
+                  </view>
+              </view>
+              <view class="sec3">
+                <view class="distance">{{ item.display_distance }}</view>
+                <view class="sec4">
+                  <image class="icon" style="width: 45rpx; height: 45rpx; margin-right: 0rpx"src="https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifgkNDVi4m9Xt7r.png"></image>
+                  <view class="num">{{item.people_liked}}</view>
+                </view>
+                <view class="sec4">
+                  <image class="icon" wx:if="{{apple}}" style="margin-right: 10rpx"src="https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifgkN3akVVD4fYi.png"></image>
+                  <view class="num" wx:if="{{apple}}">{{item.people_commented}}</view>
+                </view>
+              </view>
+            </view>
+        </view>
+      </view>
+    </view>
+    <view class="right">
+      <view wx:for="{{stories_saved}}" class="card-container" catchtap="navigateToShow" data-type="edit" data-id="{{item.id}}" wx:key>
+        <view class="card" wx:if="{{index%2==1}}">
+          <image class="story-img" src="{{ item.image }}" alt="Pic" style="width:100%" mode="widthFix"></image>
+            <view class="info-section">
+              <view class="info-left">
+                <image class = "avatar" mode = "aspectFill" src = "{{item.avatar}}" />
+                  <view class="sec2">
+                    <view class="h1">{{ item.title }}</view>
+
+                  </view>
+              </view>
+              <view class="sec3">
+                <view class="distance">{{ item.display_distance }}</view>
+                <view class="sec4">
+                  <image class="icon" style="width: 45rpx; height: 45rpx; margin-right: 0rpx"src="https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifgkNDVi4m9Xt7r.png"></image>
+                  <view class="num">{{item.people_liked}}</view>
+                </view>
+                <view class="sec4">
+                  <image class="icon" wx:if="{{apple}}" style="margin-right: 10rpx"src="https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifgkN3akVVD4fYi.png"></image>
+                  <view class="num" wx:if="{{apple}}">{{item.people_commented}}</view>
+                </view>
+              </view>
+            </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view wx:if="{{current===2}}" class="profile_story_container">
+  <view class='content'>
+    <view class="left">
+      <view wx:for="{{stories_created}}" class="card-container" catchtap="navigateToShow" data-type="edit" data-id="{{item.id}}" wx:key>
         <view class="card" wx:if="{{index%2==0}}">
           <image class="story-img" src="{{ item.image }}" alt="Pic" style="width:100%" mode="widthFix"></image>
             <view class="info-section">

@@ -44,6 +44,39 @@ Page({
     })
   },
 
+  setApple: function () {
+    let tableName = 'apple'
+    let recordID = '5df70bc6d69d0e122d89a3f0'
+
+    let Product = new wx.BaaS.TableObject(tableName)
+
+    Product.get(recordID).then(res => {
+      console.log("this is controller", res)
+      this.setData({
+        "apple": res.data.controller
+      })
+      // success
+    }, err => {
+      // err
+    })
+  },
+
+  setStoriesCreated: function (id) {
+    console.log("fetching stories....")
+    let query = new wx.BaaS.Query()
+    let Event = new wx.BaaS.TableObject('story')
+
+    query.compare('created_by', '=', id)
+    query.compare('visible', '=', true)
+    console.log("ready for query...")
+    Event.setQuery(query).find().then(res => {
+      console.log(res.data.objects)
+      let stories_created = res.data.objects;
+      console.log('created stories', this.data.stories_created);
+      this.setData({ stories_created })
+    })
+  },
+
   setProfile(id) {
     console.log(id)
     let User = new wx.BaaS.User()
@@ -52,6 +85,7 @@ Page({
       this.setData({ user })
       this.setStoriesLiked(user.id)
       this.setStoriesSaved(user.id)
+      this.setStoriesCreated(user.id)
     }, err => {
     })
   },
@@ -76,7 +110,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.setApple()
   },
 
   /**
