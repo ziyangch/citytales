@@ -45,75 +45,75 @@
       </view>
     </view>
 
-<view wx:if="{{current==1}}" class="index-container">
+  <view wx:if="{{current==1}}" class="index-container">
 
-  <wux-filterbar id="filterbar" style="width:100%; position:fixed; top:0" items="{{ items }}" bind:change="onChange" bind:open="onOpen" bind:close="onClose" />
-    <view class="weui-panel weui-panel_access" catchtouchmove="{{ opened ? 'noop' : '' }}">
-      <view class="weui-panel__bd">
+    <wux-filterbar id="filterbar" style="width:100%; position:fixed; top:0" items="{{ items }}" bind:change="onChange" bind:open="onOpen" bind:close="onClose" />
+      <view class="weui-panel weui-panel_access" catchtouchmove="{{ opened ? 'noop' : '' }}">
+        <view class="weui-panel__bd">
+        </view>
       </view>
+    <view class="masonary">
+            <block wx:for="{{filteredByTags||storiesWithDistance}}" class="card-container" catchtap="navigateToShow" data-type="edit" data-id="{{item.id}}" wx:key>
+              <view class="card" catchtap="navigateToShow" data-type="edit" data-id="{{item.id}}">
+                <image class="story-img" src="{{ item.image }}" alt="Pic" style="width:100%" mode="widthFix"></image>
+                <view class="info-section">
+                  <view class="info-left">
+                    <image class = "avatar" mode = "aspectFill" src = "{{item.avatar}}" />
+                      <view class="sec2">
+                        <view class="h1">{{ item.title }}</view>
+                      </view>
+                  </view>
+                  <view class="sec3">
+                    <view class="distance">{{ item.display_distance }}</view>
+                    <view class="sec4">
+                      <image class="icon" style="width: 45rpx; height: 45rpx; margin-right: 0rpx"src="https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifgkNDVi4m9Xt7r.png"></image>
+                      <view class="num">{{item.people_liked}}</view>
+                    </view>
+                    <view class="sec4">
+                      <image class="icon" wx:if="{{apple}}" style="margin-right: 10rpx"src="https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifgkN3akVVD4fYi.png"></image>
+                      <view class="num" wx:if="{{apple}}">{{item.people_commented}}</view>
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </block>
     </view>
-  <view class="masonary">
-          <block wx:for="{{filteredByTags||storiesWithDistance}}" class="card-container" catchtap="navigateToShow" data-type="edit" data-id="{{item.id}}" wx:key>
-            <view class="card" catchtap="navigateToShow" data-type="edit" data-id="{{item.id}}">
-              <image class="story-img" src="{{ item.image }}" alt="Pic" style="width:100%" mode="widthFix"></image>
-              <view class="info-section">
-                <view class="info-left">
-                  <image class = "avatar" mode = "aspectFill" src = "{{item.avatar}}" />
-                    <view class="sec2">
-                      <view class="h1">{{ item.title }}</view>
-                    </view>
-                </view>
-                <view class="sec3">
-                  <view class="distance">{{ item.display_distance }}</view>
-                  <view class="sec4">
-                    <image class="icon" style="width: 45rpx; height: 45rpx; margin-right: 0rpx"src="https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifgkNDVi4m9Xt7r.png"></image>
-                    <view class="num">{{item.people_liked}}</view>
+  </view>
+
+  <view wx:if="{{current==2}}" class="index-container">
+    <view wx:if="{{!defaultRecommendation[0]}}" class="recommendation-hint">
+      <view class="h1">在你的附近没有推荐的故事</view>
+    </view>
+
+    <view class="recomend-head">小编为你的精选城事</view>
+    <view class="masonary1">
+            <block wx:for="{{filteredForRecommendation||defaultRecommendation}}" class="card-container" catchtap="navigateToShow" data-type="edit" data-id="{{item.id}}" wx:key>
+              <view class="card" catchtap="navigateToShow" data-type="edit" data-id="{{item.id}}">
+                <image class="story-img" src="{{ item.image }}" alt="Pic" style="width:100%" mode="widthFix"></image>
+                <view class="info-section">
+                  <view class="info-left">
+                    <image class = "avatar" mode = "aspectFill" src = "{{item.avatar}}" />
+                      <view class="sec2">
+                        <view class="h1">{{ item.title }}</view>
+                      </view>
                   </view>
-                  <view class="sec4">
-                    <image class="icon" wx:if="{{apple}}" style="margin-right: 10rpx"src="https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifgkN3akVVD4fYi.png"></image>
-                    <view class="num" wx:if="{{apple}}">{{item.people_commented}}</view>
+                  <view class="sec3">
+                    <view class="distance">{{ item.display_distance }}</view>
+                    <view class="sec4">
+                      <image class="icon" style="width: 45rpx; height: 45rpx; margin-right: 0rpx"src="https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifgkNDVi4m9Xt7r.png"></image>
+                      <view class="num">{{item.people_liked}}</view>
+                    </view>
+                    <view class="sec4">
+                      <image class="icon" wx:if="{{apple}}" style="margin-right: 10rpx"src="https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifgkN3akVVD4fYi.png"></image>
+                      <view class="num" wx:if="{{apple}}">{{item.people_commented}}</view>
+                    </view>
                   </view>
                 </view>
               </view>
-            </view>
-          </block>
-  </view>
-</view>
+            </block>
+    </view>
 
-<view wx:if="{{current==2}}" class="index-container">
-  <view wx:if="{{!defaultRecommendation[0]}}" class="recommendation-hint">
-    <view class="h1">在你的附近没有推荐的故事</view>
   </view>
-
-  <view class="recomend-head">小编为你的精选城事</view>
-  <view class="masonary1">
-          <block wx:for="{{filteredForRecommendation||defaultRecommendation}}" class="card-container" catchtap="navigateToShow" data-type="edit" data-id="{{item.id}}" wx:key>
-            <view class="card" catchtap="navigateToShow" data-type="edit" data-id="{{item.id}}">
-              <image class="story-img" src="{{ item.image }}" alt="Pic" style="width:100%" mode="widthFix"></image>
-              <view class="info-section">
-                <view class="info-left">
-                  <image class = "avatar" mode = "aspectFill" src = "{{item.avatar}}" />
-                    <view class="sec2">
-                      <view class="h1">{{ item.title }}</view>
-                    </view>
-                </view>
-                <view class="sec3">
-                  <view class="distance">{{ item.display_distance }}</view>
-                  <view class="sec4">
-                    <image class="icon" style="width: 45rpx; height: 45rpx; margin-right: 0rpx"src="https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifgkNDVi4m9Xt7r.png"></image>
-                    <view class="num">{{item.people_liked}}</view>
-                  </view>
-                  <view class="sec4">
-                    <image class="icon" wx:if="{{apple}}" style="margin-right: 10rpx"src="https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifgkN3akVVD4fYi.png"></image>
-                    <view class="num" wx:if="{{apple}}">{{item.people_commented}}</view>
-                  </view>
-                </view>
-              </view>
-            </view>
-          </block>
-  </view>
-
-</view>
 
 </view>
 
