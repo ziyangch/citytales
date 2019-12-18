@@ -102,6 +102,7 @@ Page({
       this.setData({
         "apple": res.data.controller
       })
+      this.setItems()
       // success
     }, err => {
       // err
@@ -323,8 +324,9 @@ Page({
       this.setMarkers(res.data.objects)
       this.setData({stories})
       this.getStoriesWithDistance(stories) // for dealing with distances
+     
 
-      this.setRoute(['5df35bd181f3bf0af673c67d', '5df8b21fea947d577c9bd4d2', '5df362a281f3bf0af324d1e1', '5df353c63a1bf86399dd87c1']) // Calculating Routes
+      // this.setRoute(['5df35bd181f3bf0af673c67d', '5df8b21fea947d577c9bd4d2', '5df362a281f3bf0af324d1e1', '5df353c63a1bf86399dd87c1']) // Calculating Routes
     })
   },
 
@@ -389,29 +391,31 @@ Page({
         that.setDisplayDistance(storiesWithDistance)
         that.setData({storiesWithDistance: storiesWithDistance})
         // get stories for recommendation
-        let filteredByTopTags = storiesWithDistance.filter(function (item) {
-          if (item.tags === undefined) {
-            return false
-          } else {
-          return (that.data.topTags.some(t => item.tags.indexOf(t) !== -1))
-          }
-        })
-        console.log("filteredByTopTags ---->", filteredByTopTags)
-        let filteredByProximity = filteredByTopTags.filter(function (item) {
-          return (item.distance < 20000)
-        })
-        console.log("filteredByProximity ---->", filteredByProximity)
-        let filteredForRecommendation = filteredByProximity.filter(function (item) {
-          return (item.people_liked > 5)
-        })
-        console.log("filteredForRecommendation pre sort---->", filteredForRecommendation)
-        filteredForRecommendation.sort((a, b) => b.people_liked - a.people_liked)
-        console.log("filteredForRecommendation post sort---->", filteredForRecommendation)
-        that.setData({ filteredForRecommendation: filteredForRecommendation })
-
+        if (!(that.data.topTags === undefined)) {
+          let filteredByTopTags = storiesWithDistance.filter(function (item) {
+            if (item.tags === undefined) {
+              return false
+            } else {
+            return (that.data.topTags.some(t => item.tags.indexOf(t) !== -1))
+            }
+          })
+          console.log("filteredByTopTags ---->", filteredByTopTags)
+          let filteredByProximity = filteredByTopTags.filter(function (item) {
+            return (item.distance < 20000)
+          })
+          console.log("filteredByProximity ---->", filteredByProximity)
+          let filteredForRecommendation = filteredByProximity.filter(function (item) {
+            return (item.people_liked > 5)
+          })
+          console.log("filteredForRecommendation pre sort---->", filteredForRecommendation)
+          filteredForRecommendation.sort((a, b) => b.people_liked - a.people_liked)
+          console.log("filteredForRecommendation post sort---->", filteredForRecommendation)
+          that.setData({ filteredForRecommendation: filteredForRecommendation })
+        }
         // get stories for default recommendation
         let defaultByProximity = storiesWithDistance.filter(function (item) {
-          return (item.distance < 10000)
+          return true
+          // return (item.distance < 10000)
         })
 
         let defaultRecommendation = defaultByProximity.filter(function (item) {
@@ -540,8 +544,8 @@ Page({
     let that = this
     let polylinePoints = []
     for (let i = 0; i < (storiesIdArray.length - 1); i += 1) {
-      let startStory = that.data.stories.find(story => story.id == storiesIdArray[i])
-      let endStory = that.data.stories.find(story => story.id == storiesIdArray[i + 1])
+      let startStory = that.data.stories.find(story => story.id === storiesIdArray[i])
+      let endStory = that.data.stories.find(story => story.id === storiesIdArray[i + 1])
       polylinePoints = polylinePoints.concat(that.setRouteSnippet(startStory, endStory))
       console.log('polylinePoints ------->', i , polylinePoints)
     }
@@ -580,7 +584,7 @@ Page({
     //     })
     //   }
     // })
-    this.setApple()
+    
   },
 
   /**
@@ -599,8 +603,7 @@ Page({
       this.setData({ user })
       this.getUserPreferences(user.id)
     }
-    this.setItems()
-    
+    this.setApple()
     // this.setStories()
     // this.mapCtx = wx.createMapContext('myMap')
     // const that = this
