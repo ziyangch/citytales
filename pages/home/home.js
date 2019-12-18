@@ -326,16 +326,36 @@ Page({
       this.getStoriesWithDistance(stories) // for dealing with distances
      
 
-      this.setRoute(['5df35bd181f3bf0af673c67d', '5df362a281f3bf0af324d1e1', '5df353c63a1bf86399dd87c1']) // Calculating Routes
+      // this.setRoute(['5df35bd181f3bf0af673c67d', '5df362a281f3bf0af324d1e1', '5df353c63a1bf86399dd87c1']) // Calculating Routes
     })
   },
 
+  savePolylineToBackend: function() {
+    let that = this
+    let polyline = that.data.polyline
+    let polylineLatitudeArr = polyline[0].points.map(point => {return point.latitude})
+    console.log('polylineLatitudeArr ------>', polylineLatitudeArr)
+    let polylineLongitudeArr = polyline[0].points.map(point => { return point.longitude })
+    console.log('polylineLongitudeArr ------>', polylineLongitudeArr)
+    console.log('typeof polylineLongitudeArrayElement ------->', typeof(polylineLongitudeArr[5]))
+
+    let Walk = new wx.BaaS.TableObject('walk')
+    let dbWalk = Walk.getWithoutData('5dfa2f5eea947d1f209bd5da') // CAREFUL!!! TO BE CHANGED MANUALLY
+
+    dbWalk.set("polyline_latitude", polylineLatitudeArr)
+    dbWalk.set("polyline_longitude", polylineLongitudeArr)
+    dbWalk.update().then(res => {
+      console.log('result of polyline DB Save ---------->', res)
+    }, err => {
+    })
+  },
 
 
   jumpToCurrentLocation: function() {
     this.mapCtx.moveToLocation()
     // let scale = 16
     // this.setData({scale: scale})
+    this.savePolylineToBackend()
   },
   
   zoomIn: function () {
@@ -544,16 +564,14 @@ Page({
 
   setRoute(storiesIdArray) {
     let that = this
-    let polylinePoints = []
     for (let i = 0; i < (storiesIdArray.length - 1); i += 1) {
       let startStoryId = storiesIdArray[i]
       let endStoryId = storiesIdArray[i + 1]
       let stories = that.data.stories
-      console.log('storiesArray ----->', storiesIdArray[i+1])
+      console.log('storiesArray ----->', storiesIdArray[i + 1])
       let startStory = stories.find(story => story.id === startStoryId)
       let endStory = stories.find(story => story.id === endStoryId)
-      polylinePoints = polylinePoints.concat(that.setRouteSnippet(startStory, endStory))
-      console.log('polylinePoints ------->', i , polylinePoints)
+      that.setRouteSnippet(startStory, endStory)
     }
   },
 
