@@ -8,6 +8,24 @@ Page({
 
   },
 
+  setWalks: function () {
+    let query = new wx.BaaS.Query()
+    let Walk = new wx.BaaS.TableObject('walk')
+    query.compare('created_at', '>', 0)
+    Walk.setQuery(query).find().then(res => {
+      let walks = res.data.objects
+      this.setData({ walks })
+    })
+  },
+
+  navigateToShow(e) {
+    let id = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: `/pages/show_walk/show_walk?id=${id}`
+    })
+  },
+
+
   /**
    * Lifecycle function--Called when page load
    */
@@ -26,7 +44,7 @@ Page({
    * Lifecycle function--Called when page show
    */
   onShow: function () {
-
+    this.setWalks()
   },
 
   /**

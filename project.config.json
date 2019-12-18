@@ -101,6 +101,13 @@
 					"id": -1,
 					"name": "walk index",
 					"pathName": "pages/walks/walks",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "show_walk",
+					"pathName": "pages/show_walk/show_walk",
 					"scene": null
 				}
 			]
