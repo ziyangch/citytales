@@ -326,7 +326,7 @@ Page({
       this.getStoriesWithDistance(stories) // for dealing with distances
      
 
-      // this.setRoute(['5df35bd181f3bf0af673c67d', '5df8b21fea947d577c9bd4d2', '5df362a281f3bf0af324d1e1', '5df353c63a1bf86399dd87c1']) // Calculating Routes
+      this.setRoute(['5df35bd181f3bf0af673c67d', '5df362a281f3bf0af324d1e1', '5df353c63a1bf86399dd87c1']) // Calculating Routes
     })
   },
 
@@ -544,8 +544,12 @@ Page({
     let that = this
     let polylinePoints = []
     for (let i = 0; i < (storiesIdArray.length - 1); i += 1) {
-      let startStory = that.data.stories.find(story => story.id === storiesIdArray[i])
-      let endStory = that.data.stories.find(story => story.id === storiesIdArray[i + 1])
+      let startStoryId = storiesIdArray[i]
+      let endStoryId = storiesIdArray[i + 1]
+      let stories = that.data.stories
+      console.log('storiesArray ----->', storiesIdArray[i+1])
+      let startStory = stories.find(story => story.id === startStoryId)
+      let endStory = stories.find(story => story.id === endStoryId)
       polylinePoints = polylinePoints.concat(that.setRouteSnippet(startStory, endStory))
       console.log('polylinePoints ------->', i , polylinePoints)
     }
