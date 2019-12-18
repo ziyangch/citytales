@@ -79,16 +79,16 @@ Page({
     Walk.get(walkId).then(res => {
       console.log("Result of DB Read Walk", res)
       let polylineLatitudeArr = res.data.polyline_latitude
-      let polylineLongtitudeArr = res.data.polyline_longtitude
+      let polylineLongitudeArr = res.data.polyline_longitude
       let pl = []
       for (let i = 0; i < (polylineLatitudeArr.length); i += 1) {
-        pl.push({ latitude: polylineLatitudeArr[i], longitude: polylineLongtitudeArr[i] })
+        pl.push({ latitude: polylineLatitudeArr[i], longitude: polylineLongitudeArr[i] })
       }
       that.setData({
         polyline: [{
           points: pl,
           color: "#0091ff",
-          width: 6
+          width: 3
         }]
       })
       // success
@@ -112,7 +112,23 @@ Page({
       })
       that.setData({walkStories: walkStories})
       that.setMarkers(walkStories)
+      that.setIncludePoints(walkStories)
+      let latitude = walkStories[0].latitude
+      let longitude = walkStories[0].longitude
+      that.setData({ latitude: latitude })
+      that.setData({longitude: longitude})
     })
+  },
+
+  setIncludePoints: function(walkStories) {
+    let that = this
+    let points = walkStories.map(walkStory => {
+      return {
+        latitude: walkStory.latitude,
+        longitude: walkStory.longitude
+      }
+    })
+    that.setData({points})
   },
 
   setMarkers: function(walkStories) {
@@ -273,6 +289,7 @@ Page({
     let walkId = options.id // Setting walkId from Page properties
     that.setWalk(walkId) // setting Walk object by search with Walk ID in local page data
     let user = wx.getStorageSync('user')
+    that.setPolyline(walkId)
     if (user) {
       that.setData({ user })  // Saving User object to local page data
       that.setUserWalk(walkId, user.id) // Setting UserWalk to local page data 
