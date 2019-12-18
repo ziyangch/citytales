@@ -96,6 +96,12 @@
 					"pathName": "pages/userprofile/userprofile",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "Show Walk",
+					"pathName": "pages/show_walk/show_walk",
+					"scene": null
 				}
 			]
 		}

@@ -1,1 +1,149 @@
 /* pages/show_walk/show_walk.wxss */
+
+.login-field {
+  position: fixed;
+  height: 200rpx;
+  width: 100vw;
+  background-color:#F4F4F4;
+  margin-top: 7vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.login-text {
+  color: #484E5C;
+  font-weight: lighter;
+  font-size: 24rpx;
+  margin-bottom: 20rpx;
+}
+.login-btn {
+  width: 55%;
+  height: 50%;
+  margin: 20rpx auto;
+  background-color:#04B2D9;
+  color: #fff;
+  border-radius: 20rpx;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.top-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color:#04B2D9;
+  margin: 0rpx;
+  width: 100vw;
+  height: 7vh;
+  /* border-bottom: 3rpx solid #cfcfcf; */
+  position: fixed;
+}
+
+.map-element {
+  margin-top: 7vh;
+}
+
+.left-section {
+  display: flex;
+  align-items: center;
+  width: 75%;
+}
+
+.right-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25%;
+  padding: 20rpx;
+}
+
+.top-section .avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  margin: 20rpx;
+}
+
+.icon-cards {
+  display: flex;
+  align-items: center;
+}
+
+.icon-cards .icon1 {
+  margin: 20rpx;
+  width: 60rpx;
+  height: 60rpx;
+}
+
+.icon-cards .icon2 {
+  margin: 0rpx;
+  width: 60rpx;
+  height: 60rpx;
+  margin-bottom: 5rpx;
+}
+
+.icon-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+.icon-card .icon {
+  margin: 5rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.icon-card .num {
+  font-weight: lighter;
+  font-size: 18rpx;
+}
+
+.icon-card text {
+  font-size: 20rpx;
+}
+
+.page__header {
+  padding-top: 20rpx; 
+  width: 95vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: bottom;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.page__content {
+  width: 95vw;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  margin: 0 auto;
+  text-align: left;
+  padding: 20rpx 0;
+  line-height: 1.6;
+}
+
+.page__content .story-location {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  font-size: 24rpx;
+  margin: 10rpx 0;
+  height: 50rpx;
+
+}
+
+.page__content .story-location .location-icon{
+  margin: 5rpx;
+  width: 50rpx;
+  height: 50rpx;
+}
+
+.page__content .story-location .location {
+  margin-top: 15rpx;
+  margin-left: 10rpx;
+}

@@ -1,2 +1,40 @@
 <!--pages/show_walk/show_walk.wxml-->
-<text>pages/show_walk/show_walk.wxml</text>
+
+<view wx:if="dyn---!user.id" class="login-field">
+  <button class="login-btn" open-type="getUserInfo" bindgetuserinfo="loginWithWechat">点击登陆</button>
+  <view class="login-text">*开启你的城事之旅</view>
+</view>
+
+<view class="top-section">
+  <view class="left-section">
+    <image class="avatar" mode="aspectFill" src="dyn---walk.created_by.avatar" data-id="dyn---walk.created_by" bindtap="navigateToUserProfile"/>
+    <view class="h1">dyn---walk.created_by.nickname</view>
+  </view>
+  <view class="right-section">
+    <view wx:if="dyn---userWalk.liked" class="icon-cards" bindtap="unlikeUserWalk">
+      <image class="icon1" src="https://cloud-minapp-32027.cloud.ifanrusercontent.com/1igkVgitS6GuqI1d.png"></image>
+    </view>
+    <view wx:else class="icon-cards" bindtap="likeUserWalk">
+      <image class="icon1" src="https://cloud-minapp-32027.cloud.ifanrusercontent.com/1igkVguVUe7jpFwS.png"></image>
+    </view>
+    <view wx:if="{{userWalk.saved}}" class="icon-cards" bindtap="unsaveUserWalk">
+      <image class="icon2" src="https://cloud-minapp-32027.cloud.ifanrusercontent.com/1igkVgGDwLzhQfLQ.png"></image>
+    </view>
+    <view wx:else class="icon-cards" bindtap="saveUserWalk">
+      <image class="icon2" src="https://cloud-minapp-32027.cloud.ifanrusercontent.com/1igkVgYhRuceo6Fi.png"></image>
+    </view>
+  </view>
+</view>
+
+<view class="page__content">
+  <view class="map-element">
+    <map id="map" style="width: 100%; height: 60vh;" longitude="{{story.longitude}}" latitude="{{story.latitude}}" bindtap="openLocation" subkey="SI4BZ-ELA6U-Z3DVD-4TDCV-UHXHV-P7B4Z" markers="{{markers}}" ></map>
+  </view>
+
+
+  <view class="page__header">
+    <view class="story-title">dyn---walk.title</view>
+    <view class="story-date">dyn---walk.posted_date</view>
+  </view>
+  <text class="story-content">dyn---walk.content</text>
+</view>
