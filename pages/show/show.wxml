@@ -117,8 +117,8 @@
       data-likes="{{item.likes}}"
       bindtap="unlikeComment">
 
-        <image class="icon" src="/images/已喜欢.png"></image>
-        <view>{{item.likes}}</view>
+        <image class="icon" src="https://cloud-minapp-32027.cloud.ifanrusercontent.com/1igkVgitS6GuqI1d.png"></image>
+        <view class = "num">{{item.likes}}</view>
       </view>
 
       <!-- If User did not like comment -->
@@ -127,8 +127,8 @@
       data-likes="{{item.likes}}" 
       bindtap="likeComment">
 
-        <image class="icon" src="/images/喜欢.png"></image>
-        <view class="num">{{item.likes}}</view>
+        <image class="icon" src="https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ihWDPiwIq1OrNUF.png"></image>
+        <view class = "num">{{item.likes}}</view>
       </view>
       </view>
 
@@ -142,13 +142,13 @@
 <view class="navbar-bottom">
   <view class="navbar-sec">
     <view class="home-btn" bindtap="navigateToHome">
-      <image class='home-icon' src='../../images/主页.png'></image>
+      <image class='home-icon' src='https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifOM5pIQmXWzg40.png'></image>
     </view>
-    <view class="create-btn" bindtap="navigateToPost">
+    <!-- <view class="create-btn" bindtap="navigateToPost">
       <image class='create-icon' src='https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifOM5B7kR5Z3bEr.png' mode="aspectFill"></image>
-    </view>
+    </view> -->
     <view class="profile-btn" bindtap="navigateToProfile">
-      <image class='profile-icon' src='../../images/profile.png'></image>
+      <image class='profile-icon' src='https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifOM586qKj2G6Ri.png'></image>
     </view>
   </view>
 </view>

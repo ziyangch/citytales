@@ -29,11 +29,11 @@
     </view>
 
     <view class="bottom-section">
-      <!-- <checkbox-group class="checkgroup" bindchange="checkboxChange">
+      <checkbox-group class="checkgroup" bindchange="checkboxChange">
         <label class="checkbox" wx:for="{{items}}">
           <checkbox value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
         </label>
-      </checkbox-group> -->
+      </checkbox-group>
 
       <view class="submit-btn">
         <button style="width: 100%" type="primary" form-type="submit" bindtap="eventStorySubmit">发布</button>

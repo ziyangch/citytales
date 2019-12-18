@@ -1,1 +1,79 @@
 /* pages/walks/walks.wxss */
+page {
+  background-color: #F9F8F4;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.recomend-head {
+  width: 100vw;
+  height: 10vh;
+  border-bottom: 1rpx solid #cfcfcf;
+  position: fixed;
+  background-color: #04B2D9;
+  top: 0;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.page-container {
+  width: 95%;
+  height: 100vh;
+  margin-top: 11vh;
+}
+
+.card {
+  height: 40vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 5%;
+  margin-bottom: 20rpx;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.walk-img {
+  height: 70%;
+  width: 100%;
+}
+
+.walk-info {
+  height: 30%;
+  background-color: white;
+  padding: 10rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.walk-title {
+  margin-bottom: 10rpx;
+  margin-right: 10rpx;
+  margin-left: 10rpx;
+  height: 35%;
+}
+.walk-description {
+  font-weight: lighter;
+  font-size: 24rpx;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  text-align: top;
+  margin-right: 10rpx;
+  margin-left: 10rpx;
+}
+
+.end-msg {
+  text-align: center;
+  font-weight: lighter;
+  font-size: 20rpx;
+  margin: 40rpx auto;
+  margin-bottom: 10vh;
+}

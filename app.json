@@ -21,12 +21,12 @@
       {
         "pagePath": "pages/walks/walks",
         "text": "路线",
-        "iconPath": "/images/主页.png",
-        "selectedIconPath": "/images/主页.png"
+        "iconPath": "/images/足迹.png",
+        "selectedIconPath": "/images/足迹.png"
       },
       {
         "pagePath": "pages/home/home",
-        "text": "主页",
+        "text": "探索",
         "iconPath": "/images/主页.png",
         "selectedIconPath": "/images/主页.png"
       },

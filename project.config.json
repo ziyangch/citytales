@@ -99,8 +99,8 @@
 				},
 				{
 					"id": -1,
-					"name": "Show Walk",
-					"pathName": "pages/show_walk/show_walk",
+					"name": "walk index",
+					"pathName": "pages/walks/walks",
 					"scene": null
 				}
 			]
