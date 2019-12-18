@@ -17,12 +17,12 @@
     <view wx:else class="icon-cards" bindtap="likeUserWalk">
       <image class="icon1" src="https://cloud-minapp-32027.cloud.ifanrusercontent.com/1igkVguVUe7jpFwS.png"></image>
     </view>
-    <view wx:if="{{userWalk.saved}}" class="icon-cards" bindtap="unsaveUserWalk">
+    <!-- <view wx:if="{{userWalk.saved}}" class="icon-cards" bindtap="unsaveUserWalk">
       <image class="icon2" src="https://cloud-minapp-32027.cloud.ifanrusercontent.com/1igkVgGDwLzhQfLQ.png"></image>
     </view>
     <view wx:else class="icon-cards" bindtap="saveUserWalk">
       <image class="icon2" src="https://cloud-minapp-32027.cloud.ifanrusercontent.com/1igkVgYhRuceo6Fi.png"></image>
-    </view>
+    </view> -->
   </view>
 </view>
 

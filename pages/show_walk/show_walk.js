@@ -36,7 +36,6 @@ Page({
     query.compare('visible', '=', true)
     Story.setQuery(query).find().then(res => {
       let stories = res.data.objects
-
       let walkStories = stories.filter(function (item) {
         return (storiesIdArr.includes(item.id))
       })
@@ -60,13 +59,155 @@ Page({
     });
     that.setData({ markers })
   },
+
+  setUserWalk: function (walkId, userId) {
+    let that = this
+    let query = new wx.BaaS.Query()
+    let UserWalk = new wx.BaaS.TableObject('user_walk')
+
+    query.compare('walk', '=', walkId)
+    query.compare('user', '=', userId)
+    query.compare('visible', '=', true)
+    UserWalk.setQuery(query).find().then(res => {
+      if (res.data.objects.length !== 0) {
+        let userWalk = res.data.objects[0];
+        that.setData({ userWalk }) // Saving User walk to local page data
+      }
+    })
+  },
+
+  unlikeUserWalk: function () {
+    let that = this
+    if ((that.data.user.id)) {
+
+      let walk = that.data.walk // (1) decrease "people_liked" of Walk object
+      let peopleLiked = walk.people_liked
+      peopleLiked -= 1
+
+      let Walk = new wx.BaaS.TableObject('walk') // (2) update 'people_liked' to Walk object in data base
+      let dbWalk = Walk.getWithoutData(walk.id)
+      dbWalk.set("people_liked", peopleLiked)
+      dbWalk.update().then(res => {
+        let walk = res.data
+        walk = that.setDisplayDate(walk) // (3) add display data format for Walk object
+        that.setData({ walk }) // (4) set updated Walk object in local page data
+      }, err => {
+      })
+
+      let userWalk = that.data.userWalk
+      userWalk.liked = false // (5) change 'liked' attribute in UserWalk object
+
+      let UserWalk = new wx.BaaS.TableObject('user_walk')
+      let dbUserWalk = UserWalk.getWithoutData(userWalk.id)
+      dbUserWalk.set("liked", userWalk.liked) // (6) update 'liked' to UserWalk object in data base
+      dbUserWalk.update().then(res => {
+        let userWalk = res.data
+        that.setData({ userWalk }) // (7) set updated UserWalk object in local page data
+        // that.getUserWalks(that.data.walk.id) // (8) get UserWalks --- for avatar display
+      }, err => {
+      })
+
+      wx.showToast({
+        title: `取消喜欢`,
+        icon: 'success'
+      })
+    } else {
+      wx.showToast({
+        title: `请先登录`,
+        icon: 'none'
+      })
+    }
+  },
+
+  likeUserWalk: function () {
+    let that = this
+    if ((that.data.user.id)) {
+
+      let walk = that.data.walk // (1) increase "people_liked" of Walk object
+      let peopleLiked = walk.people_liked
+      peopleLiked += 1
+
+      let Walk = new wx.BaaS.TableObject('walk') // (2) update 'people_liked' to Walk object in data base
+      let dbWalk = Walk.getWithoutData(walk.id)
+      dbWalk.set("people_liked", peopleLiked)
+      dbWalk.update().then(res => {
+        let walk = res.data
+        walk = that.setDisplayDate(walk) // (3) add display data format for Walk object
+        that.setData({ walk }) // (4) set updated Walk object in local page data
+      }, err => {
+      })
+
+      if (that.data.userWalk) { // (5a) updating "liked" to true in DB, if UserWalk already exists
+        let userWalk = that.data.userWalk
+        userWalk.liked = true
+
+        let UserWalk = new wx.BaaS.TableObject('user_walk') // (6a) update 'liked' to UserWalk object in data base
+        let dbUserWalk = UserWalk.getWithoutData(userWalk.id)
+        dbUserWalk.set("liked", userWalk.liked)
+        dbUserWalk.update().then(res => {
+          let userWalk = res.data
+          that.setData({ userWalk }) // (7a) set updated UserWalk Object in local page data
+          // that.getUserWalks(that.data.walk.id) // (8a) get UserWalks --- for avatar display
+        }, err => {
+        })
+
+      } else { // Creating new UserWalk and saving into DB, if User Walk does not exist yet
+
+        let UserWalk = new wx.BaaS.TableObject('user_walk')
+        let userWalk = UserWalk.create()
+        let newUserWalk = { // (5b) creating new UserWalk object with 'liked' = true
+          user: that.data.user.id,
+          walk: that.data.walk.id,
+          liked: true
+        }
+        userWalk.set(newUserWalk).save().then(res => { // (6b) saving new UserWalk object into DB
+          let userWalk = res.data
+          that.setData({ userWalk }) // (7b) setting UserWalk Object in local page data
+          // that.getUserWalks(that.data.walk.id) // (8b) getting UserWalks --- for avatar display
+        }, err => {
+        })
+      }
+      wx.showToast({
+        title: `已喜欢！`,
+        icon: 'success'
+      })
+    } else {
+      wx.showToast({
+        title: `请先登录`,
+        icon: 'none'
+      })
+    }
+  },
+
+  loginWithWechat: function (data) {
+    let that = this
+    wx.BaaS.auth.loginWithWechat(data).then(user => {
+      console.log("this is current user---->", user)
+      user.custom_nickname = user.get("custom_nickname")
+      user.bio = user.get("bio")
+      wx.setStorage({
+        key: 'user',
+        data: user,
+      })
+      that.setData({ user })
+    }, err => {
+      console.log(err);
+      // 登录失败
+    })
+  },
+
   /**
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
+    let that = this
     let walkId = options.id // Setting walkId from Page properties
-    this.setWalk(walkId) // setting Walk object by search with Walk ID in local page data
+    that.setWalk(walkId) // setting Walk object by search with Walk ID in local page data
     let user = wx.getStorageSync('user')
+    if (user) {
+      that.setData({ user })  // Saving User object to local page data
+      that.setUserWalk(walkId, user.id) // Setting UserWalk to local page data 
+    }
   },
 
   /**
