@@ -30,7 +30,18 @@
 
 <view class="page__content">
   <view class="map-element">
-    <map id="map" style="width: 100%; height: 60vh;" longitude="{{story.longitude}}" latitude="{{story.latitude}}" bindtap="openLocation" subkey="SI4BZ-ELA6U-Z3DVD-4TDCV-UHXHV-P7B4Z" markers="{{markers}}" ></map>
+    <map
+        id="map"
+        latitude="{{latitude}}"
+        longitude="{{longitude}}"
+        style="width: 100%; height: 60vh;"
+        subkey="SI4BZ-ELA6U-Z3DVD-4TDCV-UHXHV-P7B4Z"
+        markers="{{markers}}"
+        bindmarkertap="markerTap"
+        bindtap="mapTap"
+        include-points="{{points}}"
+        polyline="{{polyline}}"
+      ></map>
   </view>
 
 

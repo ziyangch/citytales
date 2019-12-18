@@ -326,7 +326,7 @@ Page({
       this.getStoriesWithDistance(stories) // for dealing with distances
      
 
-      // this.setRoute(['5df35bd181f3bf0af673c67d', '5df362a281f3bf0af324d1e1', '5df353c63a1bf86399dd87c1']) // Calculating Routes
+      // this.setRoute(['5dfa30a3d69d0e2f684527e0', '5dfa323fd69d0e084b899dfb', '5dfa22f4ea947d41e9068083', '5dfa35d0d69d0e5fe0453b21', '5def30c710897c591a33d']) // Calculating Routes
     })
   },
 
@@ -340,7 +340,7 @@ Page({
     console.log('typeof polylineLongitudeArrayElement ------->', typeof(polylineLongitudeArr[5]))
 
     let Walk = new wx.BaaS.TableObject('walk')
-    let dbWalk = Walk.getWithoutData('5dfa2f5eea947d1f209bd5da') // CAREFUL!!! TO BE CHANGED MANUALLY
+    let dbWalk = Walk.getWithoutData('5dfa2f46ea947d41a9067cfc') // CAREFUL!!! TO BE CHANGED MANUALLY
 
     dbWalk.set("polyline_latitude", polylineLatitudeArr)
     dbWalk.set("polyline_longitude", polylineLongitudeArr)
