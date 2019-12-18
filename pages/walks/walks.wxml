@@ -3,7 +3,7 @@
 
 <view class="page-container">
 <view wx:for="{{walks}}">
-  <view class="card" bindtap="navigateToShow" >
+  <view class="card" data-id ="{{item.id}}" bindtap="navigateToShow" >
     <image  class= "walk-img"  mode = "aspectFill" src = "{{item.image}}" />
     <view class="walk-info">
       <view class="walk-title">{{item.title}}</view>

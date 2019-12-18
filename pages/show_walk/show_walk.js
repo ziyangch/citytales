@@ -5,7 +5,51 @@ Page({
    * Page initial data
    */
   data: {
+    visible1: false,
+    visible2: false,
+  },
 
+  open1() {
+    this.setData({
+      visible1: true,
+    })
+  },
+  open2() {
+    this.setData({
+      visible2: true,
+    })
+  },
+  close1() {
+    this.setData({
+      visible1: false,
+    })
+  },
+  close2() {
+    this.setData({
+      visible2: false,
+    })
+  },
+  onClose(key) {
+    console.log('onClose')
+    this.setData({
+      [key]: false,
+    })
+  },
+  onClose1() {
+    this.onClose('visible1')
+  },
+  onClose2() {
+    this.onClose('visible2')
+  },
+  onClosed1() {
+    console.log('onClosed')
+  },
+
+   navigateToShow(e) {
+    let id = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: `/pages/show/show?id=${id}`
+    })
   },
 
   navigateToUserProfile(e) {
@@ -29,12 +73,12 @@ Page({
 
   setWalkStories: function() {
     let that = this
-    let storiesIdArr = that.data.walk.stories_id_arr
     let query = new wx.BaaS.Query()
     let Story = new wx.BaaS.TableObject('story')
     query.compare('created_at', '>', 0)
     query.compare('visible', '=', true)
     Story.setQuery(query).find().then(res => {
+      let storiesIdArr = that.data.walk.stories_id_arr
       let stories = res.data.objects
       let walkStories = stories.filter(function (item) {
         return (storiesIdArr.includes(item.id))
@@ -89,7 +133,6 @@ Page({
       dbWalk.set("people_liked", peopleLiked)
       dbWalk.update().then(res => {
         let walk = res.data
-        walk = that.setDisplayDate(walk) // (3) add display data format for Walk object
         that.setData({ walk }) // (4) set updated Walk object in local page data
       }, err => {
       })
@@ -132,7 +175,6 @@ Page({
       dbWalk.set("people_liked", peopleLiked)
       dbWalk.update().then(res => {
         let walk = res.data
-        walk = that.setDisplayDate(walk) // (3) add display data format for Walk object
         that.setData({ walk }) // (4) set updated Walk object in local page data
       }, err => {
       })
