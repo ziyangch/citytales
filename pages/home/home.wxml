@@ -45,6 +45,16 @@
       </view>
     </view>
 
+<poster id="poster" config="{{posterConfig}}" bind:success="onPosterSuccess" bind:fail="onPosterFail"
+    bindtap="setConfig">
+    <view class="postcard-div">
+    <view class="postcard-btn"><image class="postcard-img" src="https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifOM5vSmMogjCLX.png"></image>I feel lucky today!</view>
+    </view>
+
+</poster>
+
+<view bindtap='getdata'>{{moto}}</view>
+
 <view wx:if="{{current==1}}" class="index-container">
 
   <wux-filterbar id="filterbar" style="width:100%; position:fixed; top:0" items="{{ items }}" bind:change="onChange" bind:open="onOpen" bind:close="onClose" />
@@ -121,8 +131,6 @@
   </view>
 
 
-
-<view>
 <view class="zhezao" hidden="{{flag}}">
   <view class="t_w">
 
@@ -159,5 +167,4 @@
     </view>
     <!--弹出框结束-->
   </view>
-</view>
 </view>
