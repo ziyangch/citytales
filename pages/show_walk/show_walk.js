@@ -71,6 +71,33 @@ Page({
     })
   },
 
+
+  setPolyline: function (walkId) {
+    let that = this
+    let Walk = new wx.BaaS.TableObject('walk')
+
+    Walk.get(walkId).then(res => {
+      console.log("Result of DB Read Walk", res)
+      let polylineLatitudeArr = res.data.polyline_latitude
+      let polylineLongtitudeArr = res.data.polyline_longtitude
+      let pl = []
+      for (let i = 0; i < (polylineLatitudeArr.length); i += 1) {
+        pl.push({ latitude: polylineLatitudeArr[i], longitude: polylineLongtitudeArr[i] })
+      }
+      that.setData({
+        polyline: [{
+          points: pl,
+          color: "#0091ff",
+          width: 6
+        }]
+      })
+      // success
+    }, err => {
+      // err
+    })
+  },
+
+
   setWalkStories: function() {
     let that = this
     let query = new wx.BaaS.Query()
