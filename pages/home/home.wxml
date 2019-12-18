@@ -85,7 +85,8 @@
     <view class="h1">在你的附近没有推荐的故事</view>
   </view>
 
-  <view class="masonary">
+  <view class="recomend-head">小编为你的精选城事</view>
+  <view class="masonary1">
           <block wx:for="{{filteredForRecommendation||defaultRecommendation}}" class="card-container" catchtap="navigateToShow" data-type="edit" data-id="{{item.id}}" wx:key>
             <view class="card" catchtap="navigateToShow" data-type="edit" data-id="{{item.id}}">
               <image class="story-img" src="{{ item.image }}" alt="Pic" style="width:100%" mode="widthFix"></image>
