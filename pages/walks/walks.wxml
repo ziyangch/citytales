@@ -2,20 +2,14 @@
 <view class="recomend-head">探索品质城事旅途</view>
 
 <view class="page-container">
-  <view class="card" >
-    <image  class= "walk-img"  mode = "aspectFill" src = "../../images/walks.jpg" />
+<view wx:for="{{walks}}">
+  <view class="card" bindtap="navigateToShow" >
+    <image  class= "walk-img"  mode = "aspectFill" src = "{{item.image}}" />
     <view class="walk-info">
-      <view class="walk-title">湾区Tech Journey</view>
-      <text class="walk-description">“深圳南山科技园于2001年投资建设，总投资60亿元人民币，园区占地70.6万平方米，建筑面积300万平方米。是以市场为导向，集高新技术的研发、高新技术企业的孵化、创新人才的吸纳与培育于一体的深圳国家级大学科技产业园区。2003年10月，在深圳市被科技部和教育部授予“国家大学科技园”称号。深圳南山科技园矗立在地理环境优越，文化氛围浓郁，众多科研院所云集的南山区，是深圳市科技、信息、人才资源最密集的区域之一。”</text>
+      <view class="walk-title">{{item.title}}</view>
+      <text class="walk-description">{{item.description}}</text>
     </view>
   </view>
-
-    <view class="card" >
-    <image  class= "walk-img"  mode = "aspectFill" src = "../../images/walks.jpg" />
-    <view class="walk-info">
-      <view class="walk-title">湾区Tech Journey</view>
-      <text class="walk-description">“深圳南山科技园于2001年投资建设，总投资60亿元人民币，园区占地70.6万平方米，建筑面积300万平方米。是以市场为导向，集高新技术的研发、高新技术企业的孵化、创新人才的吸纳与培育于一体的深圳国家级大学科技产业园区。2003年10月，在深圳市被科技部和教育部授予“国家大学科技园”称号。深圳南山科技园矗立在地理环境优越，文化氛围浓郁，众多科研院所云集的南山区，是深圳市科技、信息、人才资源最密集的区域之一。”</text>
-    </view>
-  </view>
+</view>
   <view class="end-msg">- The End -</view>
 </view>
