@@ -326,7 +326,7 @@ Page({
       this.getStoriesWithDistance(stories) // for dealing with distances
      
 
-      this.setRoute(['5df35bd181f3bf0af673c67d', '5df362a281f3bf0af324d1e1', '5df353c63a1bf86399dd87c1']) // Calculating Routes
+      // this.setRoute(['5df35bd181f3bf0af673c67d', '5df362a281f3bf0af324d1e1', '5df353c63a1bf86399dd87c1']) // Calculating Routes
     })
   },
 
