@@ -176,7 +176,7 @@ margin: 0 26rpx !important; */
   margin: 0 25%;
   width: 50%;
   position: absolute;
-  bottom: 60rpx;
+  bottom: 15vh;
   height: 400rpx;
 }
 
@@ -240,7 +240,7 @@ margin: 0 26rpx !important; */
   align-items: center;
   float: left;
   position: fixed;
-  bottom: 120rpx;
+  bottom: 100rpx;
   left: 45%;
   width: 80rpx;
   height: 80rpx;

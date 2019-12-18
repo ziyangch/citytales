@@ -201,7 +201,6 @@
   align-items: center;
   /* background-color: #cfcfcf; */
   width: 100%;
-  border-bottom: 1rpx solid #cfcfcf;
   margin: 10rpx 0;
 }
 
@@ -209,6 +208,9 @@
   display: flex;
   align-items: center;
   width: 90%;
+  justify-content: space-between;
+  border-bottom: 1rpx solid #cfcfcf;
+  padding-bottom: 10rpx;
 }
 
 
@@ -224,7 +226,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: left;
-  width: 90%;
+  width: 100%;
 }
 
 .cmt-info .user-name {
@@ -385,7 +387,7 @@
   justify-content: center;
   align-items: center;
   width: 100vw;
-  height: 100rpx;
+  height: 10vh;
 }
 .postcard-btn {
   background-color: #04B2D9;
@@ -401,6 +403,7 @@
   width:45%;
   height: 60rpx;
   margin-bottom: 30rpx;
+  margin-top: 10rpx;
 }
 
 .postcard-img {
@@ -434,46 +437,57 @@ margin-top: 10rpx;
   flex-shrink: 0;
 }
 
-.home-btn {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  float: left;
-  position: fixed;
-  bottom: 110rpx;
-  right: 20rpx;
-  width: 90rpx;
-  height: 90rpx;
-  z-index: 1;
-  background-color: rgba(240, 240, 240, 0.8);
-  border-radius: 4rpx;
-  box-shadow: 0 0 5rpx rgb(100, 100, 100);
+.end-msg {
+  text-align: center;
+  font-weight: lighter;
+  font-size: 20rpx;
+  margin: 40rpx auto;
+  margin-bottom: 10vh;
 }
 
+.navbar-bottom {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 2rpx solid #cfcfcf;
+  position: fixed;
+  bottom: 0;
+  background-color: white;
+}
+
+.navbar-sec {
+  width: 80%;
+  height: 5vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20rpx 0;
+}
 .home-icon {
-  width: 60rpx;
-  height: 60rpx;
-  z-index: 2;
+  width: 50rpx;
+  height: 50rpx;
+  /* z-index: 2; */
 }
 
-.profile-btn {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  float: left;
-  position: fixed;
-  bottom: 20rpx;
-  right: 20rpx;
-  width: 90rpx;
-  height: 90rpx;
-  z-index: 1;
-  background-color: rgba(240, 240, 240, 0.8);
-  border-radius: 4rpx;
-  box-shadow: 0 0 5rpx rgb(100, 100, 100);
-}
+
 
 .profile-icon {
-  width: 60rpx;
-  height: 60rpx;
-  z-index: 2;
+  width: 50rpx;
+  height: 50rpx;
+  /* z-index: 2; */
+}
+
+
+
+.create-icon {
+  width: 50rpx;
+  height: 50rpx;
+  /* z-index: 2; */
+}
+
+.border {
+  height: 5rpx;
+  border-top: 1rpx solid grey;
+  width: 100%;
 }

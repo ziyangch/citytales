@@ -123,7 +123,7 @@
 
 
 
-<view class="zhezao" hidden="{{flag}}" wx:if="{{!user.id}}">
+<view class="zhezao" hidden="{{flag}}">
   <view class="t_w">
 
     <!--右上角图标开始-->
