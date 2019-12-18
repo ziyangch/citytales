@@ -140,3 +140,18 @@
     </view>
   </view>
 </view>
+
+<view class="end-msg">- The End -</view>
+<view class="navbar-bottom">
+  <view class="navbar-sec">
+    <view class="home-btn" bindtap="navigateToHome">
+      <image class='home-icon' src='../../images/主页.png'></image>
+    </view>
+    <view class="create-btn" bindtap="navigateToPost">
+      <image class='create-icon' src='https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifOM5B7kR5Z3bEr.png' mode="aspectFill"></image>
+    </view>
+    <view class="profile-btn" bindtap="navigateToProfile">
+      <image class='profile-icon' src='../../images/profile.png'></image>
+    </view>
+  </view>
+</view>

@@ -102,17 +102,15 @@
 
     <!-- Comment Index -->
     <view wx:for="{{comments}}" class="comments_display">
+      <image class="avatar" mode="aspectFill" src="{{item.user.avatar}}" />
       <view class="user-section">
-        <image class="avatar" mode="aspectFill" src="{{item.user.avatar}}" />
         <view class="cmt-info">
           <view class="user-name">{{item.user.custom_nickname || item.user.nickname}}
             <view class="user-date">{{item.date}}</view>
           </view>
-          <view class="user-comment">{{item.content}}</view>
+          <view class="user-comment">{{item.content}}</view> 
         </view>
-      </view>
-
-      <!-- if User liked comment -->
+              <!-- if User liked comment -->
       <view wx:if="{{item.userLiked}}"
       class="icon-card" 
       data-id="{{item.id}}" 
@@ -132,13 +130,26 @@
         <image class="icon" src="/images/喜欢.png"></image>
         <view class="num">{{item.likes}}</view>
       </view>
+      </view>
+
+
     </view>
   </view>
 </view>
 
-<view class="home-btn" bindtap="navigateToHome">
-  <image class='home-icon' src='../../images/主页.png'></image>
+<view class="end-msg">- The End -</view>
+
+<view class="navbar-bottom">
+  <view class="navbar-sec">
+    <view class="home-btn" bindtap="navigateToHome">
+      <image class='home-icon' src='../../images/主页.png'></image>
+    </view>
+    <view class="create-btn" bindtap="navigateToPost">
+      <image class='create-icon' src='https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifOM5B7kR5Z3bEr.png' mode="aspectFill"></image>
+    </view>
+    <view class="profile-btn" bindtap="navigateToProfile">
+      <image class='profile-icon' src='../../images/profile.png'></image>
+    </view>
+  </view>
 </view>
-<view class="profile-btn" bindtap="navigateToProfile">
-  <image class='profile-icon' src='../../images/profile.png'></image>
-</view>
+
