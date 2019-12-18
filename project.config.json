@@ -99,9 +99,8 @@
 				},
 				{
 					"id": -1,
-					"name": "post",
-					"pathName": "pages/post/post",
-					"query": "",
+					"name": "walk index",
+					"pathName": "pages/walks/walks",
 					"scene": null
 				}
 			]
