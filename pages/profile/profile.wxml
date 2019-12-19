@@ -190,7 +190,7 @@
       </view>
     </view>
     <view class="right">
-      <view wx:for="{{stories_saved}}" class="card-container" catchtap="navigateToShow" data-type="edit" data-id="{{item.id}}" wx:key>
+      <view wx:for="{{stories_created}}" class="card-container" catchtap="navigateToShow" data-type="edit" data-id="{{item.id}}" wx:key>
         <view class="card" wx:if="{{index%2==1}}">
           <image class="story-img" src="{{ item.image }}" alt="Pic" style="width:100%" mode="widthFix"></image>
             <view class="info-section">
