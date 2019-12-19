@@ -75,7 +75,7 @@
           </wux-cell>
         </view>
       </view>
-    </view>
+    
         <wux-cell hover-class="none">
             <wux-button block type="balanced" bindtap="close2">收起列表</wux-button>
         </wux-cell>
