@@ -1,6 +1,9 @@
 // pages/home/home.js
+import Poster from '../../miniprogram_npm/wxa-plugin-canvas/poster/poster';
 var QQMapWX = require('../../libs/qqmap-wx-jssdk.js');
 var qqmapsdk;
+
+var app = getApp()
 
 Page({
 
@@ -18,11 +21,69 @@ Page({
     longitude: 113.324520,
     markers: [],
     subkey: undefined,
+    moto: [],
     polyline: [{
       points: [],
       color: "#0091ff",
       width: 6
     }]
+  },
+
+  user: {
+    id: undefined
+  },
+
+  posterConfig: {
+    width: 375,
+    height: 812,
+    backgroundColor: '#FFF',
+    pixelRatio: 1,
+    blocks: [{
+      width: 630,
+      height: 0,
+      x: 0,
+      y: 190,
+      borderWidth: 1,
+      borderColor: '#DDDDDD'
+    }],
+    texts: [{},],
+    images: [{
+      width: 750,
+      height: 1624,
+      x: 0,
+      y: 0,
+      url:
+        'https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifIFkVh2efgacEF.png'
+    },
+    {
+      width: 700,
+      height: 525,
+      x: 25,
+      y: 350,
+      url: 'https://api.ixiaowai.cn/gqapi/gqapi.php'
+    },
+    {
+      width: 200,
+      height: 200,
+      x: 525,
+      y: 55,
+      url: 'https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ihy47ytSqO0kWm3.png'
+      //邮票企业版二维码
+    }]
+  },
+
+  setStory(id) {
+    console.log(id)
+    let Story = new wx.BaaS.TableObject('story')
+    Story.get(id.toString()).then(res => {
+      let story = res.data;
+      story = this.setDisplayDate(story)
+      // story = this.setDisplayDate(story)
+      this.setData({
+        story
+      })
+
+    }, err => { })
   },
 
   navigateToShow(e) {
@@ -626,6 +687,122 @@ Page({
     
   },
 
+  getdata: function () {
+    var that = this;
+    wx.request({
+      url: 'https://v1.hitokoto.cn/',
+      method: 'GET',
+      dataType: 'json',
+
+      success: function (res) {
+        that.setData({
+          posterConfig: {
+
+            texts: [{
+              x: 25,
+              y: 130,
+              text: 'CityTales',
+              fontFamily: 'Baskerville',
+              fontSize: 60,
+              color: '#04B2D9',
+              fontWeight: 'bold'
+            },
+            {
+              x: 25,
+              y: 195,
+              text: '欢迎来到你的城事',
+              fontFamily: 'STFangsong',
+              fontSize: 50,
+              color: '#04B2D9'
+            },
+            // {
+            //   x: 25,
+            //   y: 325,
+            //   text: 'this.data.story.title',
+            //   fontFamily: 'STFangsong',
+            //   fontSize: 40,
+            //   color: '#484E5C',
+            //   width: 600,
+            //   marginLeft: 50,
+            //   marginRight: 50
+            // },
+            {
+              x: 25,
+              y: 980,
+              text: res.data.hitokoto,
+              //随机生成语料库
+              fontFamily: 'STFangsong',
+              fontSize: 45,
+              color: '#484E5C',
+              opacity: 0.85,
+              // textAlign: 'center',
+              lineHeight: 80,
+              lineNum: 13,
+              width: 650,
+              fontStyle: 'italic',
+            },
+            // {
+            //   x: 25,
+            //   y: 1000,
+            //   text: res.data.from + ' :',
+            //   fontFamily: 'STFangsong',
+            //   fontSize: 40,
+            //   color: '#484E5C',
+            //   marginLeft: 50,
+            //   marginRight: 50,
+            //   lineNum: 3,
+            //   width: 675
+            // },
+            {
+              x: 355,
+              y: 1570,
+              text: 'From: 城事Official Account',
+              fontFamily: 'STFangsong',
+              fontSize: 30,
+              color: '#04B2D9'
+            },
+            ],
+            images: [{
+              width: 750,
+              height: 1624,
+              x: 0,
+              y: 0,
+              url:
+                'https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifIFkVh2efgacEF.png'
+            },
+            {
+              width: 700,
+              height: 525,
+              x: 25,
+              y: 350,
+              url:
+                'https://api.ixiaowai.cn/gqapi/gqapi.php'
+            },
+            {
+              width: 200,
+              height: 200,
+              x: 525,
+              y: 40,
+              url: 'https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ihy47ytSqO0kWm3.png'
+              //邮票企业版二维码
+            }
+            ]
+          }
+        }, () => {
+          Poster.create(true);
+        })
+
+        console.log(res)
+      },
+      fail: function (err) {
+        console.log(err)
+      }, //请求失败
+      complete: function () {
+        console.log(123)
+      } //请求完成后执行的函数
+    })
+  },
+
   /**
    * Lifecycle function--Called when page is initially rendered
    */
@@ -705,8 +882,31 @@ Page({
     return {
       title: '城事CityTales',
       path: 'pages/home/home',
-      imageUrl: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1576076902204&di=3976f55fd2511190201063cb611dbfc1&imgtype=0&src=http%3A%2F%2Fpic5.997788.com%2Fpic_search%2F00%2F16%2F10%2F15%2Fse16101588a.jpg'
+      imageUrl: 'https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ieF4hNkpPIZh6cj.jpg'
     }
+  },
+  
+  //Create Poster Function
+  onCreatePoster() {
+    console.log(e)
+
+  },
+  onPosterSuccess(e) {
+    let {
+      detail
+    } = e
+    wx.previewImage({
+      current: detail,
+      urls: [detail]
+    })
+  },
+
+  onPosterFail(e) {
+    console.log(e)
+  },
+
+  setConfig() {
+    this.getdata();
   },
 
   onChangeMap(e){

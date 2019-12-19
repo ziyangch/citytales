@@ -2,6 +2,7 @@
   "usingComponents": {
     "wux-button": "../../dist/button/index",
     "wux-segmented-control": "../../dist/segmented-control/index",
-    "wux-filterbar": "../../dist/filterbar/index"
+    "wux-filterbar": "../../dist/filterbar/index",
+    "poster": "wxa-plugin-canvas/poster"
   }
 }
