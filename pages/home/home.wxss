@@ -469,6 +469,7 @@ padding: 10rpx;
   color: white;
   text-decoration: none;
   padding: 25rpx;
+}
 .recomend-head {
   width: 100vw;
   height: 100rpx;
@@ -491,7 +492,6 @@ padding: 10rpx;
   height: 70rpx;
   width: 70rpx;
   margin-right: 10rpx;
-}
   color: white;
 }
 
