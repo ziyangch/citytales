@@ -469,6 +469,7 @@ margin: 10rpx!important;
   position: fixed;
   bottom: 0;
   background-color: white;
+  height: 100rpx;
 }
 
 .navbar-sec {
@@ -493,7 +494,11 @@ margin: 10rpx!important;
   /* z-index: 2; */
 }
 
-
+.walk-icon {
+  width: 50rpx;
+  height: 50rpx;
+  /* z-index: 2; */
+}
 
 .create-icon {
   width: 50rpx;
