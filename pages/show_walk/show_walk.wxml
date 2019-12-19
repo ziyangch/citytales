@@ -33,8 +33,8 @@
     <map
         id="map"
         latitude="{{latitude}}"
-        longitude="{{longitude}}"
-        style="width: 100%; height: 64vh;"
+        longitude="{{longtitude}}"
+        style="width: 100%; height: 60vh"
         subkey="SI4BZ-ELA6U-Z3DVD-4TDCV-UHXHV-P7B4Z"
         markers="{{markers}}"
         bindmarkertap="markerTap"
@@ -63,24 +63,31 @@
     <view class="story-title">{{walk.title}}</view>
   </view>
   <text class="story-content">{{walk.description}}</text>
+  <view class="distance-time">
+    <image class="icon" mode = "aspectFill" src = "../../images/距离传感器.png"></image>
+    <view class="d-t">10km</view>
+    <image class="icon" mode = "aspectFill" src = "../../images/时间.png"></image>
+    <view class="d-t">3.5hr</view>
+  </view>
 
 
   <wux-popup position="bottom" visible="{{ visible2 }}" bind:close="onClose2">
       <wux-cell-group title="景点列表">
-      <view wx:for="{{walkStories}}" wx:for-index="idx">
-        <view data-id="{{item.id}}" bindtap="navigateToShow" >
-          <wux-cell hover-class="none" >
-            <image src="{{item.image}}" mode = "aspectFill" class="story-img"></image>
-            <text>{{idx+1}}.{{item.title}}</text>
-          </wux-cell>
+      <scroll-view scroll-y class="scroll-view-y" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-top="{{scrollTop}}">
+        <view wx:for="{{walkStories}}" wx:for-index="idx">
+          <view data-id="{{item.id}}" bindtap="navigateToShow" >
+            <wux-cell hover-class="none" >
+              <image src="{{item.image}}" mode = "aspectFill" class="story-img"></image>
+              <text>{{idx+1}}.{{item.title}}</text>
+            </wux-cell>
+          </view>
         </view>
-      </view>
-    
+       </scroll-view>
         <wux-cell hover-class="none">
-            <wux-button block type="balanced" bindtap="close2">收起列表</wux-button>
-        </wux-cell>
-    </wux-cell-group>
-</wux-popup>
+                <wux-button block type="balanced" bindtap="close2">收起列表</wux-button>
+            </wux-cell>
+        </wux-cell-group>
+  </wux-popup>
 
 <view class="page">
     <view class="page__bd page__bd_spacing">
@@ -88,7 +95,6 @@
     </view>
     <button class="login-btn" bindtap="openLocation">导航到起点</button>
 </view>
-
 
   <view class="page">
       <view class="page__bd page__bd_spacing">

@@ -9,6 +9,8 @@
   height: 7vh;
   /* border-bottom: 3rpx solid #cfcfcf; */
   position: fixed;
+  top: 0;
+  z-index: 100;
 }
 
 .left-section {
@@ -132,6 +134,7 @@
   height: 600rpx;
   background-size: cover;
   background-position: center;
+  margin-top: 7vh;
 }
 
 
@@ -400,7 +403,7 @@
   align-items: center;
   font-weight: bold;
   border-radius: 25rpx;
-  width:45%;
+  width:30vh;
   height: 60rpx;
   margin-bottom: 30rpx;
   margin-top: 10rpx;
@@ -442,7 +445,7 @@ margin-top: 10rpx;
   font-weight: lighter;
   font-size: 20rpx;
   margin: 40rpx auto;
-  margin-bottom: 10vh;
+  margin-bottom: 15vh;
 }
 
 .navbar-bottom {

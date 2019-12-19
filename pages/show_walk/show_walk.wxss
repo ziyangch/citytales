@@ -50,6 +50,8 @@
   /* border-bottom: 3rpx solid #cfcfcf; */
   position: fixed;
   color: white;
+  top: 0;
+  z-index: 100;
 }
 
 .top-section .h1 {
@@ -157,6 +159,7 @@
   text-align: left;
   padding: 20rpx 0;
   line-height: 1.6;
+  margin-bottom: 5vh;
 }
 
 .story-content {
@@ -257,7 +260,7 @@
   margin: 0 25%;
   width: 50%;
   position: absolute;
-  bottom: 15vh;
+  top: 8vh;
   height: 400rpx;
 }
 
@@ -293,4 +296,32 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 
+}
+
+.scroll-view-y{
+  height: 60vh;
+}
+
+.distance-time {
+  display: flex;
+  align-items: center;
+  width: 95vw;
+  margin: 10rpx auto;
+  font-weight: lighter;
+  font-size: 20rpx;
+}
+
+.distance-time .icon {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+}
+
+.distance-time .d-t {
+  margin-right: 20rpx;
+  margin-left: 5rpx;
+}
+
+.page {
+  margin-bottom: 2vh;
 }
