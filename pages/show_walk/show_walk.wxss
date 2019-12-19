@@ -109,8 +109,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-
 }
+
 .icon-card .icon {
   margin: 5rpx;
   width: 40rpx;

@@ -38,31 +38,43 @@ Page({
     })
   },
 
-  markerTap: function(event) {
-    this.setMarkers(this.data.stories)
-    let current_story = this.data.stories.find(story => story.id == event.markerId);
-    this.setData({ current_story })
+  markerTap: function (event) {
+    let that = this
 
-    let markers = this.data.markers
-    let index = this.data.stories.findIndex(story => story.id == event.markerId);
-    markers[index].width = 60
-    markers[index].height = 60
-    this.setData({markers})
+    if (!(that.data.current_story === undefined)) {
+      if (event.markerId === that.data.current_story.id) {
+        let markers = that.data.markers
+        let index = that.data.stories.findIndex(story => story.id === that.data.current_story.id)
+        markers[index].width = 40
+        markers[index].height = 40
+        that.setData({ markers })
+        let current_story = false
+        that.setData({ current_story })
+      } else {
+        that.setMarkers(that.data.stories)
+        let current_story = that.data.stories.find(story => story.id === event.markerId);
+        that.setData({ current_story })
 
-    // let latitude = markers[index].latitude
-    // let longitude = markers[index].longitude
-    // this.setData({latitude})
-    // this.setData({longitude})
-    // console.log('markertap', latitude, longitude)
-    // this.mapCtx = wx.createMapContext('myMap')
-    // this.mapCtx.moveToLocation()
-    
-    // wx.chooseLocation({
-    //   success: function (res) {
-    //     console.log(res)
-    //   }
-    // })
+        let markers = that.data.markers
+        let index = that.data.stories.findIndex(story => story.id === event.markerId);
+        markers[index].width = 60
+        markers[index].height = 60
+        that.setData({ markers })
+      }
+    } else {
+      that.setMarkers(that.data.stories)
+      let current_story = that.data.stories.find(story => story.id === event.markerId);
+      that.setData({ current_story })
+
+      let markers = that.data.markers
+      let index = that.data.stories.findIndex(story => story.id === event.markerId);
+      markers[index].width = 60
+      markers[index].height = 60
+      that.setData({ markers })
+    }
   },
+
+
 
   mapTap: function(event) {
     let markers = this.data.markers
@@ -82,7 +94,7 @@ Page({
         id: story.id,
         latitude: story.latitude,
         longitude: story.longitude,
-        name: story.title,
+        //name: story.title,
         iconPath: 'https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifOM5c01ybmL4zj.png',
         width: 40,
         height: 40

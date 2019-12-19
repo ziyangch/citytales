@@ -140,8 +140,6 @@ Page({
       that.setIncludePoints(walkStories)
       that.setAverageLatitude(walkStories)
       that.setAverageLongitude(walkStories)
-      that.setData({ latitude: latitude })
-      that.setData({longitude: longitude})
     })
   },
 
@@ -183,7 +181,7 @@ Page({
         id: walkStory.id,
         latitude: walkStory.latitude,
         longitude: walkStory.longitude,
-        name: walkStory.title,
+        // name: walkStory.title,
         iconPath: 'https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifOM5c01ybmL4zj.png',
         width: 40,
         height: 40
@@ -338,16 +336,38 @@ Page({
 
   markerTap: function (event) {
     let that = this
-    that.setMarkers(that.data.walkStories)
-    let current_story = that.data.walkStories.find(story => story.id === event.markerId);
-    that.setData({ current_story })
+    
+    if (!(that.data.current_story === undefined)) {
+      if (event.markerId === that.data.current_story.id) {
+      let markers = that.data.markers
+      let index = that.data.walkStories.findIndex(story => story.id === that.data.current_story.id)
+      markers[index].width = 40
+      markers[index].height = 40
+      that.setData({markers})
+      let current_story = false
+      that.setData({ current_story })
+    } else {
+      that.setMarkers(that.data.walkStories)
+      let current_story = that.data.walkStories.find(story => story.id === event.markerId);
+      that.setData({ current_story })
 
-    let markers = that.data.markers
-    let index = that.data.walkStories.findIndex(story => story.id === event.markerId);
-    markers[index].width = 60
-    markers[index].height = 60
-    that.setData({ markers })
+      let markers = that.data.markers
+      let index = that.data.walkStories.findIndex(story => story.id === event.markerId);
+      markers[index].width = 60
+      markers[index].height = 60
+      that.setData({ markers })
+    }
+    } else {
+      that.setMarkers(that.data.walkStories)
+      let current_story = that.data.walkStories.find(story => story.id === event.markerId);
+      that.setData({ current_story })
 
+      let markers = that.data.markers
+      let index = that.data.walkStories.findIndex(story => story.id === event.markerId);
+      markers[index].width = 60
+      markers[index].height = 60
+      that.setData({ markers })
+    }
   },
 
   mapTap: function (event) {
@@ -361,6 +381,18 @@ Page({
     let current_story = false
     that.setData({ current_story })
 
+  },
+
+  openLocation: function () {
+    let that = this
+    let startStory = that.data.walkStories[0]
+    let latitude = startStory.latitude
+    let longitude = startStory.longitude
+    wx.openLocation({
+      latitude,
+      longitude,
+      scale: 18
+    })
   },
 
   /**
