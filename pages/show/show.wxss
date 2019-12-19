@@ -478,6 +478,11 @@ margin-top: 10rpx;
   /* z-index: 2; */
 }
 
+.walk-icon {
+  width: 50rpx;
+  height: 50rpx;
+  /* z-index: 2; */
+}
 
 
 .create-icon {

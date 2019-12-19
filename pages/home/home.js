@@ -324,7 +324,8 @@ Page({
       this.setMarkers(res.data.objects)
       this.setData({stories})
       this.getStoriesWithDistance(stories) // for dealing with distances
-     
+
+
 
       // this.setRoute(['5dfa30a3d69d0e2f684527e0', '5dfa323fd69d0e084b899dfb', '5dfa22f4ea947d41e9068083', '5dfa35d0d69d0e5fe0453b21', '5def30c710897c591a33db79']) // Calculating Routes
     })
@@ -647,6 +648,7 @@ Page({
     // })
   },
 
+
   // 遮罩层显示
   show: function () {
     this.setData({ flag: false })
@@ -820,6 +822,7 @@ Page({
       }
       this.setDisplayDistance(filteredByTags)
       this.setData({ filteredByTags: filteredByTags })
+      
       // let query = new wx.BaaS.Query()
       // query.in('tags', filter)
       // let Product = new wx.BaaS.TableObject("story")
