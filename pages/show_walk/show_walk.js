@@ -10,7 +10,9 @@ Page({
     btnShimmering: false,
     scale: 16,
     toView: 'green',
-    scrollTop: 100
+    scrollTop: 100,
+    latitude: 23.099994,
+    longitude: 113.324520,
   },
   upper: function (e) {
     console.log(e)
