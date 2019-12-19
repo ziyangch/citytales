@@ -347,6 +347,18 @@ Page({
 
   },
 
+  openLocation: function () {
+    let that = this
+    let startStory = that.data.walkStories[0]
+    let latitude = startStory.latitude
+    let longitude = startStory.longitude
+    wx.openLocation({
+      latitude,
+      longitude,
+      scale: 18
+    })
+  },
+
   /**
    * Lifecycle function--Called when page load
    */
