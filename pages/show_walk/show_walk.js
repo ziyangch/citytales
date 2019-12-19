@@ -165,7 +165,7 @@ Page({
         id: walkStory.id,
         latitude: walkStory.latitude,
         longitude: walkStory.longitude,
-        name: walkStory.title,
+        // name: walkStory.title,
         iconPath: 'https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifOM5c01ybmL4zj.png',
         width: 40,
         height: 40
