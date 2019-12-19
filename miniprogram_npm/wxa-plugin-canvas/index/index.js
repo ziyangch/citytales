@@ -512,7 +512,7 @@ Component({
                     });
                 })
                 .catch((err) => {
-                    wx.showToast({ icon: 'none', title: err.errMsg || '生成失败' });
+                    wx.showToast({ icon: 'none', title: err.errMsg || 'Please wait...' });
                     console.error(err);
                 });
         },
