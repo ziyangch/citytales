@@ -34,7 +34,7 @@
         id="map"
         latitude="{{latitude}}"
         longitude="{{longitude}}"
-        style="width: 100%; height: 60vh;"
+        style="width: 100%; height: 64vh;"
         subkey="SI4BZ-ELA6U-Z3DVD-4TDCV-UHXHV-P7B4Z"
         markers="{{markers}}"
         bindmarkertap="markerTap"
@@ -59,19 +59,21 @@
 
 
   <view class="page__header">
+    <image class="avatar" mode="aspectFill" src="https://cloud-minapp-32208.cloud.ifanrusercontent.com/1ihsA3agFqeSQtXm.png"/>
     <view class="story-title">{{walk.title}}</view>
   </view>
   <text class="story-content">{{walk.description}}</text>
 
 
-<wux-popup position="bottom" visible="{{ visible2 }}" bind:close="onClose2">
-    <wux-cell-group title="景点列表">
-    <view wx:for="{{walkStories}}" wx:for-index="idx">
-      <view data-id="{{item.id}}" bindtap="navigateToShow" >
-        <wux-cell hover-class="none" >
-          <image src="{{item.image}}" mode = "aspectFill" class="story-img"></image>
-          <text>{{idx+1}}.{{item.title}}</text>
-        </wux-cell>
+  <wux-popup position="bottom" visible="{{ visible2 }}" bind:close="onClose2">
+      <wux-cell-group title="景点列表">
+      <view wx:for="{{walkStories}}" wx:for-index="idx">
+        <view data-id="{{item.id}}" bindtap="navigateToShow" >
+          <wux-cell hover-class="none" >
+            <image src="{{item.image}}" mode = "aspectFill" class="story-img"></image>
+            <text>{{idx+1}}.{{item.title}}</text>
+          </wux-cell>
+        </view>
       </view>
     </view>
         <wux-cell hover-class="none">
@@ -88,4 +90,23 @@
 </view>
 
 
+  <view class="page">
+      <view class="page__bd page__bd_spacing">
+          <wux-button block type="balanced" bind:click="open2">打开景点列表</wux-button>
+      </view>
+  </view>
+
+  <view class="navbar-bottom">
+    <view class="navbar-sec">
+      <view class="home-btn" bindtap="navigateToHome">
+        <image class='home-icon' src='https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifOM5pIQmXWzg40.png'></image>
+      </view>
+      <view class="walk-btn" bindtap="">
+        <image class='walk-icon' src='../../images/主页.png' mode="aspectFill"></image>
+      </view>
+      <view class="profile-btn" bindtap="navigateToProfile">
+        <image class='profile-icon' src='https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifOM586qKj2G6Ri.png'></image>
+      </view>
+    </view>
+  </view>
 </view>
