@@ -138,7 +138,6 @@ Page({
     })
   },
 
-
   getMapLocation: function () {
     let page = this
     wx.chooseLocation({
@@ -146,8 +145,8 @@ Page({
         console.log(res)
         page.setData({
           "story.address": res.address,
-          "story.latitude": res.latitude,
-          "story.longitude": res.longitude
+          "story.latitude": (res.latitude + (Math.random() / 2000)),
+          "story.longitude": (res.longitude + (Math.random() / 2000))
         })
       }
     })

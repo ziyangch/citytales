@@ -107,8 +107,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-
 }
+
 .icon-card .icon {
   margin: 5rpx;
   width: 40rpx;
@@ -239,7 +239,7 @@
   height: 5rpx;
   border-top: 1rpx solid grey;
   width: 100%;
-
+}
 
 .ad-hoc-card {
   width: 100%;
