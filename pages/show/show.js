@@ -86,11 +86,18 @@ this.setData({markers})
 },
 
   navigateToUserProfile(e) {
-    console.log(e.currentTarget)
+    console.log("this is current target", e.currentTarget)
     let id = e.currentTarget.dataset.id
-    wx.navigateTo({
-      url: `/pages/userprofile/userprofile?id=${id}`
-    })
+    if (id === 79309222){
+      wx.showToast({
+        title: `官方账号不可点击哦`,
+        icon: 'none'
+      })
+    } else {
+      wx.navigateTo({
+        url: `/pages/userprofile/userprofile?id=${id}`
+      })
+    } 
   },
 
   setDisplayDate: function (story) {
