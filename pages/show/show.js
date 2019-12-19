@@ -748,32 +748,30 @@ this.setData({markers})
       currentWordNumber: len //当前字数
     });
   },
-//Create Poster Function
-  onPosterFail (e) {
+  //Create Poster Function
+  onPosterFail(e) {
     console.log(e)
   },
-  
   setConfig() {
     console.log(this.data)
     this.setData({
       posterConfig: {
-
         texts: [{
           x: 25,
-          y: 115,
+          y: 130,
           text: 'CityTales',
           fontFamily: 'Baskerville',
           fontSize: 60,
-          color: '#484E5C',
+          color: '#04B2D9',
           fontWeight: 'bold'
         },
         {
           x: 25,
-          y: 180,
+          y: 195,
           text: '欢迎来到你的城事',
           fontFamily: 'STFangsong',
           fontSize: 50,
-          color: '#484E5C'
+          color: '#04B2D9'
         },
         {
           x: 25,
@@ -802,8 +800,7 @@ this.setData({markers})
           x: 25,
           y: 1015,
           text: this.data.story.content,
-          // '我用什么才能留住你？我给你贫穷的街道、绝望的日落、破败郊区的月亮。我给你一个久久地望着月亮的人的悲哀。我给你我已死去的先辈，人们用大理石纪念她们的幽灵；我给你我写的书中所能包含的一切悟力、我生活中所能有的男子气概或幽默。我给你一个从未有过信仰的人的忠诚。我给你我设法保全的我自己的核心——不营字造句，不和梦想交易，不被时间、欢乐和逆境触动的核心。——博尔赫斯',
-          //TODO: 用户自定义祝福语，随机生成语料库
+          //故事内容
           fontFamily: 'STFangsong',
           fontSize: 30,
           color: '#484E5C',
@@ -811,7 +808,7 @@ this.setData({markers})
           // textAlign: 'center',
           lineHeight: 40,
           lineNum: 13,
-          width: 675,
+          width: 650,
           fontStyle: 'italic',
         },
         {
@@ -820,52 +817,51 @@ this.setData({markers})
           text: 'From: 城事Official Account',
           fontFamily: 'STFangsong',
           fontSize: 30,
-          color: '#484E5C'
+          color: '#04B2D9'
         },
-
-        // {
-        //   x: 380,
-        //   y: 1220,
-        //   text: '请长按保存或分享图片',
-        //   //TODO: 用户自定义祝福语
-        //   fontFamily: 'KaiTi',
-        //   fontSize: 24,
-        //   color: '#F30',
-        //   textAlign: 'center'
-        // },
+          // {
+          //   x: 380,
+          //   y: 1220,
+          //   text: '请长按保存或分享图片',
+          //   //TODO: 用户自定义祝福语
+          //   fontFamily: 'KaiTi',
+          //   fontSize: 24,
+          //   color: '#F30',
+          //   textAlign: 'center'
+          // },
         ],
         images: [
           {
-          width: 750,
-          height: 1624,
-          x: 0,
-          y: 0,
-            url: 
-            // 白信纸//'https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifIFkVh2efgacEF.png'
+            width: 750,
+            height: 1624,
+            x: 0,
+            y: 0,
+            url:
+              'https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifIFkVh2efgacEF.png'
             //Vintage concrete
-             'https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifGvmTkQz63CdSf.png'
+            //  'https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifGvmTkQz63CdSf.png'
             // 黄色纹理 
-  // 'https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifGHSfOd8uiHaZG.JPG'
-        },
+            // 'https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifGHSfOd8uiHaZG.JPG'
+          },
           {
-          width: 700,
-          height: 525,
-          x: 25,
-          y: 350,
-          url: this.data.story.image
-        }, 
-        {
-          width: 200,
-          height: 200,
-          x: 525,
-          y: 40,
-          url: 'https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifh3hlco9fcu01w.PNG'
-          //邮票二维码
-        }
+            width: 700,
+            height: 525,
+            x: 25,
+            y: 350,
+            url: this.data.story.image
+          },
+          {
+            width: 200,
+            height: 200,
+            x: 525,
+            y: 55,
+            url: 'https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ihy47ytSqO0kWm3.png'
+            //邮票企业版二维码
+          }
         ]
       }
     }, () => {
       Poster.create(true);
-  })}
-  
+    })
+  }
 })

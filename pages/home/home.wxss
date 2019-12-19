@@ -481,3 +481,32 @@ margin-top: 100rpx;
 text-align: justify;
 padding: 10rpx;
 }
+
+.postcard-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.postcard-btn {
+  background-color: #04B2D9;
+  color: white;
+  text-decoration: none;
+  padding: 25rpx;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  border-radius: 25rpx;
+  width:33%;
+  height: 60rpx;
+  margin-bottom: 85rpx;
+  margin-top: 30rpx;
+}
+
+.postcard-img {
+  height: 60rpx;
+  width: 60rpx;
+  margin-right: 8rpx;
+}
