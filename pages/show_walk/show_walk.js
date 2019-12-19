@@ -7,7 +7,8 @@ Page({
   data: {
     visible1: false,
     visible2: false,
-    btnShimmering: false
+    btnShimmering: false,
+    scale: 16
   },
 
   open1() {
@@ -68,6 +69,8 @@ Page({
       let walk = res.data;
       that.setData({ walk: walk })
       that.setWalkStories()
+      let scale = walk.scale
+      that.setData({scale: scale})
     }, err => {
     })
   },
@@ -108,17 +111,42 @@ Page({
     Story.setQuery(query).limit(1000).find().then(res => {
       let storiesIdArr = that.data.walk.stories_id_arr
       let stories = res.data.objects
-      let walkStories = stories.filter(function (item) {
-        return (storiesIdArr.includes(item.id))
+      let walkStories = storiesIdArr.map((storyId) => {
+        return stories.find(story => story.id === storyId)
       })
+
+  
+      // let walkStories = stories.filter(function (item) {
+      //   return (storiesIdArr.includes(item.id))
+      // })
       that.setData({walkStories: walkStories})
       that.setMarkers(walkStories)
       that.setIncludePoints(walkStories)
-      let latitude = walkStories[0].latitude
-      let longitude = walkStories[0].longitude
+      that.setAverageLatitude(walkStories)
+      that.setAverageLongitude(walkStories)
       that.setData({ latitude: latitude })
       that.setData({longitude: longitude})
     })
+  },
+
+  setAverageLatitude: function(walkStories) {
+    let that = this
+    let latitudeSum = 0
+    walkStories.forEach((story) => {
+      latitudeSum = latitudeSum + story.latitude
+    })
+    let averageLatitude = latitudeSum / walkStories.length
+    that.setData({latitude: averageLatitude})
+  },
+
+  setAverageLongitude: function (walkStories) {
+    let that = this
+    let longitudeSum = 0
+    walkStories.forEach((story) => {
+      longitudeSum = longitudeSum + story.longitude
+    })
+    let averageLongitude = longitudeSum / walkStories.length
+    that.setData({ longitude: averageLongitude })
   },
 
   setIncludePoints: function(walkStories) {
@@ -145,6 +173,7 @@ Page({
         height: 40
       }
     });
+    markers[0].iconPath = 'https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ihsSL0ltvp6rwf1.png'
     that.setData({ markers })
   },
 
@@ -289,6 +318,33 @@ Page({
       console.log(err);
       // 登录失败
     })
+  },
+
+  markerTap: function (event) {
+    let that = this
+    that.setMarkers(that.data.walkStories)
+    let current_story = that.data.walkStories.find(story => story.id === event.markerId);
+    that.setData({ current_story })
+
+    let markers = that.data.markers
+    let index = that.data.walkStories.findIndex(story => story.id === event.markerId);
+    markers[index].width = 60
+    markers[index].height = 60
+    that.setData({ markers })
+
+  },
+
+  mapTap: function (event) {
+    let that = this
+    let markers = that.data.markers
+    let index = that.data.walkStories.findIndex(story => story.id === that.data.current_story.id);
+    markers[index].width = 40
+    markers[index].height = 40
+    that.setData({ markers })
+
+    let current_story = false
+    that.setData({ current_story })
+
   },
 
   /**

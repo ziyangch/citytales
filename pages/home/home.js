@@ -326,7 +326,7 @@ Page({
       this.getStoriesWithDistance(stories) // for dealing with distances
      
 
-      // this.setRoute(['5dfa30a3d69d0e2f684527e0', '5dfa323fd69d0e084b899dfb', '5dfa22f4ea947d41e9068083', '5dfa35d0d69d0e5fe0453b21', '5def30c710897c591a33d']) // Calculating Routes
+      // this.setRoute(['5dfa30a3d69d0e2f684527e0', '5dfa323fd69d0e084b899dfb', '5dfa22f4ea947d41e9068083', '5dfa35d0d69d0e5fe0453b21', '5def30c710897c591a33db79']) // Calculating Routes
     })
   },
 
@@ -357,7 +357,7 @@ Page({
     this.mapCtx.moveToLocation()
     // let scale = 16
     // this.setData({scale: scale})
-    // this.savePolylineToBackend()
+    // this.savePolylineToBackend() // SWITCH FOR MANIPULATING BACKEND!!
   },
   
   zoomIn: function () {
