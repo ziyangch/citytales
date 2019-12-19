@@ -5,6 +5,7 @@
   <view class="login-text">*开启你的城事之旅</view>
 </view>
 
+
 <view class="top-section">
   <view class="left-section">
     <image class="avatar" mode="aspectFill" src="https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ihXjBUmnujJglC9.jpg"/>
