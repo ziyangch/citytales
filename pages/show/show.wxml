@@ -144,9 +144,9 @@
     <view class="home-btn" bindtap="navigateToHome">
       <image class='home-icon' src='https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifOM5pIQmXWzg40.png'></image>
     </view>
-    <!-- <view class="create-btn" bindtap="navigateToPost">
-      <image class='create-icon' src='https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifOM5B7kR5Z3bEr.png' mode="aspectFill"></image>
-    </view> -->
+    <view class="walk-btn" bindtap="">
+      <image class='walk-icon' src='../../images/主页.png' mode="aspectFill"></image>
+    </view>
     <view class="profile-btn" bindtap="navigateToProfile">
       <image class='profile-icon' src='https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifOM586qKj2G6Ri.png'></image>
     </view>
