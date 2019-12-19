@@ -7,6 +7,7 @@ Page({
   data: {
     visible1: false,
     visible2: false,
+    btnShimmering: false
   },
 
   open1() {
@@ -104,7 +105,7 @@ Page({
     let Story = new wx.BaaS.TableObject('story')
     query.compare('created_at', '>', 0)
     query.compare('visible', '=', true)
-    Story.setQuery(query).find().then(res => {
+    Story.setQuery(query).limit(1000).find().then(res => {
       let storiesIdArr = that.data.walk.stories_id_arr
       let stories = res.data.objects
       let walkStories = stories.filter(function (item) {
@@ -155,7 +156,7 @@ Page({
     query.compare('walk', '=', walkId)
     query.compare('user', '=', userId)
     query.compare('visible', '=', true)
-    UserWalk.setQuery(query).find().then(res => {
+    UserWalk.setQuery(query).limit(1000).find().then(res => {
       if (res.data.objects.length !== 0) {
         let userWalk = res.data.objects[0];
         that.setData({ userWalk }) // Saving User walk to local page data
@@ -259,7 +260,16 @@ Page({
     } else {
       wx.showToast({
         title: `请先登录`,
-        icon: 'none'
+        icon: 'none',
+        success: function () {
+          console.log('success!!!!!')
+          that.setData({ btnShimmering: true }),
+            setTimeout(function () {
+              console.log("setting Timeout!!!!!!")
+              that.setData({ btnShimmering: false })
+            }, 1500)
+        }
+        
       })
     }
   },

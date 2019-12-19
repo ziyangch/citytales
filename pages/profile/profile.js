@@ -15,7 +15,7 @@ Page({
     query.compare('user', '=', id)
     query.compare('liked', '=', true)
     query.compare('visible', '=', true)
-    UserStory.setQuery(query).expand(['story']).find().then(res => {
+    UserStory.setQuery(query).expand(['story']).limit(1000).find().then(res => {
       let user_stories_liked = res.data.objects;
       let stories_liked = user_stories_liked.map(user_story_liked => user_story_liked.story)
       this.setData({ stories_liked })
@@ -29,7 +29,7 @@ Page({
     query.compare('user', '=', id)
     query.compare('saved', '=', true)
     query.compare('visible', '=', true)
-    UserStory.setQuery(query).expand(['story']).find().then(res => {
+    UserStory.setQuery(query).expand(['story']).limit(1000).find().then(res => {
       let user_stories_saved = res.data.objects;
       let stories_saved = user_stories_saved.map(user_story_saved => user_story_saved.story)
       this.setData({ stories_saved })
@@ -71,12 +71,12 @@ Page({
   setStoriesCreated: function (id) {
     console.log("fetching stories....")
     let query = new wx.BaaS.Query()
-    let Event = new wx.BaaS.TableObject('story')
+    let Story = new wx.BaaS.TableObject('story')
 
     query.compare('created_by', '=', id)
     query.compare('visible', '=', true)
     console.log("ready for query...")
-    Event.setQuery(query).find().then(res => {
+    Story.setQuery(query).limit(1000).find().then(res => {
       console.log(res.data.objects)
       let stories_created = res.data.objects;
       console.log('created stories', this.data.stories_created);
