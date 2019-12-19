@@ -339,7 +339,7 @@ Page({
 
 
 
-      // this.setRoute(['5dfa30a3d69d0e2f684527e0', '5dfa323fd69d0e084b899dfb', '5dfa22f4ea947d41e9068083', '5dfa35d0d69d0e5fe0453b21', '5def30c710897c591a33db79']) // Calculating Routes
+      // this.setRoute(['5def30c710897c591a33db79', '5dfa30a3d69d0e2f684527e0', '5dfa22f4ea947d41e9068083', '5dfa323fd69d0e084b899dfb', '5dfa35d0d69d0e5fe0453b21']) // Calculating Routes SWITCH
     })
   },
 
@@ -355,7 +355,7 @@ Page({
     console.log('typeof polylineLongitudeArrayElement ------->', typeof(polylineLongitudeArr[5]))
 
     let Walk = new wx.BaaS.TableObject('walk')
-    let dbWalk = Walk.getWithoutData('5dfa2f46ea947d41a9067cfc') // CAREFUL!!! TO BE CHANGED MANUALLY
+    let dbWalk = Walk.getWithoutData('5dfb7d1b3937280d88e4e71f') // CAREFUL!!! TO BE CHANGED MANUALLY // SWITCH
 
     dbWalk.set("polyline_latitude", polylineLatitudeArr)
     dbWalk.set("polyline_longitude", polylineLongitudeArr)
