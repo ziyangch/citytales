@@ -11,8 +11,8 @@ Page({
     scale: 16,
     toView: 'green',
     scrollTop: 100,
-    latitude: 23.099994,
-    longitude: 113.324520,
+    latitude: undefined,
+    longitude: undefined,
   },
   upper: function (e) {
     console.log(e)
@@ -80,6 +80,24 @@ Page({
     })
   },
 
+  navigateToWalks: function () {
+    wx.switchTab({
+      url: '/pages/walks/walks'
+    })
+  },
+
+  navigateToHome: function () {
+    wx.switchTab({
+      url: '/pages/home/home'
+    })
+  },
+
+  navigateToProfile: function () {
+    wx.switchTab({
+      url: '/pages/profile/profile'
+    })
+  },
+
   setWalk: function(id) {
     let that = this
     let Walk = new wx.BaaS.TableObject('walk')
@@ -89,6 +107,8 @@ Page({
       that.setWalkStories()
       let scale = walk.scale
       that.setData({scale: scale})
+      that.setData({ latitude: walk.latitude })
+      that.setData({longitude: walk.longitude})
     }, err => {
     })
   },
