@@ -207,7 +207,7 @@ Page({
 
   likeUserWalk: function () {
     let that = this
-    if ((that.data.user.id)) {
+    if (!(that.data.user === undefined)) {
 
       let walk = that.data.walk // (1) increase "people_liked" of Walk object
       let peopleLiked = walk.people_liked
