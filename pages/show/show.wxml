@@ -141,10 +141,10 @@
 
 <view class="navbar-bottom">
   <view class="navbar-sec">
-    <view class="home-btn" bindtap="navigateToHome">
+    <view class="home-btn" bindtap="navigateToWalks">
       <image class='home-icon' src='https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifOM5pIQmXWzg40.png'></image>
     </view>
-    <view class="walk-btn" bindtap="">
+    <view class="walk-btn" bindtap="navigateToHome">
       <image class='walk-icon' src='../../images/主页.png' mode="aspectFill"></image>
     </view>
     <view class="profile-btn" bindtap="navigateToProfile">
