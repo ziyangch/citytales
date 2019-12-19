@@ -1,4 +1,4 @@
-<view >
+<view>
     <slot/>
 </view>
 <we-canvas id="poster" bind:success="onCreateSuccess" bind:fail="onCreateFail"/>
