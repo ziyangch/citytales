@@ -65,9 +65,9 @@
   <text class="story-content">{{walk.description}}</text>
   <view class="distance-time">
     <image class="icon" mode = "aspectFill" src = "../../images/距离传感器.png"></image>
-    <view class="d-t">10km</view>
+    <view class="d-t">{{walk.distance}}m</view>
     <image class="icon" mode = "aspectFill" src = "../../images/时间.png"></image>
-    <view class="d-t">3.5hr</view>
+    <view class="d-t">{{walk.walking_time}}min</view>
     <image class="icon" mode = "aspectFill" src = "https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ihwi6kVALur62n3.png" bindtap="openLocation"></image>
     <view class="d-t" bindtap="openLocation">开始你的旅途</view>
   </view>
