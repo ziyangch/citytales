@@ -192,53 +192,67 @@ this.setData({markers})
   },
 
   commentStory: function () {
-    let story = this.data.story
-    let peopleCommented = story.people_commented
-    
-    peopleCommented += 1
-
-    let Story = new wx.BaaS.TableObject('story')
-    let dbStory = Story.getWithoutData(story.id)
-    
-    dbStory.set("people_commented", peopleCommented)
-    dbStory.update().then(res => {
-      let story = res.data
-      story = this.setDisplayDate(story) // (3) add display data format for Story object
-      this.setData({ story }) // (4) set updated Story object in local page data
-    }, err => {
-    })
-
-    let Comment = new wx.BaaS.TableObject('comment')
-    let comment = Comment.create()
-    let newComment = { // (5) creating new Comment object
-      user: this.data.user.id, 
-      story: this.data.story.id,
-      content: this.data.comment.content,
-      likes: this.data.comment.likes, 
-      date: this.data.dateNow
-    }
-
-    if (this.data.comment.content.length <= this.data.min) {
+    let that = this
+    if (that.data.user.id === undefined) {
       wx.showToast({
-        title: `字数不够`,
-        icon: 'none'
-      })
-    } else if (this.data.comment.content.length > this.data.max) {
-      wx.showToast({
-        title: `字数太多`,
-        icon: 'none'
+        title: `请先登录`,
+        icon: 'none',
+        success: function () {
+          that.setData({ btnShimmering: true }),
+            setTimeout(function () {
+              that.setData({ btnShimmering: false })
+            }, 1500)
+        }
       })
     } else {
-      comment.set(newComment).save().then(res => { // (6) saving new Comment object into DB
-        this.getComments(this.data.story.id) // (7) get comments from DB
-      }, err => console.log(err))
+      let story = that.data.story
+      let peopleCommented = story.people_commented
+      
+      peopleCommented += 1
 
-      wx.showToast({ title: '已成功评论！' })
-      this.setData({ 'value': '' })
-      this.setData({ 'comment.content': '' })
-      this.setData({ 'currentWordNumber': 0 })
-      this.hideCommentBox()
-    } 
+      let Story = new wx.BaaS.TableObject('story')
+      let dbStory = Story.getWithoutData(story.id)
+      
+      dbStory.set("people_commented", peopleCommented)
+      dbStory.update().then(res => {
+        let story = res.data
+        story = that.setDisplayDate(story) // (3) add display data format for Story object
+        that.setData({ story }) // (4) set updated Story object in local page data
+      }, err => {
+      })
+
+      let Comment = new wx.BaaS.TableObject('comment')
+      let comment = Comment.create()
+      let newComment = { // (5) creating new Comment object
+        user: that.data.user.id, 
+        story: that.data.story.id,
+        content: that.data.comment.content,
+        likes: that.data.comment.likes, 
+        date: that.data.dateNow
+      }
+
+      if (that.data.comment.content.length <= that.data.min) {
+        wx.showToast({
+          title: `字数不够`,
+          icon: 'none'
+        })
+      } else if (that.data.comment.content.length > that.data.max) {
+        wx.showToast({
+          title: `字数太多`,
+          icon: 'none'
+        })
+      } else {
+        comment.set(newComment).save().then(res => { // (6) saving new Comment object into DB
+          that.getComments(that.data.story.id) // (7) get comments from DB
+        }, err => console.log(err))
+
+        wx.showToast({ title: '已成功评论！' })
+        that.setData({ 'value': '' })
+        that.setData({ 'comment.content': '' })
+        that.setData({ 'currentWordNumber': 0 })
+        that.hideCommentBox()
+      }
+    }
   },
 
   unlikeComment: function (e) {
@@ -513,6 +527,12 @@ this.setData({markers})
         }
       })      
     }
+  },
+
+  navigateToWalks: function () {
+    wx.switchTab({
+      url: '/pages/walks/walks'
+    })
   },
 
   navigateToHome: function () {
