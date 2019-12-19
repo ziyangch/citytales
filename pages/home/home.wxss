@@ -316,20 +316,22 @@ margin: 0 26rpx !important; */
   width:100%;
   height:100%;
   top:0px;
-  background:rgb(255,255,255);
+  background-color: #f4f4f420;
   overflow: hidden;
   z-index: 100;
   }
 .t_w{
   position:relative;
-  bottom: 35rpx;
+  z-index: 100;
+  bottom: 50rpx;
   }
 .tanchu_view{
   width: 80%;
   margin: 20% auto;
   overflow: hidden;
-  background-color: #f4f4f490;
+  background-color: white;
   border-radius: 15rpx;
+  border: 2rpx solid #04B2D9;
   }
 
 

@@ -33,8 +33,8 @@
   position: fixed;
   height: 200rpx;
   width: 100vw;
-  background-color:#F4F4F4;
-  margin-top: 7vh;
+  background-color:white;
+  /* margin-top: 14vh; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -299,7 +299,7 @@
 
 .commentInputView {
   width: 100%;
-  height: 200rpx;
+  height: 15vh;
   background-color: rgba(204, 204, 204, 0.61);
   position: fixed;
   display: flex;
@@ -445,7 +445,7 @@ margin-top: 10rpx;
   font-weight: lighter;
   font-size: 20rpx;
   margin: 40rpx auto;
-  margin-bottom: 15vh;
+  margin-bottom: 150rpx;
 }
 
 .navbar-bottom {
@@ -457,6 +457,7 @@ margin-top: 10rpx;
   position: fixed;
   bottom: 0;
   background-color: white;
+  height: 100rpx;
 }
 
 .navbar-sec {
