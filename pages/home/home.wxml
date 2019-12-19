@@ -20,9 +20,9 @@
         style="width: 100%; height: 95vh;"
         latitude="{{latitude}}"
         longitude="{{longitude}}"
-        subkey="SI4BZ-ELA6U-Z3DVD-4TDCV-UHXHV-P7B4Z"
         markers="{{markers}}"
         bindmarkertap="markerTap"
+        subkey="SI4BZ-ELA6U-Z3DVD-4TDCV-UHXHV-P7B4Z"
         bindtap="mapTap"
         scale="{{scale}}"
         show-location
@@ -63,6 +63,7 @@
                         <view class="h1">{{ item.title }}</view>
                       </view>
                   </view>
+                  
                   <view class="sec3">
                     <view class="distance">{{ item.display_distance }}</view>
                     <view class="sec4">
@@ -85,7 +86,7 @@
       <view class="h1">在你的附近没有推荐的故事</view>
     </view>
 
-    <view class="recomend-head">小编为你的精选城事</view>
+    <view class="recomend-head">根据你和大家的喜好推荐</view>
     <view class="masonary1">
             <block wx:for="{{filteredForRecommendation||defaultRecommendation}}" class="card-container" catchtap="navigateToShow" data-type="edit" data-id="{{item.id}}" wx:key>
               <view class="card" catchtap="navigateToShow" data-type="edit" data-id="{{item.id}}">

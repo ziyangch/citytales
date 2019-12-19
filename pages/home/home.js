@@ -585,7 +585,7 @@ Page({
     
     // 实例化API核心类
     qqmapsdk = new QQMapWX({
-      key: '2RTBZ-TCOW4-O2VUZ-X2QBG-BEV5V-3TBVX'
+      key: 'SI4BZ-ELA6U-Z3DVD-4TDCV-UHXHV-P7B4Z'
     });
     this.mapCtx = wx.createMapContext('myMap')
     const that = this
