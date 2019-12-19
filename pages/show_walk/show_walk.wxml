@@ -1,6 +1,6 @@
 <!--pages/show_walk/show_walk.wxml-->
 
-<view wx:if="dyn---!user.id" class="login-field">
+<view wx:if="{{!user.id}}" class="login-field">
   <button class="login-btn" open-type="getUserInfo" bindgetuserinfo="loginWithWechat">点击登陆</button>
   <view class="login-text">*开启你的城事之旅</view>
 </view>
