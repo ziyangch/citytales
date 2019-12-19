@@ -629,6 +629,8 @@ Page({
       this.setData({ user })
       this.getUserPreferences(user.id)
       this.setData({ flag: true })
+    } else {
+      this.setStories()
     }
     this.setApple()
     // this.setStories()
