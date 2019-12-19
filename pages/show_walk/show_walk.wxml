@@ -68,6 +68,8 @@
     <view class="d-t">{{walk.distance}}m</view>
     <image class="icon" mode = "aspectFill" src = "../../images/时间.png"></image>
     <view class="d-t">{{walk.walking_time}}min</view>
+    <image class="icon" mode = "aspectFill" src = "https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ihwi6kVALur62n3.png" bindtap="openLocation"></image>
+    <view class="d-t" bindtap="openLocation">开始你的旅途</view>
   </view>
 
 
@@ -88,13 +90,6 @@
             </wux-cell>
         </wux-cell-group>
   </wux-popup>
-
-<view class="page">
-    <view class="page__bd page__bd_spacing">
-        <wux-button block type="balanced" bind:click="open2">打开景点列表</wux-button>
-    </view>
-    <button class="login-btn" bindtap="openLocation">导航到起点</button>
-</view>
 
   <view class="page">
       <view class="page__bd page__bd_spacing">
