@@ -1,15 +1,14 @@
 /* pages/post/post.wxss */
 
 .page {
-  background-color: rgb(15,15,15);
   width: 100vw;
-  height: 100vh;
+  display: flex;
+  justify-content: center;
+  position: relative;
 }
 
 .form-container {
-  height: 100%;
-  overflow: scroll;
-  padding: 10rpx 30rpx;
+  width: 95%;
   background-color: #FAFAFA;
 }
 .section {
@@ -19,6 +18,7 @@
   font-size: 36rpx;
   line-height: 1.4;
   margin-bottom: 20rpx;
+  padding: 0 20rpx;
 }
 
 .section .title {
@@ -51,7 +51,7 @@ input {
   border-radius: 5rpx;
   border-color: rgb(200, 200, 200);
   width: 100%; 
-  height: 400rpx;
+  height: 600rpx;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -74,7 +74,7 @@ input {
 }
 
 .upload-img-all {
-  margin-bottom: 150rpx;
+  margin-bottom: 50%;
 }
 
 .btnImg {
@@ -128,6 +128,8 @@ input {
 
 .location-btn text{
   margin-top: 10rpx;
+  font-weight: lighter;
+  font-size: 32rpx;
 }
 
 .checkgroup {
@@ -138,4 +140,20 @@ input {
 .place-holder {
   font-weight: lighter;
   color: #cfcfcf;
+  font-size: 32rpx;
+}
+
+.submit-btn {
+  background-color: #04B2D9;
+  color: white;
+  text-decoration: none;
+  padding: 25rpx;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  border-radius: 25rpx;
+  height: 60rpx;
+margin: 30rpx auto;
 }

@@ -74,6 +74,8 @@ page {
   text-align: center;
   font-weight: lighter;
   font-size: 20rpx;
-  margin: 40rpx auto;
-  margin-bottom: 10vh;
+  margin: 0 auto;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
 }
+

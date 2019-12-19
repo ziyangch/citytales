@@ -155,7 +155,6 @@ margin: 10rpx!important;
   font-size: 28rpx;
   font-weight: lighter;
   height: 100rpx;
-  padding: 0 10rpx;
 }
 
 .user-info .follows{
