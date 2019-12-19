@@ -84,6 +84,7 @@
     <view class="page__bd page__bd_spacing">
         <wux-button block type="balanced" bind:click="open2">打开景点列表</wux-button>
     </view>
+    <button class="login-btn" bindtap="openLocation">导航到起点</button>
 </view>
 
 
