@@ -64,9 +64,9 @@
   </view>
   <text class="story-content">{{walk.description}}</text>
   <view class="distance-time">
-    <image class="icon" mode = "aspectFill" src = "../../images/距离传感器.png"></image>
+    <image class="icon" mode = "aspectFill" src = "https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ihxWEmzbYnRR3GR.png"></image>
     <view class="d-t">10km</view>
-    <image class="icon" mode = "aspectFill" src = "../../images/时间.png"></image>
+    <image class="icon" mode = "aspectFill" src = "https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ihxWEMqZKlkyMgR.png"></image>
     <view class="d-t">3.5hr</view>
   </view>
 
@@ -108,7 +108,7 @@
         <image class='home-icon' src='https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifOM5pIQmXWzg40.png'></image>
       </view>
       <view class="walk-btn" bindtap="">
-        <image class='walk-icon' src='../../images/主页.png' mode="aspectFill"></image>
+        <image class='walk-icon' src='https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifOM5pIQmXWzg40.png' mode="aspectFill"></image>
       </view>
       <view class="profile-btn" bindtap="navigateToProfile">
         <image class='profile-icon' src='https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifOM586qKj2G6Ri.png'></image>
