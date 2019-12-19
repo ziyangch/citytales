@@ -39,9 +39,22 @@
         markers="{{markers}}"
         bindmarkertap="markerTap"
         bindtap="mapTap"
-        include-points="{{points}}"
+        scale="{{scale}}"
         polyline="{{polyline}}"
+        subkey="SI4BZ-ELA6U-Z3DVD-4TDCV-UHXHV-P7B4Z"
+        show-location
       ></map>
+
+      <view class="ad-hoc-card-container" >
+        <view wx:if="{{current_story}}" class="ad-hoc-card" catchtap="navigateToShow" data-type="edit" data-id="{{current_story.id}}" wx:key>
+
+          <image  class= "event-img" style="width: 100%; height: 80%" mode = "aspectFill" src = "{{ current_story.image }}" />
+          <view class="event-info">
+            <image  class = "avatar" mode = "aspectFill" src = "{{current_story.avatar}}" />
+            <view class="user-story">{{ current_story.title }}</view>
+          </view>
+        </view>
+      </view>
   </view>
 
 
