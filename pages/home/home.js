@@ -277,23 +277,23 @@ Page({
                checked: true,
              },
              {
-               label: '艺术',
-               value: '艺术',
+               label: '游览',
+               value: '游览',
                checked: true,
              },
              {
-               label: '风景',
-               value: '风景',
+               label: '历史',
+               value: '历史',
                checked: true,
              },
              {
-               label: '文学',
-               value: '文学',
+               label: '感想',
+               value: '感想',
                checked: true,
              },
              {
-               label: '音乐',
-               value: '音乐',
+               label: '故事',
+               value: '故事',
                checked: true,
              },
              {
