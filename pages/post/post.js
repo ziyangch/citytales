@@ -30,8 +30,6 @@ Page({
     console.log(this.data.event.tag)
   },
 
-
-
   dateToday: function () {
     let now = new Date();
     let year = now.getFullYear();
