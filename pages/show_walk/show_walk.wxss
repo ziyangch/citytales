@@ -156,3 +156,57 @@
   margin-top: 15rpx;
   margin-left: 10rpx;
 }
+
+
+.ad-hoc-card {
+  width: 100%;
+  margin: 10rpx auto;
+  background-color: white;
+  border-radius: 15rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: top;
+  overflow: hidden;
+  height: 100%;
+}
+
+.ad-hoc-card-container {
+  margin: 0 25%;
+  width: 50%;
+  position: absolute;
+  bottom: 15vh;
+  height: 400rpx;
+}
+
+.event-info {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  margin: 0rpx;
+  width: 100%;
+  padding: 20rpx 0;
+  height: 20%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.event-info .avatar {
+  width: 70rpx;
+  height: 70rpx;
+  border-radius: 50%;
+  margin-left: 10rpx;
+}
+
+.event-info .user-story {
+  font-style: bold;
+  font-size: 32rpx;
+  text-align: bottom;
+  width: 70%;
+  margin-left: 20rpx;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
