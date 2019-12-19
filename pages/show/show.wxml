@@ -83,7 +83,7 @@
 
     </view>
 
-    <view class="commentInputView" style='bottom:{{height == ""?0:height}}px;' hidden='{{!isInput}}'>
+    <view class="commentInputView" style='bottom:{{height == ""?55:height}}px;' hidden='{{!isInput}}'>
       <view class="group">
         <view class='commentInput'>
           <textarea class='input' placeholder-class="place-holder" value="{{content}}" placeholder="我想说……" data-type="content" minlength="{{min}}" maxlength="{{max}}" bindinput="inputs" maxlength='{{max}}' value="{{value}}" bindfocus="inputFocus" focus='{{focusInput}}'

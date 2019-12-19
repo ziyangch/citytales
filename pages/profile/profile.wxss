@@ -11,7 +11,7 @@ page {
   position: fixed;
   height: 200rpx;
   width: 100vw;
-  background-color:#F4F4F4;
+  background-color: #F9F8F4;
   display: flex;
   flex-direction: column;
   justify-content: center;
