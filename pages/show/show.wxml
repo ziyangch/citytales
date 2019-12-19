@@ -1,6 +1,6 @@
 <!--pages/show/show.wxml-->
 <view wx:if="{{!user.id}}" class="login-field">
-  <button class="login-btn" open-type="getUserInfo" bindgetuserinfo="loginWithWechat">点击登陆</button>
+  <button class="login-btn {{ btnShimmering ? 'shimmer' : '' }}" open-type="getUserInfo" bindgetuserinfo="loginWithWechat">点击登陆</button>
   <view class="login-text">*开启你的城事之旅</view>
   
 </view>
