@@ -12,7 +12,7 @@ Page({
     let query = new wx.BaaS.Query()
     let Walk = new wx.BaaS.TableObject('walk')
     query.compare('created_at', '>', 0)
-    Walk.setQuery(query).find().then(res => {
+    Walk.setQuery(query).limit(1000).find().then(res => {
       let walks = res.data.objects
       this.setData({ walks })
     })

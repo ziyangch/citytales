@@ -1,6 +1,6 @@
 <!--pages/show/show.wxml-->
 <view wx:if="{{!user.id}}" class="login-field">
-  <button class="login-btn" open-type="getUserInfo" bindgetuserinfo="loginWithWechat">点击登陆</button>
+  <button class="login-btn {{ btnShimmering ? 'shimmer' : '' }}" open-type="getUserInfo" bindgetuserinfo="loginWithWechat">点击登陆</button>
   <view class="login-text">*开启你的城事之旅</view>
   
 </view>
@@ -83,7 +83,7 @@
 
     </view>
 
-    <view class="commentInputView" style='bottom:{{height == ""?0:height}}px;' hidden='{{!isInput}}'>
+    <view class="commentInputView" style='bottom:{{height == ""?55:height}}px;' hidden='{{!isInput}}'>
       <view class="group">
         <view class='commentInput'>
           <textarea class='input' placeholder-class="place-holder" value="{{content}}" placeholder="我想说……" data-type="content" minlength="{{min}}" maxlength="{{max}}" bindinput="inputs" maxlength='{{max}}' value="{{value}}" bindfocus="inputFocus" focus='{{focusInput}}'
@@ -141,12 +141,12 @@
 
 <view class="navbar-bottom">
   <view class="navbar-sec">
-    <view class="home-btn" bindtap="navigateToHome">
+    <view class="home-btn" bindtap="navigateToWalks">
       <image class='home-icon' src='https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifOM5pIQmXWzg40.png'></image>
     </view>
-    <!-- <view class="create-btn" bindtap="navigateToPost">
-      <image class='create-icon' src='https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifOM5B7kR5Z3bEr.png' mode="aspectFill"></image>
-    </view> -->
+    <view class="walk-btn" bindtap="navigateToHome">
+      <image class='walk-icon' src='../../images/主页.png' mode="aspectFill"></image>
+    </view>
     <view class="profile-btn" bindtap="navigateToProfile">
       <image class='profile-icon' src='https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifOM586qKj2G6Ri.png'></image>
     </view>

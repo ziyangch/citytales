@@ -38,7 +38,7 @@
 </view>
 
 <view wx:if="{{!user.id}}" class="login-field">
-  <button class="login-btn" open-type="getUserInfo" bindgetuserinfo="loginWithWechat">点击登陆</button>
+  <button class="login-btn shimmer" open-type="getUserInfo" bindgetuserinfo="loginWithWechat">点击登陆</button>
   <view class="login-text">*开启你的城事之旅</view>
 </view>
 
@@ -190,7 +190,7 @@
       </view>
     </view>
     <view class="right">
-      <view wx:for="{{stories_saved}}" class="card-container" catchtap="navigateToShow" data-type="edit" data-id="{{item.id}}" wx:key>
+      <view wx:for="{{stories_created}}" class="card-container" catchtap="navigateToShow" data-type="edit" data-id="{{item.id}}" wx:key>
         <view class="card" wx:if="{{index%2==1}}">
           <image class="story-img" src="{{ item.image }}" alt="Pic" style="width:100%" mode="widthFix"></image>
             <view class="info-section">

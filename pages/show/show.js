@@ -7,6 +7,7 @@ Page({
    */
   data: {
     displayCommentBox: false,
+    btnShimmering: false,
     comments:[
     ],
     comment:{
@@ -85,11 +86,18 @@ this.setData({markers})
 },
 
   navigateToUserProfile(e) {
-    console.log(e.currentTarget)
+    console.log("this is current target", e.currentTarget)
     let id = e.currentTarget.dataset.id
-    wx.navigateTo({
-      url: `/pages/userprofile/userprofile?id=${id}`
-    })
+    if (id === 79309222){
+      wx.showToast({
+        title: `官方账号不可点击哦`,
+        icon: 'none'
+      })
+    } else {
+      wx.navigateTo({
+        url: `/pages/userprofile/userprofile?id=${id}`
+      })
+    } 
   },
 
   setDisplayDate: function (story) {
@@ -124,7 +132,7 @@ this.setData({markers})
     query.compare('story', '=', storyId)
     query.compare('user', '=', userId)
     query.compare('visible', '=', true)
-    UserStory.setQuery(query).find().then(res => {
+    UserStory.setQuery(query).limit(1000).find().then(res => {
       if (res.data.objects.length !== 0) {
         let userStory = res.data.objects[0];
         this.setData({ userStory }) // Saving User story to local page data
@@ -152,7 +160,7 @@ this.setData({markers})
     let Comments = new wx.BaaS.TableObject('comment')
 
     query.compare('story', '=', storyId)
-    Comments.setQuery(query).expand(['user']).find().then(res => {
+    Comments.setQuery(query).expand(['user']).limit(1000).find().then(res => {
       if (res.data.objects.length !== 0) {
         let comments = res.data.objects;
         comments.forEach((comment) => {
@@ -191,53 +199,67 @@ this.setData({markers})
   },
 
   commentStory: function () {
-    let story = this.data.story
-    let peopleCommented = story.people_commented
-    
-    peopleCommented += 1
-
-    let Story = new wx.BaaS.TableObject('story')
-    let dbStory = Story.getWithoutData(story.id)
-    
-    dbStory.set("people_commented", peopleCommented)
-    dbStory.update().then(res => {
-      let story = res.data
-      story = this.setDisplayDate(story) // (3) add display data format for Story object
-      this.setData({ story }) // (4) set updated Story object in local page data
-    }, err => {
-    })
-
-    let Comment = new wx.BaaS.TableObject('comment')
-    let comment = Comment.create()
-    let newComment = { // (5) creating new Comment object
-      user: this.data.user.id, 
-      story: this.data.story.id,
-      content: this.data.comment.content,
-      likes: this.data.comment.likes, 
-      date: this.data.dateNow
-    }
-
-    if (this.data.comment.content.length <= this.data.min) {
+    let that = this
+    if (that.data.user.id === undefined) {
       wx.showToast({
-        title: `字数不够`,
-        icon: 'none'
-      })
-    } else if (this.data.comment.content.length > this.data.max) {
-      wx.showToast({
-        title: `字数太多`,
-        icon: 'none'
+        title: `请先登录`,
+        icon: 'none',
+        success: function () {
+          that.setData({ btnShimmering: true }),
+            setTimeout(function () {
+              that.setData({ btnShimmering: false })
+            }, 1500)
+        }
       })
     } else {
-      comment.set(newComment).save().then(res => { // (6) saving new Comment object into DB
-        this.getComments(this.data.story.id) // (7) get comments from DB
-      }, err => console.log(err))
+      let story = that.data.story
+      let peopleCommented = story.people_commented
+      
+      peopleCommented += 1
 
-      wx.showToast({ title: '已成功评论！' })
-      this.setData({ 'value': '' })
-      this.setData({ 'comment.content': '' })
-      this.setData({ 'currentWordNumber': 0 })
-      this.hideCommentBox()
-    } 
+      let Story = new wx.BaaS.TableObject('story')
+      let dbStory = Story.getWithoutData(story.id)
+      
+      dbStory.set("people_commented", peopleCommented)
+      dbStory.update().then(res => {
+        let story = res.data
+        story = that.setDisplayDate(story) // (3) add display data format for Story object
+        that.setData({ story }) // (4) set updated Story object in local page data
+      }, err => {
+      })
+
+      let Comment = new wx.BaaS.TableObject('comment')
+      let comment = Comment.create()
+      let newComment = { // (5) creating new Comment object
+        user: that.data.user.id, 
+        story: that.data.story.id,
+        content: that.data.comment.content,
+        likes: that.data.comment.likes, 
+        date: that.data.dateNow
+      }
+
+      if (that.data.comment.content.length <= that.data.min) {
+        wx.showToast({
+          title: `字数不够`,
+          icon: 'none'
+        })
+      } else if (that.data.comment.content.length > that.data.max) {
+        wx.showToast({
+          title: `字数太多`,
+          icon: 'none'
+        })
+      } else {
+        comment.set(newComment).save().then(res => { // (6) saving new Comment object into DB
+          that.getComments(that.data.story.id) // (7) get comments from DB
+        }, err => console.log(err))
+
+        wx.showToast({ title: '已成功评论！' })
+        that.setData({ 'value': '' })
+        that.setData({ 'comment.content': '' })
+        that.setData({ 'currentWordNumber': 0 })
+        that.hideCommentBox()
+      }
+    }
   },
 
   unlikeComment: function (e) {
@@ -341,9 +363,10 @@ this.setData({markers})
   },
 
   saveUserStory: function () {
-    if ((this.data.user.id)) {
+    let that = this
+    if ((that.data.user.id)) {
      
-      let story = this.data.story // (1) increase "people_saved" of Story object
+      let story = that.data.story // (1) increase "people_saved" of Story object
       let peopleSaved = story.people_saved
       peopleSaved += 1
 
@@ -352,13 +375,13 @@ this.setData({markers})
       dbStory.set("people_saved", peopleSaved)
       dbStory.update().then(res => {
         let story = res.data
-        story = this.setDisplayDate(story) // (3) add display data format for Story object
-        this.setData({ story }) // (4) set updated Story object in local page data
+        story = that.setDisplayDate(story) // (3) add display data format for Story object
+        that.setData({ story }) // (4) set updated Story object in local page data
       }, err => {
       })
 
-      if (this.data.userStory) { // (5a) updating "saved" to true in DB, if UserStory already exists
-        let userStory = this.data.userStory
+      if (that.data.userStory) { // (5a) updating "saved" to true in DB, if UserStory already exists
+        let userStory = that.data.userStory
         userStory.saved = true
 
         let UserStory = new wx.BaaS.TableObject('user_story') // (6a) update 'saved' to UserStory object in data base
@@ -366,8 +389,8 @@ this.setData({markers})
         dbUserStory.set("saved", userStory.saved)
         dbUserStory.update().then(res => {
           let userStory = res.data
-          this.setData({ userStory }) // (7a) set updated UserStory Object in local page data
-          // this.getUserStories(this.data.story.id) // (8a) get UserStories --- for avatar display
+          that.setData({ userStory }) // (7a) set updated UserStory Object in local page data
+          // that.getUserStories(that.data.story.id) // (8a) get UserStories --- for avatar display
         }, err => {
         })
 
@@ -376,14 +399,14 @@ this.setData({markers})
         let UserStory = new wx.BaaS.TableObject('user_story')
         let userStory = UserStory.create()
         let newUserStory = { // (5b) creating new UserStory object with 'saved' = true
-          user: this.data.user.id,
-          story: this.data.story.id,
+          user: that.data.user.id,
+          story: that.data.story.id,
           saved: true
         }
         userStory.set(newUserStory).save().then(res => { // (6b) saving new UserStory object into DB
           let userStory = res.data
-          this.setData({ userStory }) // (7b) setting UserStory Object in local page data
-          // this.getUserStories(this.data.story.id) // (8b) getting UserStories --- for avatar display
+          that.setData({ userStory }) // (7b) setting UserStory Object in local page data
+          // that.getUserStories(that.data.story.id) // (8b) getting UserStories --- for avatar display
         }, err => {
         })
       }
@@ -394,7 +417,13 @@ this.setData({markers})
     } else {
       wx.showToast({
         title: `请先登录`,
-        icon: 'none'
+        icon: 'none',
+        success: function () {
+          that.setData({ btnShimmering: true }),
+            setTimeout(function () {
+              that.setData({ btnShimmering: false })
+            }, 1500)
+        }
       })
     }
   },
@@ -442,9 +471,10 @@ this.setData({markers})
   },
 
   likeUserStory: function () {
-    if ((this.data.user.id)) {
+    let that = this
+    if ((that.data.user.id)) {
       
-      let story = this.data.story // (1) increase "people_liked" of Story object
+      let story = that.data.story // (1) increase "people_liked" of Story object
       let peopleLiked = story.people_liked
       peopleLiked += 1
 
@@ -453,13 +483,13 @@ this.setData({markers})
       dbStory.set("people_liked", peopleLiked)
       dbStory.update().then(res => {
         let story = res.data
-        story = this.setDisplayDate(story) // (3) add display data format for Story object
-        this.setData({ story }) // (4) set updated Story object in local page data
+        story = that.setDisplayDate(story) // (3) add display data format for Story object
+        that.setData({ story }) // (4) set updated Story object in local page data
       }, err => {
       })
 
-      if (this.data.userStory) { // (5a) updating "liked" to true in DB, if UserStory already exists
-        let userStory = this.data.userStory
+      if (that.data.userStory) { // (5a) updating "liked" to true in DB, if UserStory already exists
+        let userStory = that.data.userStory
         userStory.liked = true
 
         let UserStory = new wx.BaaS.TableObject('user_story') // (6a) update 'liked' to UserStory object in data base
@@ -467,8 +497,8 @@ this.setData({markers})
         dbUserStory.set("liked", userStory.liked)
         dbUserStory.update().then(res => {
           let userStory = res.data
-          this.setData({ userStory }) // (7a) set updated UserStory Object in local page data
-          // this.getUserStories(this.data.story.id) // (8a) get UserStories --- for avatar display
+          that.setData({ userStory }) // (7a) set updated UserStory Object in local page data
+          // that.getUserStories(that.data.story.id) // (8a) get UserStories --- for avatar display
         }, err => {
         })
 
@@ -477,14 +507,14 @@ this.setData({markers})
         let UserStory = new wx.BaaS.TableObject('user_story')
         let userStory = UserStory.create()
         let newUserStory = { // (5b) creating new UserStory object with 'liked' = true
-          user: this.data.user.id,
-          story: this.data.story.id,
+          user: that.data.user.id,
+          story: that.data.story.id,
           liked: true
         }
         userStory.set(newUserStory).save().then(res => { // (6b) saving new UserStory object into DB
           let userStory = res.data
-          this.setData({ userStory }) // (7b) setting UserStory Object in local page data
-          // this.getUserStories(this.data.story.id) // (8b) getting UserStories --- for avatar display
+          that.setData({ userStory }) // (7b) setting UserStory Object in local page data
+          // that.getUserStories(that.data.story.id) // (8b) getting UserStories --- for avatar display
         }, err => {
         })
       }
@@ -495,9 +525,21 @@ this.setData({markers})
     } else {
       wx.showToast({
         title: `请先登录`,
-        icon: 'none'
+        icon: 'none',
+        success: function () {
+          that.setData({ btnShimmering: true }),
+            setTimeout(function () {
+              that.setData({ btnShimmering: false })
+            }, 1500)
+        }
       })      
     }
+  },
+
+  navigateToWalks: function () {
+    wx.switchTab({
+      url: '/pages/walks/walks'
+    })
   },
 
   navigateToHome: function () {
@@ -535,7 +577,7 @@ this.setData({markers})
     let UserStory = new wx.BaaS.TableObject('user_story')
     query.compare('story', '=', storyId)
     console.log("ready for query...")
-    UserStory.setQuery(query).find().then(res => {
+    UserStory.setQuery(query).limit(1000).find().then(res => {
       let userStories = res.data.objects;
       console.log("entered pre Iteration")
       userStories.forEach((userStory) => {

@@ -1,9 +1,10 @@
 <!--pages/show_walk/show_walk.wxml-->
 
-<view wx:if="dyn---!user.id" class="login-field">
-  <button class="login-btn" open-type="getUserInfo" bindgetuserinfo="loginWithWechat">点击登陆</button>
+<view wx:if="{{!user.id}}" class="login-field">
+  <button class="login-btn {{ btnShimmering ? 'shimmer' : '' }}" open-type="getUserInfo" bindgetuserinfo="loginWithWechat">点击登陆</button>
   <view class="login-text">*开启你的城事之旅</view>
 </view>
+
 
 <view class="top-section">
   <view class="left-section">
@@ -34,44 +35,80 @@
         id="map"
         latitude="{{latitude}}"
         longitude="{{longitude}}"
-        style="width: 100%; height: 60vh;"
+        style="width: 100%; height: 60vh"
         subkey="SI4BZ-ELA6U-Z3DVD-4TDCV-UHXHV-P7B4Z"
         markers="{{markers}}"
         bindmarkertap="markerTap"
         bindtap="mapTap"
-        include-points="{{points}}"
+        scale="{{scale}}"
         polyline="{{polyline}}"
+        subkey="SI4BZ-ELA6U-Z3DVD-4TDCV-UHXHV-P7B4Z"
+        show-location
       ></map>
+
+      <view class="ad-hoc-card-container" >
+        <view wx:if="{{current_story}}" class="ad-hoc-card" catchtap="navigateToShow" data-type="edit" data-id="{{current_story.id}}" wx:key>
+
+          <image  class= "event-img" style="width: 100%; height: 80%" mode = "aspectFill" src = "{{ current_story.image }}" />
+          <view class="event-info">
+            <image  class = "avatar" mode = "aspectFill" src = "{{current_story.avatar}}" />
+            <view class="user-story">{{ current_story.title }}</view>
+          </view>
+        </view>
+      </view>
   </view>
 
 
   <view class="page__header">
+    <image class="avatar" mode="aspectFill" src="https://cloud-minapp-32208.cloud.ifanrusercontent.com/1ihsA3agFqeSQtXm.png"/>
     <view class="story-title">{{walk.title}}</view>
   </view>
   <text class="story-content">{{walk.description}}</text>
+  <view class="distance-time">
+    <image class="icon" mode = "aspectFill" src = "../../images/距离传感器.png"></image>
+    <view class="d-t">{{walk.distance}}m</view>
+    <image class="icon" mode = "aspectFill" src = "../../images/时间.png"></image>
+    <view class="d-t">{{walk.walking_time}}min</view>
+    <image class="icon" mode = "aspectFill" src = "https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ihwi6kVALur62n3.png" bindtap="openLocation"></image>
+    <view class="d-t" bindtap="openLocation">开始你的旅途</view>
+  </view>
 
 
-<wux-popup position="bottom" visible="{{ visible2 }}" bind:close="onClose2">
-    <wux-cell-group title="景点列表">
-    <view wx:for="{{walkStories}}" wx:for-index="idx">
-      <view data-id="{{item.id}}" bindtap="navigateToShow" >
-        <wux-cell hover-class="none" >
-          <image src="{{item.image}}" mode = "aspectFill" class="story-img"></image>
-          <text>{{idx+1}}.{{item.title}}</text>
-        </wux-cell>
+  <wux-popup position="bottom" visible="{{ visible2 }}" bind:close="onClose2">
+      <wux-cell-group title="景点列表">
+      <scroll-view scroll-y class="scroll-view-y" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-top="{{scrollTop}}">
+        <view wx:for="{{walkStories}}" wx:for-index="idx">
+          <view data-id="{{item.id}}" bindtap="navigateToShow" >
+            <wux-cell hover-class="none" >
+              <image src="{{item.image}}" mode = "aspectFill" class="story-img"></image>
+              <text>{{idx+1}}.{{item.title}}</text>
+            </wux-cell>
+          </view>
+        </view>
+       </scroll-view>
+        <wux-cell hover-class="none">
+                <wux-button block type="balanced" bindtap="close2">收起列表</wux-button>
+            </wux-cell>
+        </wux-cell-group>
+  </wux-popup>
+
+  <view class="page">
+      <view class="page__bd page__bd_spacing">
+          <wux-button block type="balanced" bind:click="open2">打开景点列表</wux-button>
+      </view>
+  </view>
+
+  <view class="navbar-bottom">
+    <view class="navbar-sec">
+      <view class="home-btn" bindtap="navigateToHome">
+        <image class='home-icon' src='https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifOM5pIQmXWzg40.png'></image>
+      </view>
+      <view class="walk-btn" bindtap="">
+        <image class='walk-icon' src='../../images/主页.png' mode="aspectFill"></image>
+      </view>
+      <view class="profile-btn" bindtap="navigateToProfile">
+        <image class='profile-icon' src='https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifOM586qKj2G6Ri.png'></image>
       </view>
     </view>
-        <wux-cell hover-class="none">
-            <wux-button block type="balanced" bindtap="close2">收起列表</wux-button>
-        </wux-cell>
-    </wux-cell-group>
-</wux-popup>
-
-<view class="page">
-    <view class="page__bd page__bd_spacing">
-        <wux-button block type="balanced" bind:click="open2">打开景点列表</wux-button>
-    </view>
-</view>
-
-
+  </view>
 </view>

@@ -7,6 +7,26 @@ Page({
   data: {
     visible1: false,
     visible2: false,
+    btnShimmering: false,
+    scale: 16,
+    toView: 'green',
+    scrollTop: 100,
+    latitude: 23.099994,
+    longitude: 113.324520,
+  },
+  upper: function (e) {
+    console.log(e)
+  },
+  lower: function (e) {
+    console.log(e)
+  },
+  scroll: function (e) {
+    console.log(e)
+  },
+  tapMove: function (e) {
+    this.setData({
+      scrollTop: this.data.scrollTop + 10
+    })
   },
 
   open1() {
@@ -67,6 +87,8 @@ Page({
       let walk = res.data;
       that.setData({ walk: walk })
       that.setWalkStories()
+      let scale = walk.scale
+      that.setData({scale: scale})
     }, err => {
     })
   },
@@ -104,20 +126,43 @@ Page({
     let Story = new wx.BaaS.TableObject('story')
     query.compare('created_at', '>', 0)
     query.compare('visible', '=', true)
-    Story.setQuery(query).find().then(res => {
+    Story.setQuery(query).limit(1000).find().then(res => {
       let storiesIdArr = that.data.walk.stories_id_arr
       let stories = res.data.objects
-      let walkStories = stories.filter(function (item) {
-        return (storiesIdArr.includes(item.id))
+      let walkStories = storiesIdArr.map((storyId) => {
+        return stories.find(story => story.id === storyId)
       })
+
+  
+      // let walkStories = stories.filter(function (item) {
+      //   return (storiesIdArr.includes(item.id))
+      // })
       that.setData({walkStories: walkStories})
       that.setMarkers(walkStories)
       that.setIncludePoints(walkStories)
-      let latitude = walkStories[0].latitude
-      let longitude = walkStories[0].longitude
-      that.setData({ latitude: latitude })
-      that.setData({longitude: longitude})
+      that.setAverageLatitude(walkStories)
+      that.setAverageLongitude(walkStories)
     })
+  },
+
+  setAverageLatitude: function(walkStories) {
+    let that = this
+    let latitudeSum = 0
+    walkStories.forEach((story) => {
+      latitudeSum = latitudeSum + story.latitude
+    })
+    let averageLatitude = latitudeSum / walkStories.length
+    that.setData({latitude: averageLatitude})
+  },
+
+  setAverageLongitude: function (walkStories) {
+    let that = this
+    let longitudeSum = 0
+    walkStories.forEach((story) => {
+      longitudeSum = longitudeSum + story.longitude
+    })
+    let averageLongitude = longitudeSum / walkStories.length
+    that.setData({ longitude: averageLongitude })
   },
 
   setIncludePoints: function(walkStories) {
@@ -138,12 +183,13 @@ Page({
         id: walkStory.id,
         latitude: walkStory.latitude,
         longitude: walkStory.longitude,
-        name: walkStory.title,
+        // name: walkStory.title,
         iconPath: 'https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ifOM5c01ybmL4zj.png',
         width: 40,
         height: 40
       }
     });
+    markers[0].iconPath = 'https://cloud-minapp-32027.cloud.ifanrusercontent.com/1ihsSL0ltvp6rwf1.png'
     that.setData({ markers })
   },
 
@@ -155,7 +201,7 @@ Page({
     query.compare('walk', '=', walkId)
     query.compare('user', '=', userId)
     query.compare('visible', '=', true)
-    UserWalk.setQuery(query).find().then(res => {
+    UserWalk.setQuery(query).limit(1000).find().then(res => {
       if (res.data.objects.length !== 0) {
         let userWalk = res.data.objects[0];
         that.setData({ userWalk }) // Saving User walk to local page data
@@ -207,7 +253,7 @@ Page({
 
   likeUserWalk: function () {
     let that = this
-    if ((that.data.user.id)) {
+    if (!(that.data.user === undefined)) {
 
       let walk = that.data.walk // (1) increase "people_liked" of Walk object
       let peopleLiked = walk.people_liked
@@ -259,7 +305,16 @@ Page({
     } else {
       wx.showToast({
         title: `请先登录`,
-        icon: 'none'
+        icon: 'none',
+        success: function () {
+          console.log('success!!!!!')
+          that.setData({ btnShimmering: true }),
+            setTimeout(function () {
+              console.log("setting Timeout!!!!!!")
+              that.setData({ btnShimmering: false })
+            }, 1500)
+        }
+        
       })
     }
   },
@@ -278,6 +333,67 @@ Page({
     }, err => {
       console.log(err);
       // 登录失败
+    })
+  },
+
+  markerTap: function (event) {
+    let that = this
+    
+    if (!(that.data.current_story === undefined)) {
+      if (event.markerId === that.data.current_story.id) {
+      let markers = that.data.markers
+      let index = that.data.walkStories.findIndex(story => story.id === that.data.current_story.id)
+      markers[index].width = 40
+      markers[index].height = 40
+      that.setData({markers})
+      let current_story = false
+      that.setData({ current_story })
+    } else {
+      that.setMarkers(that.data.walkStories)
+      let current_story = that.data.walkStories.find(story => story.id === event.markerId);
+      that.setData({ current_story })
+
+      let markers = that.data.markers
+      let index = that.data.walkStories.findIndex(story => story.id === event.markerId);
+      markers[index].width = 60
+      markers[index].height = 60
+      that.setData({ markers })
+    }
+    } else {
+      that.setMarkers(that.data.walkStories)
+      let current_story = that.data.walkStories.find(story => story.id === event.markerId);
+      that.setData({ current_story })
+
+      let markers = that.data.markers
+      let index = that.data.walkStories.findIndex(story => story.id === event.markerId);
+      markers[index].width = 60
+      markers[index].height = 60
+      that.setData({ markers })
+    }
+  },
+
+  mapTap: function (event) {
+    let that = this
+    let markers = that.data.markers
+    let index = that.data.walkStories.findIndex(story => story.id === that.data.current_story.id);
+    markers[index].width = 40
+    markers[index].height = 40
+    that.setData({ markers })
+
+    let current_story = false
+    that.setData({ current_story })
+
+  },
+
+  openLocation: function () {
+    let that = this
+    let startStory = that.data.walkStories[0]
+    let latitude = startStory.latitude
+    let longitude = startStory.longitude
+    wx.openLocation({
+      latitude,
+      longitude,
+      scale: 18
     })
   },
 

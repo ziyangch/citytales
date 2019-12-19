@@ -9,6 +9,8 @@
   height: 7vh;
   /* border-bottom: 3rpx solid #cfcfcf; */
   position: fixed;
+  top: 0;
+  z-index: 100;
 }
 
 .left-section {
@@ -31,8 +33,8 @@
   position: fixed;
   height: 200rpx;
   width: 100vw;
-  background-color:#F4F4F4;
-  margin-top: 7vh;
+  background-color:white;
+  /* margin-top: 14vh; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -132,6 +134,7 @@
   height: 600rpx;
   background-size: cover;
   background-position: center;
+  margin-top: 7vh;
 }
 
 
@@ -245,8 +248,8 @@
 
 #delete-btn {
   position: absolute;
-  top: 620rpx;
-  right: 17rpx;
+  top: 7vh;
+  right: 13rpx;
   width: 30vw;
   font-size: 28rpx;
   text-align: center;
@@ -296,7 +299,7 @@
 
 .commentInputView {
   width: 100%;
-  height: 200rpx;
+  height: 15vh;
   background-color: rgba(204, 204, 204, 0.61);
   position: fixed;
   display: flex;
@@ -400,7 +403,7 @@
   align-items: center;
   font-weight: bold;
   border-radius: 25rpx;
-  width:45%;
+  width:30vh;
   height: 60rpx;
   margin-bottom: 30rpx;
   margin-top: 10rpx;
@@ -442,7 +445,7 @@ margin-top: 10rpx;
   font-weight: lighter;
   font-size: 20rpx;
   margin: 40rpx auto;
-  margin-bottom: 10vh;
+  margin-bottom: 150rpx;
 }
 
 .navbar-bottom {
@@ -454,6 +457,7 @@ margin-top: 10rpx;
   position: fixed;
   bottom: 0;
   background-color: white;
+  height: 100rpx;
 }
 
 .navbar-sec {
@@ -478,6 +482,11 @@ margin-top: 10rpx;
   /* z-index: 2; */
 }
 
+.walk-icon {
+  width: 50rpx;
+  height: 50rpx;
+  /* z-index: 2; */
+}
 
 
 .create-icon {
