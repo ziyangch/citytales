@@ -124,7 +124,7 @@ this.setData({markers})
     query.compare('story', '=', storyId)
     query.compare('user', '=', userId)
     query.compare('visible', '=', true)
-    UserStory.setQuery(query).find().then(res => {
+    UserStory.setQuery(query).limit(1000).find().then(res => {
       if (res.data.objects.length !== 0) {
         let userStory = res.data.objects[0];
         this.setData({ userStory }) // Saving User story to local page data
@@ -152,7 +152,7 @@ this.setData({markers})
     let Comments = new wx.BaaS.TableObject('comment')
 
     query.compare('story', '=', storyId)
-    Comments.setQuery(query).expand(['user']).find().then(res => {
+    Comments.setQuery(query).expand(['user']).limit(1000).find().then(res => {
       if (res.data.objects.length !== 0) {
         let comments = res.data.objects;
         comments.forEach((comment) => {
@@ -535,7 +535,7 @@ this.setData({markers})
     let UserStory = new wx.BaaS.TableObject('user_story')
     query.compare('story', '=', storyId)
     console.log("ready for query...")
-    UserStory.setQuery(query).find().then(res => {
+    UserStory.setQuery(query).limit(1000).find().then(res => {
       let userStories = res.data.objects;
       console.log("entered pre Iteration")
       userStories.forEach((userStory) => {

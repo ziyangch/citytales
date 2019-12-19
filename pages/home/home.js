@@ -318,7 +318,7 @@ Page({
 
     query.compare('created_at', '>', 0)
     query.compare('visible', '=', true)
-    Story.setQuery(query).find().then(res => {
+    Story.setQuery(query).limit(1000).find().then(res => {
       let stories = res.data.objects
       this.setData({stories})
       this.setMarkers(res.data.objects)
@@ -471,7 +471,7 @@ Page({
     let UserStory = new wx.BaaS.TableObject('user_story')
     query.compare('user', '=', userId)
     query.compare('visible', '=', true)
-    UserStory.setQuery(query).expand(['story']).find().then(res => {
+    UserStory.setQuery(query).expand(['story']).limit(1000).find().then(res => {
       let userTagsArray = [] // (1) creating a huge array for all tags of user, weighted double for saved stories
       let specUserStories = res.data.objects;
       let filteredSpecUserStories = specUserStories.filter(function (item) {
